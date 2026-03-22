@@ -1,166 +1,193 @@
 export default {
-  // ===== التوليد التلقائي للمحتوى كل 4 ساعات =====
   async scheduled(event, env, ctx) {
     const categories = [
       {
         name: "الدعم والحماية الاجتماعية",
-        icon: "shield",
         color: "#10b981",
         topics: [
-          { title: "التسجيل في أمو تضامن AMO 2026: الدليل الشامل خطوة بخطوة", keywords: "أمو تضامن, التسجيل في AMO, التغطية الصحية المغرب 2026, CNSS, التأمين الإجباري عن المرض" },
-          { title: "تحديث بيانات السجل الاجتماعي الموحد RSU 2026: كل ما تحتاج معرفته", keywords: "السجل الاجتماعي الموحد, RSU المغرب, تحديث البيانات, الدعم الاجتماعي المباشر" },
-          { title: "شروط الاستفادة من الدعم المباشر للسكن 2026 وطريقة التسجيل", keywords: "دعم السكن المغرب 2026, الدعم المباشر للسكن, شروط الاستفادة, تمويل السكن" },
-          { title: "كيفية صرف تعويضات CNSS للمغاربة: الشروط والإجراءات الكاملة", keywords: "تعويضات CNSS, الصندوق الوطني للضمان الاجتماعي, صرف التعويضات, التقاعد CNSS" },
-          { title: "الدعم الاجتماعي المباشر 2026: مبالغ جديدة وشروط محدثة", keywords: "الدعم الاجتماعي المباشر, مبالغ الدعم, شروط الاستفادة 2026, صندوق الدعم" },
-          { title: "التسجيل في صندوق التكافل العائلي 2026: الوثائق والخطوات", keywords: "التكافل العائلي, صندوق التكافل, التسجيل في الدعم, المساعدة الاجتماعية" }
+          { title: "التسجيل في أمو تضامن AMO 2026: الدليل الشامل خطوة بخطوة", keywords: "أمو تضامن, التسجيل في AMO, التغطية الصحية المغرب 2026, CNSS" },
+          { title: "تحديث بيانات السجل الاجتماعي الموحد RSU 2026: كل ما تحتاج معرفته", keywords: "السجل الاجتماعي الموحد, RSU المغرب, تحديث البيانات, الدعم الاجتماعي" },
+          { title: "شروط الاستفادة من الدعم المباشر للسكن 2026 وطريقة التسجيل", keywords: "دعم السكن المغرب 2026, الدعم المباشر للسكن, شروط الاستفادة" },
+          { title: "كيفية صرف تعويضات CNSS للمغاربة: الشروط والإجراءات الكاملة", keywords: "تعويضات CNSS, الضمان الاجتماعي, صرف التعويضات" },
+          { title: "الدعم الاجتماعي المباشر 2026: مبالغ جديدة وشروط محدثة", keywords: "الدعم الاجتماعي المباشر, مبالغ الدعم, شروط الاستفادة 2026" },
+          { title: "التسجيل في صندوق التكافل العائلي 2026: الوثائق والخطوات", keywords: "التكافل العائلي, صندوق التكافل, التسجيل, المساعدة الاجتماعية" }
         ]
       },
       {
         name: "مباريات التوظيف والتدريب",
-        icon: "briefcase",
         color: "#6366f1",
         topics: [
-          { title: "مباراة الأمن الوطني 2026: الشروط الجديدة والوثائق المطلوبة وموعد الامتحان", keywords: "مباراة الأمن الوطني 2026, التوظيف بالأمن, شروط مباراة الشرطة, حراس الأمن" },
-          { title: "نماذج امتحانات OFPPT 2026: تحميل مجاني مع التصحيح", keywords: "OFPPT امتحانات, التكوين المهني المغرب, نماذج الامتحانات, مراكز التكوين" },
-          { title: "مباراة التعليم بالتعاقد 2026: دليل التحضير والنجاح المضمون", keywords: "مباراة التعليم بالتعاقد, أساتذة التعاقد 2026, التحضير للمباراة, AREF" },
-          { title: "مباريات الجماعات الترابية 2026: جميع المناصب والشروط", keywords: "مباريات الجماعات الترابية, التوظيف العمومي, مناصب الجماعات, concours" },
-          { title: "مباراة الدرك الملكي 2026: السن والشروط وملف الترشيح", keywords: "مباراة الدرك الملكي, Gendarmerie Royale, شروط الترشيح, التجنيد" },
-          { title: "التكوين المهني OFPPT 2026: التخصصات الجديدة وطريقة التسجيل", keywords: "OFPPT التسجيل 2026, التخصصات الجديدة, التكوين المهني, inscription OFPPT" }
+          { title: "مباراة الأمن الوطني 2026: الشروط والوثائق وموعد الامتحان", keywords: "مباراة الأمن الوطني 2026, التوظيف بالأمن, شروط مباراة الشرطة" },
+          { title: "نماذج امتحانات OFPPT 2026: تحميل مجاني مع التصحيح", keywords: "OFPPT امتحانات, التكوين المهني, نماذج الامتحانات" },
+          { title: "مباراة التعليم بالتعاقد 2026: دليل التحضير والنجاح المضمون", keywords: "مباراة التعليم بالتعاقد, أساتذة التعاقد, التحضير للمباراة" },
+          { title: "مباريات الجماعات الترابية 2026: جميع المناصب والشروط", keywords: "مباريات الجماعات الترابية, التوظيف العمومي, مناصب" },
+          { title: "مباراة الدرك الملكي 2026: السن والشروط وملف الترشيح", keywords: "مباراة الدرك الملكي, Gendarmerie Royale, شروط الترشيح" },
+          { title: "التكوين المهني OFPPT 2026: التخصصات الجديدة وطريقة التسجيل", keywords: "OFPPT التسجيل 2026, التخصصات الجديدة, التكوين المهني" }
         ]
       },
       {
         name: "الوثائق الإدارية والتأشيرات",
-        icon: "document",
         color: "#f59e0b",
         topics: [
-          { title: "تجديد البطاقة الوطنية الإلكترونية CNIE عن بعد 2026: الطريقة الجديدة", keywords: "تجديد البطاقة الوطنية, CNIE المغرب, البطاقة الإلكترونية, rendez-vous CNIE" },
-          { title: "حجز موعد فيزا شنغن إسبانيا BLS 2026: الحيل والنصائح للقبول", keywords: "فيزا شنغن إسبانيا, حجز موعد BLS, تأشيرة أوروبا 2026, ملف الفيزا" },
-          { title: "استخراج جواز السفر البيومتري المغربي 2026: الوثائق والثمن والآجال", keywords: "جواز السفر البيومتري, استخراج الباسبور, وثائق جواز السفر, passeport biométrique" },
-          { title: "شهادة السكنى الإلكترونية 2026: طريقة الحصول عليها عبر الأنترنت", keywords: "شهادة السكنى, certificat de résidence, الوثائق الإدارية, المنصة الرقمية" },
-          { title: "عقد الازدياد بالمغرب 2026: النسخة الكاملة والموجزة وطريقة الطلب", keywords: "عقد الازدياد, acte de naissance, الحالة المدنية, وثائق الازدياد" },
-          { title: "القنصلية الفرنسية بالمغرب 2026: حجز موعد فيزا فرنسا TLScontact", keywords: "فيزا فرنسا, TLScontact المغرب, حجز موعد القنصلية, تأشيرة فرنسا 2026" }
+          { title: "تجديد البطاقة الوطنية الإلكترونية CNIE 2026: الطريقة الجديدة", keywords: "تجديد البطاقة الوطنية, CNIE المغرب, البطاقة الإلكترونية" },
+          { title: "حجز موعد فيزا شنغن إسبانيا BLS 2026: النصائح والحيل للقبول", keywords: "فيزا شنغن إسبانيا, حجز موعد BLS, تأشيرة أوروبا" },
+          { title: "استخراج جواز السفر البيومتري المغربي 2026: الوثائق والثمن", keywords: "جواز السفر البيومتري, استخراج الباسبور, وثائق جواز السفر" },
+          { title: "شهادة السكنى الإلكترونية 2026: طريقة الحصول عليها عبر الأنترنت", keywords: "شهادة السكنى, certificat de résidence, الوثائق الإدارية" },
+          { title: "عقد الازدياد بالمغرب 2026: النسخة الكاملة وطريقة الطلب", keywords: "عقد الازدياد, acte de naissance, الحالة المدنية" },
+          { title: "فيزا فرنسا 2026: حجز موعد TLScontact والوثائق المطلوبة", keywords: "فيزا فرنسا, TLScontact المغرب, تأشيرة فرنسا" }
         ]
       },
       {
-        name: "المقاول الصغير والعمل الحر",
-        icon: "rocket",
+        name: "المقاول الذاتي والعمل الحر",
         color: "#ec4899",
         topics: [
-          { title: "التسجيل في نظام المقاول الذاتي Auto-entrepreneur 2026: الدليل الكامل", keywords: "المقاول الذاتي المغرب, Auto-entrepreneur, التسجيل 2026, الضريبة على الدخل" },
-          { title: "إنشاء شركة SARL في المغرب 2026: التكلفة والإجراءات القانونية", keywords: "إنشاء شركة SARL, تأسيس شركة بالمغرب, الخطوات القانونية, السجل التجاري" },
-          { title: "برنامج انطلاقة لتمويل المشاريع 2026: شروط القبول ومبلغ القرض", keywords: "برنامج انطلاقة, تمويل المشاريع, المقاولات الناشئة المغرب, قروض بدون فائدة" },
-          { title: "فتح حساب بنكي تجاري بالمغرب 2026: مقارنة بين البنوك", keywords: "حساب بنكي تجاري, البنوك المغربية, فتح حساب شركة, أفضل بنك للمقاولين" },
-          { title: "الضريبة على القيمة المضافة TVA بالمغرب 2026: دليل المقاول المبتدئ", keywords: "TVA المغرب, الضريبة على القيمة المضافة, التصريح الضريبي, المقاول والضرائب" },
-          { title: "التجارة الإلكترونية بالمغرب 2026: الإطار القانوني وطريقة البدء", keywords: "التجارة الإلكترونية المغرب, البيع عبر الأنترنت, المتجر الإلكتروني, e-commerce Maroc" }
+          { title: "التسجيل في نظام المقاول الذاتي 2026: الدليل الكامل", keywords: "المقاول الذاتي المغرب, Auto-entrepreneur, التسجيل 2026" },
+          { title: "إنشاء شركة SARL بالمغرب 2026: التكلفة والإجراءات القانونية", keywords: "إنشاء شركة SARL, تأسيس شركة, السجل التجاري" },
+          { title: "برنامج انطلاقة لتمويل المشاريع 2026: شروط القبول والمبلغ", keywords: "برنامج انطلاقة, تمويل المشاريع, المقاولات الناشئة" },
+          { title: "فتح حساب بنكي تجاري بالمغرب 2026: مقارنة البنوك", keywords: "حساب بنكي تجاري, البنوك المغربية, فتح حساب شركة" },
+          { title: "الضريبة على القيمة المضافة TVA بالمغرب: دليل المقاول", keywords: "TVA المغرب, الضريبة, التصريح الضريبي" },
+          { title: "التجارة الإلكترونية بالمغرب 2026: الإطار القانوني وطريقة البدء", keywords: "التجارة الإلكترونية المغرب, البيع عبر الأنترنت, e-commerce" }
         ]
       }
     ];
 
-    const selectedCat = categories[Math.floor(Math.random() * categories.length)];
-    const selectedTopicObj = selectedCat.topics[Math.floor(Math.random() * selectedCat.topics.length)];
+    const cat = categories[Math.floor(Math.random() * categories.length)];
+    const topic = cat.topics[Math.floor(Math.random() * cat.topics.length)];
 
     try {
-      // ===== توليد المقال بالذكاء الاصطناعي =====
-      const aiResponse = await env.AI.run('@cf/meta/llama-3-8b-instruct', {
-        prompt: `أنت صحفي محترف وخبير في الخدمات الرقمية المغربية ومتخصص في كتابة محتوى حصري ومتوافق مع SEO.
+      const prompts = [
+        `أنت كاتب محتوى محترف متخصص في الخدمات الإدارية المغربية. اكتب مقدمة احترافية وجذابة من 6 أسطر عن "${topic.title}". اشرح أهمية الموضوع للمواطن المغربي وآخر المستجدات. استخدم الكلمات المفتاحية بشكل طبيعي: ${topic.keywords}. اكتب بأسلوب صحفي بشري مبسط وطبيعي. لا تستخدم عبارات مثل "في هذا المقال" أو "سنتناول". ابدأ مباشرة بالمعلومة المفيدة.`,
 
-المهمة: اكتب مقالاً احترافياً وحصرياً بالعربية الفصحى عن: "${selectedTopicObj.title}"
+        `أنت خبير في الخدمات الإدارية المغربية. اكتب قسمين عن "${topic.title}":
 
-الكلمات المفتاحية (يجب تضمينها بشكل طبيعي في النص): ${selectedTopicObj.keywords}
-
-هيكل المقال الإلزامي:
-
-**مقدمة شاملة** (4-5 أسطر)
-- اشرح لماذا هذا الموضوع مهم للمواطن المغربي
-- اذكر آخر التحديثات والمستجدات
-
-**ما هي هذه الخدمة وأهميتها؟**
-- تعريف دقيق ومفصل
+القسم الأول بعنوان "**ما هي هذه الخدمة وأهميتها؟**"
+- تعريف دقيق ومفصل بالخدمة
 - الجهة المسؤولة عنها
-- الفئات المستفيدة
+- الفئات المستفيدة بالتفصيل
+- أهمية هذه الخدمة في الحياة اليومية
+(اكتب 4 فقرات على الأقل)
 
-**الشروط الكاملة للاستفادة**
+القسم الثاني بعنوان "**الشروط الكاملة للاستفادة**"
 - قائمة مرقمة بجميع الشروط
-- التوضيحات اللازمة لكل شرط
+- شرح كل شرط بوضوح
+(اكتب 6 شروط على الأقل)
 
-**الوثائق والمستندات المطلوبة**
-- قائمة شاملة بكل الوثائق
-- أين يمكن الحصول عليها
+أسلوب بشري طبيعي بدون تكرار. استخدم: ${topic.keywords}`,
 
-**خطوات التسجيل أو الإجراء بالتفصيل**
-- شرح كل خطوة على حدة
-- روابط المنصات الرسمية إن وُجدت
-- نصائح لتجنب الأخطاء الشائعة
+        `أنت مرشد إداري متخصص. اكتب قسمين عن "${topic.title}":
 
-**الآجال والمواعيد المهمة**
+القسم الأول بعنوان "**الوثائق والمستندات المطلوبة**"
+- قائمة شاملة بكل الوثائق المطلوبة
+- أين يمكن الحصول على كل وثيقة
+- نصائح لتجهيز الملف بشكل صحيح
+(اكتب 8 عناصر على الأقل)
+
+القسم الثاني بعنوان "**خطوات التسجيل أو الإجراء بالتفصيل**"
+- شرح كل خطوة على حدة بالتفصيل الممل
+- ذكر المنصات والمواقع الرسمية
+- نصائح لتجنب الأخطاء الشائعة في كل خطوة
+(اكتب 7 خطوات على الأقل)
+
+أسلوب تعليمي واضح ومبسط.`,
+
+        `أنت مستشار إداري خبير. اكتب ثلاثة أقسام عن "${topic.title}":
+
+القسم الأول بعنوان "**الآجال والمواعيد المهمة**"
 - المدة الزمنية لكل إجراء
-- التواريخ المهمة
+- التواريخ الهامة والمواعيد النهائية
+(فقرتان على الأقل)
 
-**نصائح ذهبية للمتقدمين**
-- 5 نصائح عملية ومفيدة
+القسم الثاني بعنوان "**نصائح ذهبية للمتقدمين**"
+- 6 نصائح عملية مرقمة ومفصلة
+- كل نصيحة في سطرين على الأقل
 
-**الأسئلة الشائعة**
-اكتب 5 أسئلة شائعة مع إجابات مفصلة بهذا التنسيق بالضبط:
-سؤال: [نص السؤال]؟
-جواب: [نص الجواب المفصل]
+القسم الثالث بعنوان "**الأسئلة الشائعة**"
+اكتب 4 أسئلة شائعة بهذا التنسيق بالضبط:
+سؤال: نص السؤال هنا؟
+جواب: نص الجواب المفصل هنا في 2-3 أسطر.
 
-**خاتمة**
-- ملخص سريع
-- دعوة للعمل
+ثم اكتب خاتمة من 3 أسطر تلخص أهم النقاط مع دعوة للعمل.
 
-القواعد الصارمة:
-1. المقال يجب أن يكون حصرياً 100% وفريداً
-2. استخدم عناوين فرعية واضحة مع علامات **
-3. اجعل الفقرات قصيرة (2-3 أسطر كحد أقصى)
-4. استخدم أرقام وقوائم مرتبة
-5. الطول: 1500-2000 كلمة كحد أدنى
-6. لا تكرر الكلمات بشكل مفرط
-7. استخدم مرادفات متنوعة
-8. اكتب بأسلوب صحفي احترافي ومبسط
-9. أضف معلومات دقيقة وحديثة
-10. اختم كل قسم بنصيحة أو ملاحظة مفيدة`
-      });
+أسلوب بشري طبيعي ومهني.`
+      ];
 
-      // ===== توليد صورة للمقال =====
+      let fullContent = '';
+      for (let i = 0; i < prompts.length; i++) {
+        try {
+          const res = await env.AI.run('@cf/meta/llama-3-8b-instruct', {
+            prompt: prompts[i],
+            max_tokens: 1500,
+            temperature: 0.7
+          });
+          if (res && res.response) {
+            fullContent += '\n\n' + res.response;
+          }
+        } catch (err) {
+          console.error('Section ' + i + ' error:', err);
+        }
+      }
+
+      if (!fullContent || fullContent.trim().length < 300) {
+        console.error('Content too short');
+        return;
+      }
+
       let imageBase64 = null;
       try {
-        const imagePrompt = generateImagePrompt(selectedTopicObj.title, selectedCat.name);
-        const imageResponse = await env.AI.run('@cf/stabilityai/stable-diffusion-xl-base-1.0', {
-          prompt: imagePrompt,
-          negative_prompt: "human, person, people, man, woman, child, baby, face, hand, finger, body, animal, cat, dog, bird, fish, horse, creature, living being, portrait, selfie, crowd, group photo, eyes, mouth, nose, realistic human, cartoon human, anime character, humanoid, figurine, doll, mannequin, statue of person, sculpture of person, pet, wildlife, insect, mammal, reptile",
+        const imagePrompts = {
+          "الدعم والحماية الاجتماعية": "Professional modern flat design illustration of digital government social protection services concept, smartphone showing online registration form, official documents with stamps, digital shield protection icon, green and blue color palette, abstract geometric network connections, clean minimalist corporate infographic style, 4k high quality render, white background elements, technology concept",
+          "مباريات التوظيف والتدريب": "Professional modern flat design illustration of career development and education concept, graduation cap floating above laptop computer, digital certificates and achievement badges, open books with bookmarks, blue and purple color scheme, abstract geometric patterns background, clean vector corporate style, 4k high quality render, professional development theme",
+          "الوثائق الإدارية والتأشيرات": "Professional modern flat design illustration of official travel documents and administrative papers concept, passport booklet with colorful visa stamps, airplane boarding pass, world globe with flight route lines, official rubber stamps and seals, warm amber gold and navy blue color palette, clean geometric corporate design, 4k high quality render",
+          "المقاول الذاتي والعمل الحر": "Professional modern flat design illustration of entrepreneurship and business startup concept, rocket ship launching from laptop screen, rising growth chart graphs, golden coins and currency symbols, business plan documents, glowing lightbulb innovation icon, green and blue gradient colors, abstract geometric background, clean fintech corporate style, 4k high quality render"
+        };
+
+        const imgPrompt = (imagePrompts[cat.name] || imagePrompts["الدعم والحماية الاجتماعية"]) + ", absolutely NO humans, NO people, NO person, NO man, NO woman, NO child, NO face, NO hands, NO body parts, NO animals, NO pets, NO creatures, NO living beings";
+
+        const imgRes = await env.AI.run('@cf/stabilityai/stable-diffusion-xl-base-1.0', {
+          prompt: imgPrompt,
+          negative_prompt: "human, person, people, man, woman, child, baby, face, hand, finger, body, arm, leg, foot, animal, cat, dog, bird, fish, horse, creature, portrait, selfie, crowd, eyes, mouth, nose, ear, hair, skin, realistic human, cartoon human, anime character, humanoid, figurine, doll, mannequin, statue, sculpture, pet, wildlife, insect, mammal, reptile, nsfw, nude, violence, blood, weapon, ugly, deformed, blurry, low quality, watermark, text, logo, signature",
           width: 1024,
           height: 576,
           num_steps: 20
         });
 
-        if (imageResponse) {
-          const arrayBuffer = await imageResponse.arrayBuffer();
-          const uint8Array = new Uint8Array(arrayBuffer);
-          imageBase64 = uint8ArrayToBase64(uint8Array);
+        if (imgRes) {
+          const buf = await imgRes.arrayBuffer();
+          const bytes = new Uint8Array(buf);
+          let binary = '';
+          for (let i = 0; i < bytes.length; i++) {
+            binary += String.fromCharCode(bytes[i]);
+          }
+          imageBase64 = btoa(binary);
         }
-      } catch (imgError) {
-        console.error("Image generation error:", imgError);
+      } catch (imgErr) {
+        console.error('Image generation error:', imgErr);
       }
 
-      // ===== معالجة المحتوى =====
-      const slug = generateSlug(selectedTopicObj.title);
-      const description = generateDescription(aiResponse.response);
-      const wordCount = aiResponse.response.split(/\s+/).length;
-      const readTime = Math.max(3, Math.ceil(wordCount / 200));
       const now = new Date();
+      const slug = topic.title
+        .replace(/[^\u0600-\u06FF\s0-9]/g, '')
+        .replace(/\s+/g, '-')
+        .substring(0, 80);
+
+      const plainText = fullContent.replace(/\*\*/g, '').replace(/<[^>]*>/g, '').replace(/\n+/g, ' ').trim();
+      const description = plainText.substring(0, 155) + '...';
+      const wordCount = fullContent.split(/\s+/).length;
+      const readTime = Math.max(3, Math.ceil(wordCount / 200));
+
+      const formattedContent = formatArticleContent(fullContent);
 
       const newPost = {
         id: Date.now(),
         slug: slug,
-        category: selectedCat.name,
-        categoryColor: selectedCat.color,
-        categoryIcon: selectedCat.icon,
-        title: selectedTopicObj.title,
-        keywords: selectedTopicObj.keywords,
+        category: cat.name,
+        categoryColor: cat.color,
+        title: topic.title,
+        keywords: topic.keywords,
         description: description,
-        content: formatContentAdvanced(aiResponse.response),
+        content: formattedContent,
         image: imageBase64,
-        imageAlt: `صورة توضيحية: ${selectedTopicObj.title}`,
+        imageAlt: topic.title,
         date: now.toLocaleDateString('ar-MA', { year: 'numeric', month: 'long', day: 'numeric' }),
         dateISO: now.toISOString(),
         readTime: readTime,
@@ -168,1008 +195,792 @@ export default {
         views: Math.floor(Math.random() * 500) + 100
       };
 
-      let posts = await env.BLOG_KV.get("posts", { type: "json" }) || [];
-
-      // منع التكرار
-      const exists = posts.some(p => p.title === newPost.title);
-      if (!exists) {
-        posts.unshift(newPost);
-        await env.BLOG_KV.put("posts", JSON.stringify(posts.slice(0, 60)));
-
-        // ===== إرسال إشعار فهرسة فورية لجوجل =====
-        await pingSearchEngines(env, newPost, posts);
+      let posts = [];
+      try {
+        posts = await env.BLOG_KV.get("posts", { type: "json" }) || [];
+      } catch (e) {
+        posts = [];
       }
-    } catch (e) {
-      console.error("Error generating content:", e);
+
+      const alreadyExists = posts.some(p => p.title === newPost.title);
+      if (!alreadyExists) {
+        posts.unshift(newPost);
+        if (posts.length > 60) posts = posts.slice(0, 60);
+        await env.BLOG_KV.put("posts", JSON.stringify(posts));
+
+        try {
+          const siteUrl = env.SITE_URL || 'https://example.com';
+          const articleUrl = siteUrl + '/article/' + newPost.id;
+          await Promise.allSettled([
+            fetch('https://www.google.com/ping?sitemap=' + encodeURIComponent(siteUrl + '/sitemap.xml')).catch(() => {}),
+            fetch('https://www.bing.com/ping?sitemap=' + encodeURIComponent(siteUrl + '/sitemap.xml')).catch(() => {}),
+            fetch('https://api.indexnow.org/indexnow', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                host: new URL(siteUrl).hostname,
+                key: env.INDEXNOW_KEY || 'default-key',
+                urlList: [articleUrl, siteUrl + '/']
+              })
+            }).catch(() => {})
+          ]);
+        } catch (pingErr) {
+          console.error('Ping error:', pingErr);
+        }
+      }
+
+    } catch (mainErr) {
+      console.error('Main scheduled error:', mainErr);
     }
   },
 
-  // ===== معالجة الطلبات =====
   async fetch(request, env) {
     const url = new URL(request.url);
-    const posts = await env.BLOG_KV.get("posts", { type: "json" }) || [];
-    const baseUrl = url.origin;
+    const path = url.pathname;
+    const base = url.origin;
 
-    // ===== توجيه الصفحات =====
-    const routes = {
-      '/sitemap.xml': () => generateSitemap(posts, baseUrl),
-      '/robots.txt': () => generateRobots(baseUrl),
-      '/feed.xml': () => generateRSS(posts, baseUrl),
-      '/rss.xml': () => generateRSS(posts, baseUrl),
-      '/privacy': () => servePage(generatePrivacyPage(baseUrl, posts), 3600),
-      '/terms': () => servePage(generateTermsPage(baseUrl, posts), 3600),
-      '/contact': () => servePage(generateContactPage(baseUrl, posts), 3600),
-      '/about': () => servePage(generateAboutPage(baseUrl, posts), 3600),
-      '/dmca': () => servePage(generateDMCAPage(baseUrl, posts), 3600),
-      '/disclaimer': () => servePage(generateDisclaimerPage(baseUrl, posts), 3600),
-    };
-
-    if (routes[url.pathname]) {
-      return routes[url.pathname]();
+    let posts = [];
+    try {
+      posts = await env.BLOG_KV.get("posts", { type: "json" }) || [];
+    } catch (e) {
+      posts = [];
     }
 
-    // صورة المقال
-    if (url.pathname.startsWith('/image/')) {
-      const articleId = url.pathname.split('/image/')[1];
-      const post = posts.find(p => p.id.toString() === articleId);
+    if (path === '/sitemap.xml') {
+      return xmlResponse(buildSitemap(posts, base));
+    }
+
+    if (path === '/robots.txt') {
+      return textResponse(buildRobots(base));
+    }
+
+    if (path === '/feed.xml' || path === '/rss.xml') {
+      return xmlResponse(buildRSS(posts, base));
+    }
+
+    if (path === '/privacy') {
+      return htmlResponse(buildPrivacyPage(base, posts));
+    }
+
+    if (path === '/terms') {
+      return htmlResponse(buildTermsPage(base, posts));
+    }
+
+    if (path === '/contact') {
+      return htmlResponse(buildContactPage(base, posts));
+    }
+
+    if (path === '/about') {
+      return htmlResponse(buildAboutPage(base, posts));
+    }
+
+    if (path === '/dmca') {
+      return htmlResponse(buildDmcaPage(base, posts));
+    }
+
+    if (path === '/disclaimer') {
+      return htmlResponse(buildDisclaimerPage(base, posts));
+    }
+
+    if (path.startsWith('/image/')) {
+      const postId = path.replace('/image/', '');
+      const post = posts.find(p => p.id.toString() === postId);
       if (post && post.image) {
-        const imageBuffer = base64ToUint8Array(post.image);
-        return new Response(imageBuffer, {
+        const binaryStr = atob(post.image);
+        const bytes = new Uint8Array(binaryStr.length);
+        for (let i = 0; i < binaryStr.length; i++) {
+          bytes[i] = binaryStr.charCodeAt(i);
+        }
+        return new Response(bytes, {
           headers: {
             'Content-Type': 'image/png',
-            'Cache-Control': 'public, max-age=31536000, immutable',
-            'X-Content-Type-Options': 'nosniff'
+            'Cache-Control': 'public, max-age=31536000, immutable'
           }
         });
       }
       return new Response('Not Found', { status: 404 });
     }
 
-    // صفحة المقال
-    if (url.pathname.startsWith('/article/')) {
-      const articleId = url.pathname.split('/article/')[1];
-      const post = posts.find(p => p.id.toString() === articleId || p.slug === articleId);
+    if (path.startsWith('/article/')) {
+      const postId = path.replace('/article/', '');
+      const post = posts.find(p => p.id.toString() === postId || p.slug === postId);
       if (post) {
         post.views = (post.views || 0) + 1;
-        await env.BLOG_KV.put("posts", JSON.stringify(posts));
-        return servePage(generateArticlePage(post, posts, baseUrl), 1800);
+        try {
+          await env.BLOG_KV.put("posts", JSON.stringify(posts));
+        } catch (e) {}
+        return htmlResponse(buildArticlePage(post, posts, base));
       }
-      return Response.redirect(baseUrl + '/', 301);
+      return Response.redirect(base + '/', 302);
     }
 
-    // صفحة التصنيف
-    if (url.pathname.startsWith('/category/')) {
-      const catName = decodeURIComponent(url.pathname.split('/category/')[1]);
-      const filteredPosts = posts.filter(p => p.category === catName);
-      return servePage(generateCategoryPage(catName, filteredPosts, posts, baseUrl), 1800);
+    if (path.startsWith('/category/')) {
+      const catName = decodeURIComponent(path.replace('/category/', ''));
+      const filtered = posts.filter(p => p.category === catName);
+      return htmlResponse(buildCategoryPage(catName, filtered, posts, base));
     }
 
-    // IndexNow ping endpoint
-    if (url.pathname === '/indexnow' && url.searchParams.get('key')) {
-      return new Response(url.searchParams.get('key'), {
-        headers: { 'Content-Type': 'text/plain' }
-      });
-    }
-
-    // الصفحة الرئيسية
-    return servePage(generateHomePage(posts, baseUrl), 900);
+    return htmlResponse(buildHomePage(posts, base));
   }
 };
 
-// ===== دوال مساعدة =====
-
-function servePage(html, maxAge = 900) {
+function htmlResponse(html) {
   return new Response(html, {
     headers: {
-      "Content-Type": "text/html;charset=UTF-8",
-      "Cache-Control": `public, max-age=${maxAge}, s-maxage=${maxAge * 2}`,
-      "X-Content-Type-Options": "nosniff",
-      "X-Frame-Options": "SAMEORIGIN",
-      "X-XSS-Protection": "1; mode=block",
-      "Referrer-Policy": "strict-origin-when-cross-origin",
-      "Permissions-Policy": "interest-cohort=()"
+      'Content-Type': 'text/html;charset=UTF-8',
+      'Cache-Control': 'public, max-age=600',
+      'X-Content-Type-Options': 'nosniff',
+      'X-Frame-Options': 'SAMEORIGIN',
+      'X-XSS-Protection': '1; mode=block'
     }
   });
 }
 
-function generateSlug(title) {
-  return title
-    .replace(/[^\u0600-\u06FF\s0-9a-zA-Z]/g, '')
-    .replace(/\s+/g, '-')
-    .substring(0, 100);
+function xmlResponse(xml) {
+  return new Response(xml, {
+    headers: {
+      'Content-Type': 'application/xml;charset=UTF-8',
+      'Cache-Control': 'public, max-age=3600'
+    }
+  });
 }
 
-function generateDescription(text) {
-  return text
-    .replace(/<[^>]*>/g, '')
-    .replace(/\*\*/g, '')
-    .replace(/\n+/g, ' ')
-    .trim()
-    .substring(0, 155) + '...';
+function textResponse(text) {
+  return new Response(text, {
+    headers: {
+      'Content-Type': 'text/plain;charset=UTF-8',
+      'Cache-Control': 'public, max-age=86400'
+    }
+  });
 }
 
-function generateImagePrompt(title, category) {
-  const prompts = {
-    "الدعم والحماية الاجتماعية": `Professional flat illustration of digital government services concept, modern smartphone showing online registration form, official documents floating around, Moroccan flag colors (red and green) subtle accents, clean geometric shapes, digital network connections, shield icon representing protection, abstract technology background, NO humans NO animals NO faces, corporate clean design, 4k quality, professional infographic style`,
-    "مباريات التوظيف والتدريب": `Professional flat illustration of career and education concept, graduation cap with digital elements, laptop showing online exam platform, certificates and diplomas floating, books and study materials, abstract geometric background with blue and gold colors, NO humans NO animals NO faces NO portraits, modern corporate design, achievement badges, 4k quality, clean vector style`,
-    "الوثائق الإدارية والتأشيرات": `Professional flat illustration of travel documents and visa concept, passport booklet with stamps, airplane ticket, globe with flight routes, official stamps and seals, embassy building silhouette, geometric patterns, NO humans NO animals NO faces, modern design with warm colors, gold and navy blue palette, 4k quality, clean corporate style`,
-    "المقاول الصغير والعمل الحر": `Professional flat illustration of entrepreneurship and business startup concept, rocket launching from laptop screen, growth charts and graphs, coins and money symbols, business plan documents, lightbulb innovation icon, geometric abstract background, NO humans NO animals NO faces, modern corporate design, green and blue gradient, 4k quality, fintech style`
-  };
-
-  return prompts[category] || `Professional flat illustration of Moroccan digital government services, modern technology concept with smartphone and documents, abstract geometric design, official colors red and green, NO humans NO animals NO faces, clean corporate 4k style`;
+function escXml(str) {
+  if (!str) return '';
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-function uint8ArrayToBase64(uint8Array) {
-  let binary = '';
-  for (let i = 0; i < uint8Array.length; i++) {
-    binary += String.fromCharCode(uint8Array[i]);
-  }
-  return btoa(binary);
+function formatArticleContent(text) {
+  if (!text) return '<p>المحتوى قيد التحضير...</p>';
+  let html = text;
+  html = html.replace(/\*\*(.*?)\*\*/g, '</p><h3 class="ch">$1</h3><p>');
+  html = html.replace(/سؤال:\s*(.*?)(?:\n)/gi, '</p><div class="faq-item"><div class="faq-q">❓ $1</div>');
+  html = html.replace(/جواب:\s*(.*?)(?:\n|$)/gi, '<div class="faq-a">✅ $1</div></div><p>');
+  html = html.replace(/(\d+)\.\s/g, '<span class="step-num">$1</span> ');
+  html = html.replace(/\n\n+/g, '</p><p>');
+  html = html.replace(/\n/g, '<br>');
+  if (!html.startsWith('<')) html = '<p>' + html;
+  if (!html.endsWith('>')) html += '</p>';
+  html = html.replace(/<p>\s*<\/p>/g, '');
+  html = html.replace(/<p><\/p>/g, '');
+  return html;
 }
 
-function base64ToUint8Array(base64) {
-  const binary = atob(base64);
-  const uint8Array = new Uint8Array(binary.length);
-  for (let i = 0; i < binary.length; i++) {
-    uint8Array[i] = binary.charCodeAt(i);
-  }
-  return uint8Array;
-}
-
-function formatContentAdvanced(text) {
-  let formatted = text
-    .replace(/\*\*(.*?)\*\*/g, '</p><h3 class="content-heading"><span class="heading-icon">📌</span> $1</h3><p>')
-    .replace(/(\d+)\.\s/g, '<span class="step-number">$1</span> ')
-    .replace(/- (.*?)(?:\n|$)/g, '<li class="content-list-item">$1</li>')
-    .replace(/سؤال:\s*(.*?)(?:\n|<br>)/gi, '</p><div class="faq-item"><div class="faq-question"><span class="faq-icon">❓</span> $1</div>')
-    .replace(/جواب:\s*(.*?)(?:\n|<br>)/gi, '<div class="faq-answer"><span class="faq-icon">✅</span> $1</div></div><p>')
-    .replace(/\n\n/g, '</p><p>')
-    .replace(/\n/g, '<br>');
-
-  if (!formatted.startsWith('<p>')) formatted = '<p>' + formatted;
-  if (!formatted.endsWith('</p>')) formatted += '</p>';
-  formatted = formatted.replace(/<p><\/p>/g, '');
-
-  return formatted;
-}
-
-function escapeXml(str) {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
-}
-
-function extractFAQ(content) {
+function extractFaqFromContent(content) {
   const faqs = [];
-  const patterns = [
-    /(?:سؤال|❓)[:\s]*([^<]+?)(?:<\/div>|<br>|<\/p>)[\s\S]*?(?:جواب|✅)[:\s]*([^<]+?)(?:<\/div>|<br>|<\/p>)/gi,
-    /faq-question[^>]*>(?:<[^>]+>)*\s*([^<]+)[\s\S]*?faq-answer[^>]*>(?:<[^>]+>)*\s*([^<]+)/gi,
-  ];
-
-  for (const pattern of patterns) {
-    let match;
-    while ((match = pattern.exec(content)) !== null && faqs.length < 6) {
-      const q = match[1].replace(/<[^>]*>/g, '').trim();
-      const a = match[2].replace(/<[^>]*>/g, '').trim();
-      if (q.length > 10 && a.length > 10) {
-        faqs.push({ question: q, answer: a });
-      }
+  const regex = /faq-q[^>]*>(?:❓\s*)?([^<]+)<\/div>\s*<div[^>]*class="faq-a"[^>]*>(?:✅\s*)?([^<]+)/gi;
+  let match;
+  while ((match = regex.exec(content)) !== null && faqs.length < 6) {
+    const q = match[1].trim();
+    const a = match[2].trim();
+    if (q.length > 5 && a.length > 5) {
+      faqs.push({ question: q, answer: a });
     }
   }
   return faqs;
 }
 
-// ===== إشعار محركات البحث للفهرسة الفورية =====
-async function pingSearchEngines(env, newPost, allPosts) {
-  const baseUrl = env.SITE_URL || 'https://example.com';
-  const articleUrl = `${baseUrl}/article/${newPost.id}`;
+const CATEGORIES = [
+  { name: "الدعم والحماية الاجتماعية", color: "#10b981", icon: "🛡️", short: "الدعم الاجتماعي" },
+  { name: "مباريات التوظيف والتدريب", color: "#6366f1", icon: "💼", short: "التوظيف والتدريب" },
+  { name: "الوثائق الإدارية والتأشيرات", color: "#f59e0b", icon: "📄", short: "الوثائق والتأشيرات" },
+  { name: "المقاول الذاتي والعمل الحر", color: "#ec4899", icon: "🚀", short: "ريادة الأعمال" }
+];
 
-  const pings = [
-    // Google Ping
-    fetch(`https://www.google.com/ping?sitemap=${encodeURIComponent(baseUrl + '/sitemap.xml')}`).catch(() => {}),
-    // Bing/IndexNow
-    fetch('https://api.indexnow.org/indexnow', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        host: new URL(baseUrl).hostname,
-        key: env.INDEXNOW_KEY || 'your-indexnow-key',
-        keyLocation: `${baseUrl}/indexnow?key=${env.INDEXNOW_KEY || 'your-indexnow-key'}`,
-        urlList: [articleUrl, baseUrl + '/']
-      })
-    }).catch(() => {}),
-    // Bing Ping
-    fetch(`https://www.bing.com/ping?sitemap=${encodeURIComponent(baseUrl + '/sitemap.xml')}`).catch(() => {}),
-  ];
+function getCategoryColor(catName) {
+  const found = CATEGORIES.find(c => c.name === catName);
+  return found ? found.color : '#0f4c81';
+}
 
-  // Google Indexing API
-  if (env.GOOGLE_INDEXING_KEY) {
-    pings.push(
-      fetch('https://indexing.googleapis.com/v3/urlNotifications:publish', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${env.GOOGLE_INDEXING_KEY}`
-        },
-        body: JSON.stringify({
-          url: articleUrl,
-          type: 'URL_UPDATED'
-        })
-      }).catch(() => {})
-    );
+function getCategoryIcon(catName) {
+  const found = CATEGORIES.find(c => c.name === catName);
+  return found ? found.icon : '📂';
+}
+
+function buildSitemap(posts, base) {
+  const staticPages = ['/', '/about', '/contact', '/privacy', '/terms', '/dmca', '/disclaimer'];
+  const uniqueCats = [...new Set(posts.map(p => p.category))];
+  const now = new Date().toISOString();
+
+  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+  xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n';
+
+  for (const page of staticPages) {
+    xml += '<url><loc>' + base + page + '</loc>';
+    xml += '<lastmod>' + now + '</lastmod>';
+    xml += '<changefreq>' + (page === '/' ? 'daily' : 'monthly') + '</changefreq>';
+    xml += '<priority>' + (page === '/' ? '1.0' : '0.4') + '</priority>';
+    xml += '</url>\n';
   }
 
-  await Promise.allSettled(pings);
-}
+  for (const cat of uniqueCats) {
+    xml += '<url><loc>' + base + '/category/' + encodeURIComponent(cat) + '</loc>';
+    xml += '<lastmod>' + now + '</lastmod>';
+    xml += '<changefreq>daily</changefreq><priority>0.7</priority></url>\n';
+  }
 
-// ===== Sitemap XML =====
-function generateSitemap(posts, baseUrl) {
-  const staticPages = [
-    { loc: '/', priority: '1.0', changefreq: 'hourly' },
-    { loc: '/privacy', priority: '0.3', changefreq: 'yearly' },
-    { loc: '/terms', priority: '0.3', changefreq: 'yearly' },
-    { loc: '/contact', priority: '0.4', changefreq: 'monthly' },
-    { loc: '/about', priority: '0.5', changefreq: 'monthly' },
-    { loc: '/dmca', priority: '0.3', changefreq: 'yearly' },
-    { loc: '/disclaimer', priority: '0.3', changefreq: 'yearly' },
-  ];
-
-  const categories = [...new Set(posts.map(p => p.category))];
-
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
-  ${staticPages.map(p => `
-  <url>
-    <loc>${baseUrl}${p.loc}</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>${p.changefreq}</changefreq>
-    <priority>${p.priority}</priority>
-  </url>`).join('')}
-  ${categories.map(cat => `
-  <url>
-    <loc>${baseUrl}/category/${encodeURIComponent(cat)}</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>`).join('')}
-  ${posts.map(p => `
-  <url>
-    <loc>${baseUrl}/article/${p.id}</loc>
-    <lastmod>${p.dateISO || new Date().toISOString()}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    ${p.image ? `
-    <image:image>
-      <image:loc>${baseUrl}/image/${p.id}</image:loc>
-      <image:title>${escapeXml(p.title)}</image:title>
-      <image:caption>${escapeXml(p.imageAlt || p.title)}</image:caption>
-    </image:image>` : ''}
-  </url>`).join('')}
-</urlset>`;
-
-  return new Response(xml, {
-    headers: {
-      "Content-Type": "application/xml;charset=UTF-8",
-      "Cache-Control": "public, max-age=3600"
+  for (const post of posts) {
+    xml += '<url><loc>' + base + '/article/' + post.id + '</loc>';
+    xml += '<lastmod>' + (post.dateISO || now) + '</lastmod>';
+    xml += '<changefreq>weekly</changefreq><priority>0.8</priority>';
+    if (post.image) {
+      xml += '<image:image><image:loc>' + base + '/image/' + post.id + '</image:loc>';
+      xml += '<image:title>' + escXml(post.title) + '</image:title></image:image>';
     }
-  });
+    xml += '</url>\n';
+  }
+
+  xml += '</urlset>';
+  return xml;
 }
 
-// ===== Robots.txt =====
-function generateRobots(baseUrl) {
-  return new Response(
-    `User-agent: *
-Allow: /
-Disallow: /image/
-
-User-agent: Googlebot
-Allow: /
-Allow: /image/
-
-User-agent: Googlebot-Image
-Allow: /image/
-
-Sitemap: ${baseUrl}/sitemap.xml
-
-Host: ${baseUrl}`, {
-    headers: { "Content-Type": "text/plain;charset=UTF-8" }
-  });
+function buildRobots(base) {
+  return 'User-agent: *\nAllow: /\nDisallow: /image/\n\nUser-agent: Googlebot\nAllow: /\nAllow: /image/\n\nUser-agent: Googlebot-Image\nAllow: /image/\n\nSitemap: ' + base + '/sitemap.xml';
 }
 
-// ===== RSS Feed =====
-function generateRSS(posts, baseUrl) {
-  const items = posts.slice(0, 30).map(p => `
-  <item>
-    <title>${escapeXml(p.title)}</title>
-    <link>${baseUrl}/article/${p.id}</link>
-    <description><![CDATA[${p.description || ''}]]></description>
-    <pubDate>${new Date(p.dateISO || Date.now()).toUTCString()}</pubDate>
-    <category>${escapeXml(p.category)}</category>
-    <guid isPermaLink="true">${baseUrl}/article/${p.id}</guid>
-    ${p.image ? `<enclosure url="${baseUrl}/image/${p.id}" type="image/png" length="0"/>` : ''}
-  </item>`).join('');
+function buildRSS(posts, base) {
+  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+  xml += '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n<channel>\n';
+  xml += '<title>بوابة الخدمات الرقمية - دليل المواطن المغربي</title>\n';
+  xml += '<link>' + base + '</link>\n';
+  xml += '<description>دليلك الشامل للخدمات الرقمية الحكومية والإجراءات الإدارية بالمغرب</description>\n';
+  xml += '<language>ar</language>\n';
+  xml += '<lastBuildDate>' + new Date().toUTCString() + '</lastBuildDate>\n';
+  xml += '<atom:link href="' + base + '/feed.xml" rel="self" type="application/rss+xml"/>\n';
 
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0"
-     xmlns:atom="http://www.w3.org/2005/Atom"
-     xmlns:dc="http://purl.org/dc/elements/1.1/"
-     xmlns:media="http://search.yahoo.com/mrss/">
-<channel>
-  <title>بوابة الخدمات الرقمية - دليل المواطن المغربي</title>
-  <link>${baseUrl}</link>
-  <description>دليلك الشامل للخدمات الرقمية الحكومية والإجراءات الإدارية بالمغرب</description>
-  <language>ar</language>
-  <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
-  <atom:link href="${baseUrl}/feed.xml" rel="self" type="application/rss+xml"/>
-  <copyright>© ${new Date().getFullYear()} بوابة الخدمات الرقمية</copyright>
-  ${items}
-</channel>
-</rss>`;
+  const recentPosts = posts.slice(0, 20);
+  for (const p of recentPosts) {
+    xml += '<item>\n';
+    xml += '<title>' + escXml(p.title) + '</title>\n';
+    xml += '<link>' + base + '/article/' + p.id + '</link>\n';
+    xml += '<description><![CDATA[' + (p.description || '') + ']]></description>\n';
+    xml += '<pubDate>' + new Date(p.dateISO || Date.now()).toUTCString() + '</pubDate>\n';
+    xml += '<category>' + escXml(p.category) + '</category>\n';
+    xml += '<guid isPermaLink="true">' + base + '/article/' + p.id + '</guid>\n';
+    xml += '</item>\n';
+  }
 
-  return new Response(xml, {
-    headers: { "Content-Type": "application/rss+xml;charset=UTF-8" }
-  });
+  xml += '</channel>\n</rss>';
+  return xml;
 }
 
-// ===== الأنماط المشتركة الكاملة =====
-function getSharedStyles() {
-  return `
-    <style>
-      *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-      :root{
-        --primary:#0f4c81;--primary-light:#1a6fb5;--primary-dark:#0a3459;
-        --secondary:#e8b100;--secondary-light:#ffd633;
-        --accent:#00b894;--accent-light:#00e6b8;
-        --dark:#1a1a2e;--dark-light:#2d2d44;
-        --gray-50:#f8fafc;--gray-100:#f1f5f9;--gray-200:#e2e8f0;
-        --gray-300:#cbd5e1;--gray-400:#94a3b8;--gray-500:#64748b;
-        --gray-600:#475569;--gray-700:#334155;--gray-800:#1e293b;
-        --white:#ffffff;
-        --shadow-sm:0 1px 2px rgba(0,0,0,.05);
-        --shadow:0 1px 3px rgba(0,0,0,.1),0 1px 2px rgba(0,0,0,.06);
-        --shadow-md:0 4px 6px rgba(0,0,0,.07),0 2px 4px rgba(0,0,0,.06);
-        --shadow-lg:0 10px 15px rgba(0,0,0,.1),0 4px 6px rgba(0,0,0,.05);
-        --shadow-xl:0 20px 25px rgba(0,0,0,.1),0 8px 10px rgba(0,0,0,.04);
-        --radius:12px;--radius-lg:16px;--radius-xl:24px;
-        --transition:all .3s cubic-bezier(.4,0,.2,1);
-      }
-      body{font-family:'Cairo',sans-serif;background:var(--gray-50);color:var(--dark);line-height:1.8;overflow-x:hidden;-webkit-font-smoothing:antialiased;direction:rtl}
+function getCSS() {
+  return `<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --p:#0f4c81;--pl:#1a6fb5;--pd:#0a3459;
+  --s:#e8b100;--sl:#ffd633;
+  --a:#00b894;
+  --d:#1a1a2e;
+  --g50:#f8fafc;--g100:#f1f5f9;--g200:#e2e8f0;
+  --g300:#cbd5e1;--g400:#94a3b8;--g500:#64748b;
+  --g600:#475569;--g700:#334155;
+  --w:#ffffff;
+  --sh:0 2px 8px rgba(0,0,0,.08);
+  --shl:0 8px 24px rgba(0,0,0,.12);
+  --r:12px;--rl:16px;
+  --t:all .3s ease
+}
+html{scroll-behavior:smooth}
+body{font-family:'Cairo',sans-serif;background:var(--g50);color:var(--d);line-height:1.8;direction:rtl;text-align:right;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;height:auto;display:block}
 
-      /* Top Bar */
-      .top-bar{background:var(--dark);color:var(--gray-400);padding:8px 0;font-size:13px;border-bottom:1px solid rgba(255,255,255,.05)}
-      .top-bar-inner{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-      .top-bar a{color:var(--gray-400);text-decoration:none;transition:var(--transition);margin:0 8px}
-      .top-bar a:hover{color:var(--secondary)}
-      .top-date{display:flex;align-items:center;gap:6px}
+.topbar{background:var(--d);color:var(--g400);padding:6px 0;font-size:12px}
+.topbar-inner{max-width:1200px;margin:0 auto;padding:0 16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+.topbar a{color:var(--g400);margin:0 6px;transition:var(--t)}
+.topbar a:hover{color:var(--s)}
 
-      /* Header */
-      .header{background:var(--white);box-shadow:var(--shadow-md);position:sticky;top:0;z-index:1000;transition:var(--transition)}
-      .header-inner{max-width:1200px;margin:0 auto;padding:12px 20px;display:flex;justify-content:space-between;align-items:center}
-      .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
-      .logo-icon{width:50px;height:50px;background:linear-gradient(135deg,var(--primary),var(--primary-light));border-radius:var(--radius);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(15,76,129,.3)}
-      .logo-icon svg{width:28px;height:28px;fill:white}
-      .logo-text h1{font-size:22px;font-weight:800;color:var(--primary);line-height:1.2}
-      .logo-text span{color:var(--secondary)}
-      .logo-text p{font-size:11px;color:var(--gray-500);font-weight:400}
+.header{background:var(--w);box-shadow:var(--sh);position:sticky;top:0;z-index:100}
+.header-inner{max-width:1200px;margin:0 auto;padding:8px 16px;display:flex;justify-content:space-between;align-items:center}
+.logo-link{display:flex;align-items:center;gap:10px}
+.logo-icon{width:42px;height:42px;background:linear-gradient(135deg,var(--p),var(--pl));border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-icon svg{width:22px;height:22px;fill:var(--w)}
+.logo-text h1{font-size:17px;font-weight:800;color:var(--p);line-height:1.2;white-space:nowrap}
+.logo-text span{color:var(--s)}
+.logo-text p{font-size:10px;color:var(--g500);white-space:nowrap}
+.menu-btn{display:none;background:none;border:2px solid var(--g300);cursor:pointer;padding:6px 10px;border-radius:6px;flex-direction:column;gap:3px;align-items:center;justify-content:center}
+.menu-btn i{display:block;width:18px;height:2px;background:var(--d);border-radius:1px;transition:var(--t)}
 
-      /* Navigation */
-      .nav{background:linear-gradient(135deg,var(--primary),var(--primary-dark));padding:0;box-shadow:0 4px 15px rgba(15,76,129,.2);position:relative}
-      .nav-inner{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:0}
-      .nav-link{color:rgba(255,255,255,.85);text-decoration:none;padding:14px 16px;font-size:13px;font-weight:600;white-space:nowrap;transition:var(--transition);border-bottom:3px solid transparent;display:flex;align-items:center;gap:6px}
-      .nav-link:hover,.nav-link.active{color:white;background:rgba(255,255,255,.1);border-bottom-color:var(--secondary)}
-      .nav-link svg{width:16px;height:16px;fill:currentColor}
+.navbar{background:linear-gradient(135deg,var(--p),var(--pd))}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 16px;display:flex;align-items:center}
+.nav-link{color:rgba(255,255,255,.85);padding:12px 13px;font-size:12px;font-weight:600;white-space:nowrap;transition:var(--t);border-bottom:3px solid transparent;display:flex;align-items:center;gap:4px}
+.nav-link:hover,.nav-link.active{color:#fff;background:rgba(255,255,255,.08);border-bottom-color:var(--s)}
 
-      /* Mobile Toggle */
-      .mobile-toggle{display:none;background:none;border:2px solid var(--gray-300);cursor:pointer;padding:8px 12px;border-radius:8px;flex-direction:column;gap:4px;align-items:center;justify-content:center}
-      .mobile-toggle span{display:block;width:20px;height:2px;background:var(--dark);transition:var(--transition);border-radius:2px}
+.dropdown{position:relative}
+.dropdown-toggle{cursor:pointer}
+.dropdown-arrow{font-size:8px;transition:var(--t);display:inline-block;margin-right:3px}
+.dropdown.open .dropdown-arrow{transform:rotate(180deg)}
+.dropdown-menu{position:absolute;top:100%;right:0;background:var(--w);min-width:260px;border-radius:var(--r);box-shadow:var(--shl);display:none;z-index:50;overflow:hidden;border:1px solid var(--g200)}
+.dropdown.open .dropdown-menu{display:block}
+.dropdown-menu a{display:flex;align-items:center;gap:8px;padding:11px 16px;color:var(--d);font-size:13px;font-weight:600;border-bottom:1px solid var(--g100);transition:var(--t)}
+.dropdown-menu a:last-child{border:none}
+.dropdown-menu a:hover{background:var(--g50);color:var(--p);padding-right:20px}
+.cat-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;display:inline-block}
 
-      /* Dropdown Menu */
-      .dropdown{position:relative}
-      .dropdown-toggle{cursor:pointer;display:flex;align-items:center;gap:4px}
-      .dropdown-toggle::after{content:'▼';font-size:8px;transition:var(--transition)}
-      .dropdown-menu{position:absolute;top:100%;right:0;background:var(--white);min-width:240px;border-radius:var(--radius);box-shadow:var(--shadow-xl);opacity:0;visibility:hidden;transform:translateY(10px);transition:var(--transition);z-index:100;overflow:hidden;border:1px solid var(--gray-200)}
-      .dropdown:hover .dropdown-menu,.dropdown.active .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
-      .dropdown:hover .dropdown-toggle::after{transform:rotate(180deg)}
-      .dropdown-menu a{display:flex;align-items:center;gap:10px;padding:12px 18px;color:var(--dark);text-decoration:none;font-size:14px;font-weight:600;transition:var(--transition);border-bottom:1px solid var(--gray-100)}
-      .dropdown-menu a:last-child{border:none}
-      .dropdown-menu a:hover{background:var(--gray-50);color:var(--primary);padding-right:22px}
-      .dropdown-menu a .menu-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-      .dropdown-menu a .menu-count{margin-right:auto;font-size:11px;color:var(--gray-400);background:var(--gray-100);padding:2px 8px;border-radius:10px}
+.hero{background:linear-gradient(135deg,var(--pd) 0%,var(--p) 50%,var(--pl) 100%);color:#fff;padding:36px 16px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M20 20h-4v-4h4v4zm0-20h-4v4h4V0zM0 20h4v-4H0v4z'/%3E%3C/g%3E%3C/svg%3E")}
+.hero>*{position:relative;z-index:1}
+.hero h2{font-size:22px;font-weight:800;margin-bottom:8px}
+.hero>p{font-size:13px;opacity:.9;margin-bottom:18px;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.7}
+.hero-stats{display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
+.stat{text-align:center}
+.stat b{font-size:22px;font-weight:800;color:var(--s);display:block}
+.stat small{font-size:11px;opacity:.8}
 
-      /* Hero */
-      .hero{background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 50%,var(--primary-light) 100%);color:white;padding:50px 20px;text-align:center;position:relative;overflow:hidden}
-      .hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");opacity:.5}
-      .hero-content{position:relative;z-index:1;max-width:800px;margin:0 auto}
-      .hero h2{font-size:32px;font-weight:800;margin-bottom:12px;text-shadow:0 2px 10px rgba(0,0,0,.2)}
-      .hero p{font-size:16px;opacity:.9;margin-bottom:25px}
-      .hero-stats{display:flex;justify-content:center;gap:35px;flex-wrap:wrap}
-      .stat-item{text-align:center}
-      .stat-number{font-size:32px;font-weight:800;color:var(--secondary);display:block}
-      .stat-label{font-size:13px;opacity:.8}
+.search-wrap{max-width:500px;margin:-18px auto 16px;padding:0 16px;position:relative;z-index:10}
+.search-box{display:flex;background:var(--w);border-radius:50px;box-shadow:var(--shl);overflow:hidden;border:2px solid transparent;transition:var(--t)}
+.search-box:focus-within{border-color:var(--p)}
+.search-box input{flex:1;border:none;padding:11px 16px;font-size:13px;font-family:'Cairo',sans-serif;outline:none;background:transparent;min-width:0}
+.search-box button{background:linear-gradient(135deg,var(--p),var(--pl));color:#fff;border:none;padding:11px 18px;cursor:pointer;font-family:'Cairo',sans-serif;font-weight:600;font-size:12px;white-space:nowrap;transition:var(--t)}
+.search-box button:hover{opacity:.9}
 
-      /* Search */
-      .search-section{max-width:600px;margin:-25px auto 25px;padding:0 20px;position:relative;z-index:10}
-      .search-box{display:flex;background:var(--white);border-radius:50px;box-shadow:var(--shadow-xl);overflow:hidden;border:2px solid transparent;transition:var(--transition)}
-      .search-box:focus-within{border-color:var(--primary);box-shadow:var(--shadow-xl),0 0 0 4px rgba(15,76,129,.1)}
-      .search-box input{flex:1;border:none;padding:14px 22px;font-size:14px;font-family:'Cairo',sans-serif;outline:none;background:transparent}
-      .search-box button{background:linear-gradient(135deg,var(--primary),var(--primary-light));color:white;border:none;padding:14px 24px;cursor:pointer;font-family:'Cairo',sans-serif;font-weight:600;font-size:13px;transition:var(--transition);display:flex;align-items:center;gap:6px}
-      .search-box button:hover{opacity:.9}
-      .search-box button svg{width:16px;height:16px;fill:white}
+.ad-slot{background:var(--g100);border:2px dashed var(--g300);border-radius:var(--r);padding:10px;text-align:center;margin:14px 0;min-height:70px;display:flex;align-items:center;justify-content:center;color:var(--g400);font-size:11px}
+.ad-container{max-width:1200px;margin:8px auto;padding:0 16px}
 
-      /* Ad Slots */
-      .ad-slot{background:var(--gray-100);border:2px dashed var(--gray-300);border-radius:var(--radius);padding:15px;text-align:center;margin:20px 0;min-height:90px;display:flex;align-items:center;justify-content:center;color:var(--gray-400);font-size:12px}
-      .ad-slot-header{max-width:1200px;margin:12px auto;padding:0 20px}
-      .ad-slot-inline{margin:25px 0}
+.main-grid{max-width:1200px;margin:16px auto;padding:0 16px;display:grid;grid-template-columns:1fr 280px;gap:20px;align-items:start}
 
-      /* Main Layout */
-      .main-layout{max-width:1200px;margin:25px auto;padding:0 20px;display:grid;grid-template-columns:1fr 300px;gap:25px}
+.cats-bar{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none}
+.cats-bar::-webkit-scrollbar{display:none}
+.cat-chip{display:flex;align-items:center;gap:5px;padding:6px 13px;border-radius:50px;font-size:11px;font-weight:600;white-space:nowrap;transition:var(--t);border:2px solid var(--g200);background:var(--w);color:var(--g600);flex-shrink:0}
+.cat-chip:hover,.cat-chip.active{border-color:var(--p);color:var(--p);background:rgba(15,76,129,.04);transform:translateY(-1px);box-shadow:var(--sh)}
 
-      /* Categories Bar */
-      .categories-bar{display:flex;gap:10px;margin-bottom:20px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}
-      .categories-bar::-webkit-scrollbar{display:none}
-      .cat-chip{display:flex;align-items:center;gap:6px;padding:8px 16px;border-radius:50px;font-size:12px;font-weight:600;white-space:nowrap;text-decoration:none;transition:var(--transition);border:2px solid var(--gray-200);background:var(--white);color:var(--gray-600);cursor:pointer}
-      .cat-chip:hover,.cat-chip.active{border-color:var(--primary);color:var(--primary);background:rgba(15,76,129,.04);transform:translateY(-2px);box-shadow:var(--shadow-md)}
-      .cat-dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0}
+.featured{background:linear-gradient(135deg,var(--p),var(--pd));border-radius:var(--rl);color:#fff;margin-bottom:16px;overflow:hidden;transition:var(--t);display:block}
+.featured:hover{transform:translateY(-3px);box-shadow:var(--shl)}
+.featured-img{width:100%;height:200px;object-fit:cover}
+.featured-body{padding:20px}
+.featured-badge{background:var(--s);color:var(--d);padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;display:inline-block;margin-bottom:6px}
+.featured h2{font-size:18px;margin-bottom:6px;line-height:1.5}
+.featured p{opacity:.85;font-size:12px;line-height:1.7}
+.featured-meta{display:flex;gap:10px;margin-top:10px;font-size:10px;opacity:.7;flex-wrap:wrap}
 
-      /* Featured Post */
-      .featured-post{background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:var(--radius-xl);color:white;margin-bottom:25px;position:relative;overflow:hidden;transition:var(--transition);cursor:pointer;text-decoration:none;display:grid;grid-template-columns:1fr 1fr;gap:0}
-      .featured-post::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,.04) 0%,transparent 70%);animation:rotate 25s linear infinite}
-      @keyframes rotate{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-      .featured-post:hover{transform:translateY(-4px);box-shadow:var(--shadow-xl)}
-      .featured-post-content{padding:35px;position:relative;z-index:1}
-      .featured-post-image{position:relative;overflow:hidden;min-height:250px}
-      .featured-post-image img{width:100%;height:100%;object-fit:cover;transition:var(--transition)}
-      .featured-post:hover .featured-post-image img{transform:scale(1.05)}
-      .featured-post-image .overlay{position:absolute;inset:0;background:linear-gradient(to left,transparent 0%,rgba(10,52,89,.4) 100%)}
-      .featured-badge{background:var(--secondary);color:var(--dark);padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;display:inline-flex;align-items:center;gap:5px;margin-bottom:12px}
-      .featured-post h2{font-size:24px;margin-bottom:10px;line-height:1.5}
-      .featured-post p{opacity:.85;font-size:14px;line-height:1.8}
-      .featured-meta{display:flex;align-items:center;gap:15px;margin-top:15px;font-size:12px;opacity:.75;flex-wrap:wrap}
-      .featured-meta span{display:flex;align-items:center;gap:4px}
+.posts-list{display:grid;gap:14px}
+.post-card{background:var(--w);border-radius:var(--rl);overflow:hidden;box-shadow:var(--sh);transition:var(--t);border:1px solid var(--g100);display:block}
+.post-card:hover{transform:translateY(-2px);box-shadow:var(--shl);border-color:var(--p)}
+.post-card-img{width:100%;height:170px;object-fit:cover;transition:var(--t)}
+.post-card:hover .post-card-img{transform:scale(1.02)}
+.post-card-body{padding:14px}
+.post-card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:4px}
+.badge{padding:3px 9px;border-radius:20px;font-size:10px;font-weight:700;display:inline-flex;align-items:center;gap:3px}
+.post-card h3{font-size:14px;font-weight:700;color:var(--d);margin-bottom:5px;line-height:1.6;transition:var(--t)}
+.post-card:hover h3{color:var(--p)}
+.post-card-excerpt{color:var(--g600);font-size:11px;line-height:1.7;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.post-card-footer{display:flex;justify-content:space-between;align-items:center;padding-top:8px;border-top:1px solid var(--g100);font-size:10px;color:var(--g500)}
+.read-more-link{color:var(--p);font-weight:600;transition:var(--t)}
+.post-card:hover .read-more-link{letter-spacing:.5px}
 
-      /* Post Cards */
-      .posts-grid{display:grid;gap:18px}
-      .post-card{background:var(--white);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);transition:var(--transition);border:1px solid var(--gray-100);display:block;text-decoration:none;color:inherit}
-      .post-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--primary)}
-      .post-card-image{width:100%;height:200px;object-fit:cover;transition:var(--transition)}
-      .post-card:hover .post-card-image{transform:scale(1.02)}
-      .post-card-inner{padding:20px}
-      .post-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;flex-wrap:wrap;gap:6px}
-      .post-badge{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;display:inline-flex;align-items:center;gap:4px}
-      .post-card h3{font-size:17px;font-weight:700;color:var(--dark);margin-bottom:8px;line-height:1.5;transition:var(--transition)}
-      .post-card:hover h3{color:var(--primary)}
-      .post-excerpt{color:var(--gray-600);font-size:13px;line-height:1.7;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-      .post-footer{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid var(--gray-100);font-size:12px;color:var(--gray-500)}
-      .post-footer span{display:flex;align-items:center;gap:4px}
-      .read-more{color:var(--primary);font-weight:600;display:flex;align-items:center;gap:4px;transition:var(--transition)}
-      .post-card:hover .read-more{gap:8px}
+.sidebar{display:flex;flex-direction:column;gap:14px}
+.widget{background:var(--w);border-radius:var(--rl);padding:16px;box-shadow:var(--sh);border:1px solid var(--g100)}
+.widget-title{font-size:14px;font-weight:700;color:var(--d);margin-bottom:10px;padding-bottom:8px;border-bottom:3px solid var(--p);display:flex;align-items:center;gap:6px}
+.trend-item{display:flex;gap:8px;padding:7px 0;border-bottom:1px solid var(--g100);transition:var(--t)}
+.trend-item:last-child{border:none}
+.trend-item:hover{padding-right:3px}
+.trend-num{width:26px;height:26px;background:linear-gradient(135deg,var(--p),var(--pl));color:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
+.trend-text h4{font-size:11px;font-weight:600;color:var(--d);line-height:1.5}
+.trend-item:hover .trend-text h4{color:var(--p)}
+.trend-text span{font-size:9px;color:var(--g400)}
+.links-list{list-style:none}
+.links-list li{padding:5px 0;border-bottom:1px solid var(--g100)}
+.links-list li:last-child{border:none}
+.links-list a{color:var(--g700);font-size:11px;display:flex;align-items:center;gap:4px;transition:var(--t)}
+.links-list a:hover{color:var(--p);padding-right:3px}
+.links-list a::before{content:'◀';font-size:7px;color:var(--p)}
+.newsletter{background:linear-gradient(135deg,var(--p),var(--pd))!important;color:#fff!important;border:none!important}
+.newsletter .widget-title{color:#fff;border-bottom-color:var(--s)}
+.newsletter p{font-size:11px;opacity:.9;margin-bottom:8px}
+.newsletter input{width:100%;padding:8px 12px;border:2px solid rgba(255,255,255,.2);border-radius:8px;background:rgba(255,255,255,.1);color:#fff;font-family:'Cairo',sans-serif;font-size:12px;margin-bottom:6px;outline:none;transition:var(--t)}
+.newsletter input::placeholder{color:rgba(255,255,255,.5)}
+.newsletter input:focus{border-color:var(--s)}
+.newsletter-btn{width:100%;padding:8px;background:var(--s);color:var(--d);border:none;border-radius:8px;font-family:'Cairo',sans-serif;font-weight:700;font-size:12px;cursor:pointer;transition:var(--t)}
+.newsletter-btn:hover{background:var(--sl)}
 
-      /* Views Counter */
-      .views-count{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--gray-400)}
-      .views-count svg{width:14px;height:14px;fill:var(--gray-400)}
+.article-grid{max-width:1200px;margin:16px auto;padding:0 16px;display:grid;grid-template-columns:1fr 280px;gap:20px;align-items:start}
+.article-main{background:var(--w);border-radius:var(--rl);overflow:hidden;box-shadow:var(--sh)}
+.article-hero-img{width:100%;height:280px;object-fit:cover}
+.article-body{padding:24px}
+.breadcrumb{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--g500);margin-bottom:10px;flex-wrap:wrap}
+.breadcrumb a{color:var(--p);transition:var(--t)}
+.breadcrumb a:hover{text-decoration:underline}
+.article-header{margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid var(--g100)}
+.article-header h1{font-size:22px;font-weight:800;color:var(--d);line-height:1.5;margin-bottom:8px}
+.article-meta{display:flex;gap:10px;flex-wrap:wrap;font-size:11px;color:var(--g500)}
+.article-content{font-size:15px;line-height:2;color:var(--g700)}
+.article-content h3.ch{font-size:17px;color:var(--pd);margin:18px 0 8px;padding:9px 14px;border-right:4px solid var(--s);background:linear-gradient(to left,transparent,rgba(15,76,129,.03));border-radius:0 8px 8px 0}
+.article-content p{margin-bottom:8px}
+.article-content .step-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:var(--p);color:#fff;border-radius:50%;font-size:10px;font-weight:700;margin-left:4px}
+.faq-item{background:var(--g50);border-radius:8px;margin:8px 0;overflow:hidden;border:1px solid var(--g200)}
+.faq-q{padding:10px 12px;font-weight:700;font-size:13px;color:var(--d);border-bottom:1px solid var(--g200);background:var(--w)}
+.faq-a{padding:10px 12px;font-size:12px;color:var(--g600);line-height:1.8}
+.share-section{display:flex;align-items:center;gap:6px;margin-top:18px;padding-top:12px;border-top:2px solid var(--g100);flex-wrap:wrap}
+.share-section b{font-size:12px;color:var(--d)}
+.share-btn{padding:5px 10px;border-radius:6px;font-size:10px;font-weight:600;color:#fff;transition:var(--t);display:inline-flex;align-items:center;gap:3px}
+.share-btn:hover{transform:translateY(-1px);box-shadow:var(--sh)}
+.related-section{margin-top:20px;padding-top:16px;border-top:2px solid var(--g100)}
+.related-section h3{font-size:15px;font-weight:700;margin-bottom:10px}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.related-card{padding:10px;background:var(--g50);border-radius:8px;border:1px solid var(--g200);transition:var(--t)}
+.related-card:hover{border-color:var(--p);background:var(--w);box-shadow:var(--sh)}
+.related-card h4{font-size:11px;color:var(--d);margin-bottom:3px;line-height:1.5}
+.related-card span{font-size:9px;color:var(--g400)}
 
-      /* Sidebar */
-      .sidebar{display:flex;flex-direction:column;gap:18px}
-      .sidebar-widget{background:var(--white);border-radius:var(--radius-lg);padding:20px;box-shadow:var(--shadow);border:1px solid var(--gray-100)}
-      .widget-title{font-size:16px;font-weight:700;color:var(--dark);margin-bottom:15px;padding-bottom:10px;border-bottom:3px solid var(--primary);display:flex;align-items:center;gap:8px}
-      .widget-title svg{width:18px;height:18px;fill:var(--primary)}
-      .trending-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--gray-100);text-decoration:none;color:inherit;transition:var(--transition)}
-      .trending-item:last-child{border:none}
-      .trending-item:hover{padding-right:6px}
-      .trending-number{width:30px;height:30px;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:white;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
-      .trending-text h4{font-size:13px;font-weight:600;color:var(--dark);line-height:1.5;transition:var(--transition)}
-      .trending-item:hover .trending-text h4{color:var(--primary)}
-      .trending-text span{font-size:11px;color:var(--gray-400)}
-      .quick-links{list-style:none}
-      .quick-links li{padding:8px 0;border-bottom:1px solid var(--gray-100)}
-      .quick-links li:last-child{border:none}
-      .quick-links a{color:var(--gray-700);text-decoration:none;font-size:13px;display:flex;align-items:center;gap:6px;transition:var(--transition)}
-      .quick-links a:hover{color:var(--primary);padding-right:4px}
-      .quick-links a::before{content:'◀';font-size:9px;color:var(--primary)}
-      .newsletter-widget{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white}
-      .newsletter-widget .widget-title{color:white;border-bottom-color:var(--secondary)}
-      .newsletter-widget p{font-size:13px;opacity:.9;margin-bottom:12px}
-      .newsletter-widget input{width:100%;padding:10px 14px;border:2px solid rgba(255,255,255,.2);border-radius:var(--radius);background:rgba(255,255,255,.1);color:white;font-family:'Cairo',sans-serif;font-size:13px;margin-bottom:8px;outline:none;transition:var(--transition)}
-      .newsletter-widget input::placeholder{color:rgba(255,255,255,.5)}
-      .newsletter-widget input:focus{border-color:var(--secondary)}
-      .newsletter-btn{width:100%;padding:10px;background:var(--secondary);color:var(--dark);border:none;border-radius:var(--radius);font-family:'Cairo',sans-serif;font-weight:700;font-size:13px;cursor:pointer;transition:var(--transition)}
-      .newsletter-btn:hover{background:var(--secondary-light);transform:translateY(-1px)}
+.footer{background:var(--d);color:var(--g400);margin-top:30px}
+.footer-grid{max-width:1200px;margin:0 auto;padding:28px 16px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:20px}
+.footer h3{font-size:15px;color:var(--w);margin-bottom:8px;font-weight:700}
+.footer h4{font-size:13px;color:var(--w);margin-bottom:8px;font-weight:700}
+.footer p{font-size:11px;line-height:1.8}
+.footer ul{list-style:none}
+.footer li{margin-bottom:5px}
+.footer li a{color:var(--g400);font-size:11px;transition:var(--t);display:block}
+.footer li a:hover{color:var(--s);padding-right:3px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding:12px 16px;text-align:center;font-size:10px;max-width:1200px;margin:0 auto}
+.footer-bottom a{color:var(--s)}
 
-      /* Article Page */
-      .article-container{max-width:1200px;margin:25px auto;padding:0 20px;display:grid;grid-template-columns:1fr 300px;gap:25px}
-      .article-main{background:var(--white);border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-md)}
-      .article-hero-image{width:100%;height:350px;object-fit:cover}
-      .article-body{padding:35px}
-      .breadcrumb{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gray-500);margin-bottom:15px;flex-wrap:wrap}
-      .breadcrumb a{color:var(--primary);text-decoration:none;transition:var(--transition)}
-      .breadcrumb a:hover{text-decoration:underline}
-      .breadcrumb svg{width:12px;height:12px;fill:var(--gray-400)}
-      .article-header{margin-bottom:25px;padding-bottom:18px;border-bottom:2px solid var(--gray-100)}
-      .article-title{font-size:28px;font-weight:800;color:var(--dark);line-height:1.5;margin-bottom:12px}
-      .article-meta{display:flex;align-items:center;gap:15px;flex-wrap:wrap;font-size:13px;color:var(--gray-500)}
-      .article-meta span{display:flex;align-items:center;gap:4px}
-      .article-meta svg{width:14px;height:14px;fill:var(--gray-400)}
-      .article-content{font-size:16px;line-height:2;color:var(--gray-700)}
-      .article-content h3.content-heading{font-size:20px;color:var(--primary-dark);margin:25px 0 12px;padding:12px 18px;border-right:4px solid var(--secondary);background:linear-gradient(to left,transparent,rgba(15,76,129,.04));border-radius:0 var(--radius) var(--radius) 0;display:flex;align-items:center;gap:8px}
-      .heading-icon{font-size:18px}
-      .article-content p{margin-bottom:12px}
-      .article-content .step-number{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;background:var(--primary);color:white;border-radius:50%;font-size:12px;font-weight:700;margin-left:6px}
-      .content-list-item{padding:6px 15px;margin:4px 0;border-right:3px solid var(--accent);background:var(--gray-50);border-radius:0 8px 8px 0;list-style:none;font-size:15px}
-      .faq-item{background:var(--gray-50);border-radius:var(--radius);margin:12px 0;overflow:hidden;border:1px solid var(--gray-200)}
-      .faq-question{padding:14px 18px;font-weight:700;color:var(--dark);background:var(--white);border-bottom:1px solid var(--gray-200);display:flex;align-items:center;gap:8px;font-size:15px}
-      .faq-answer{padding:14px 18px;color:var(--gray-600);font-size:14px;line-height:1.8;display:flex;align-items:flex-start;gap:8px}
-      .faq-icon{font-size:16px;flex-shrink:0}
+.static-page{max-width:800px;margin:20px auto;padding:0 16px}
+.static-box{background:var(--w);border-radius:var(--rl);padding:28px;box-shadow:var(--sh)}
+.static-box h1{font-size:22px;color:var(--p);margin-bottom:14px;padding-bottom:10px;border-bottom:3px solid var(--s)}
+.static-box h2{font-size:16px;color:var(--d);margin:18px 0 6px;padding-right:10px;border-right:4px solid var(--p)}
+.static-box p{margin-bottom:8px;color:var(--g700);font-size:13px;line-height:1.9}
+.static-box ul{padding-right:16px;margin-bottom:10px}
+.static-box li{margin-bottom:4px;color:var(--g600);font-size:12px}
+.static-box a{color:var(--p)}
+.contact-form{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.contact-form input,.contact-form textarea{padding:9px 12px;border:2px solid var(--g200);border-radius:8px;font-family:'Cairo',sans-serif;font-size:13px;outline:none;transition:var(--t)}
+.contact-form input:focus,.contact-form textarea:focus{border-color:var(--p)}
+.contact-form textarea{min-height:120px;resize:vertical}
+.contact-form button{padding:10px;background:var(--p);color:#fff;border:none;border-radius:8px;font-family:'Cairo',sans-serif;font-weight:700;font-size:13px;cursor:pointer;transition:var(--t)}
+.contact-form button:hover{background:var(--pl)}
 
-      /* Share Bar */
-      .share-bar{display:flex;align-items:center;gap:10px;margin-top:25px;padding-top:18px;border-top:2px solid var(--gray-100);flex-wrap:wrap}
-      .share-bar>span{font-weight:700;font-size:14px;color:var(--dark)}
-      .share-btn{padding:7px 14px;border-radius:8px;border:none;font-family:'Cairo',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:var(--transition);color:white;display:flex;align-items:center;gap:5px;text-decoration:none}
-      .share-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
-      .share-fb{background:#1877f2}.share-tw{background:#1da1f2}.share-wa{background:#25d366}.share-tg{background:#0088cc}.share-ln{background:#0a66c2}
+.back-top{position:fixed;bottom:18px;left:18px;width:38px;height:38px;background:var(--p);color:#fff;border:none;border-radius:50%;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:var(--shl);z-index:99;font-size:16px;transition:var(--t)}
+.back-top:hover{transform:translateY(-2px)}
 
-      /* Related Posts */
-      .related-posts{margin-top:30px;padding-top:25px;border-top:2px solid var(--gray-100)}
-      .related-posts h3{font-size:18px;font-weight:700;color:var(--dark);margin-bottom:15px;display:flex;align-items:center;gap:8px}
-      .related-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-      .related-card{padding:14px;background:var(--gray-50);border-radius:var(--radius);text-decoration:none;color:inherit;transition:var(--transition);border:1px solid var(--gray-200)}
-      .related-card:hover{border-color:var(--primary);background:var(--white);box-shadow:var(--shadow)}
-      .related-card h4{font-size:13px;color:var(--dark);margin-bottom:6px;line-height:1.5}
-      .related-card span{font-size:11px;color:var(--gray-400)}
-
-      /* Footer */
-      .footer{background:var(--dark);color:var(--gray-400);margin-top:50px}
-      .footer-main{max-width:1200px;margin:0 auto;padding:40px 20px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px}
-      .footer-about h3{font-size:18px;color:var(--white);margin-bottom:12px;font-weight:700}
-      .footer-about p{font-size:13px;line-height:1.8;margin-bottom:15px}
-      .footer-social{display:flex;gap:8px}
-      .footer-social a{width:36px;height:36px;background:rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;transition:var(--transition);text-decoration:none}
-      .footer-social a:hover{background:var(--primary);transform:translateY(-2px)}
-      .footer-social svg{width:16px;height:16px;fill:var(--gray-400)}
-      .footer-social a:hover svg{fill:white}
-      .footer-col h4{font-size:15px;color:var(--white);margin-bottom:12px;font-weight:700}
-      .footer-col ul{list-style:none}
-      .footer-col li{margin-bottom:8px}
-      .footer-col a{color:var(--gray-400);text-decoration:none;font-size:13px;transition:var(--transition);display:flex;align-items:center;gap:5px}
-      .footer-col a:hover{color:var(--secondary);padding-right:4px}
-      .footer-col a::before{content:'←';font-size:11px}
-      .footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding:18px 20px;text-align:center;font-size:12px;max-width:1200px;margin:0 auto}
-      .footer-bottom a{color:var(--secondary);text-decoration:none}
-      .footer-bottom a:hover{text-decoration:underline}
-
-      /* Static Pages */
-      .static-page{max-width:800px;margin:30px auto;padding:0 20px}
-      .static-content{background:var(--white);border-radius:var(--radius-xl);padding:40px;box-shadow:var(--shadow-md)}
-      .static-content h1{font-size:28px;color:var(--primary);margin-bottom:20px;padding-bottom:15px;border-bottom:3px solid var(--secondary)}
-      .static-content h2{font-size:20px;color:var(--dark);margin:25px 0 10px;padding-right:12px;border-right:4px solid var(--primary)}
-      .static-content p{margin-bottom:12px;color:var(--gray-700);font-size:15px;line-height:1.9}
-      .static-content ul{padding-right:20px;margin-bottom:15px}
-      .static-content li{margin-bottom:6px;color:var(--gray-600);font-size:14px}
-      .static-content a{color:var(--primary);text-decoration:none}
-      .static-content a:hover{text-decoration:underline}
-      .contact-form{display:flex;flex-direction:column;gap:12px;margin-top:20px}
-      .contact-form input,.contact-form textarea{padding:12px 16px;border:2px solid var(--gray-200);border-radius:var(--radius);font-family:'Cairo',sans-serif;font-size:14px;transition:var(--transition);outline:none}
-      .contact-form input:focus,.contact-form textarea:focus{border-color:var(--primary)}
-      .contact-form textarea{min-height:150px;resize:vertical}
-      .contact-form button{padding:12px 24px;background:var(--primary);color:white;border:none;border-radius:var(--radius);font-family:'Cairo',sans-serif;font-weight:700;font-size:15px;cursor:pointer;transition:var(--transition)}
-      .contact-form button:hover{background:var(--primary-light);transform:translateY(-1px)}
-
-      /* Back to Top */
-      .back-to-top{position:fixed;bottom:25px;left:25px;width:44px;height:44px;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:white;border:none;border-radius:50%;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:var(--shadow-lg);transition:var(--transition);z-index:999}
-      .back-to-top:hover{transform:translateY(-3px);box-shadow:var(--shadow-xl)}
-      .back-to-top svg{width:18px;height:18px;fill:white}
-
-      /* Animations */
-      @keyframes fadeInUp{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
-      .animate-in{animation:fadeInUp .5s ease forwards;opacity:0}
-      .delay-1{animation-delay:.1s}.delay-2{animation-delay:.2s}.delay-3{animation-delay:.3s}.delay-4{animation-delay:.4s}
-
-      /* Responsive */
-      @media(max-width:1024px){
-        .main-layout,.article-container{grid-template-columns:1fr}
-        .footer-main{grid-template-columns:1fr 1fr}
-        .featured-post{grid-template-columns:1fr}
-        .featured-post-image{min-height:200px}
-      }
-      @media(max-width:768px){
-        .mobile-toggle{display:flex}
-        .nav-inner{flex-direction:column;display:none;padding:8px 0}
-        .nav-inner.active{display:flex}
-        .nav-link{width:100%;padding:10px 18px;border-bottom:1px solid rgba(255,255,255,.08);border-left:none}
-        .dropdown-menu{position:static;box-shadow:none;border:none;border-radius:0;background:rgba(255,255,255,.05);opacity:1;visibility:visible;transform:none}
-        .dropdown-menu a{color:rgba(255,255,255,.8);padding:10px 30px;border-bottom-color:rgba(255,255,255,.05)}
-        .dropdown-menu a:hover{background:rgba(255,255,255,.1);color:white}
-        .dropdown-menu a .menu-count{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)}
-        .hero h2{font-size:22px}.hero{padding:35px 15px}
-        .hero-stats{gap:18px}.stat-number{font-size:26px}
-        .featured-post-content{padding:22px}
-        .featured-post h2{font-size:18px}
-        .article-body{padding:20px}
-        .article-title{font-size:22px}
-        .article-hero-image{height:220px}
-        .related-grid{grid-template-columns:1fr}
-        .footer-main{grid-template-columns:1fr;gap:20px}
-        .top-bar-inner{justify-content:center;font-size:11px}
-        .search-box{border-radius:var(--radius)}
-        .share-bar{gap:6px}
-        .share-btn{padding:5px 10px;font-size:11px}
-        .static-content{padding:25px}
-        .static-content h1{font-size:22px}
-      }
-      @media(max-width:480px){
-        .logo-text h1{font-size:17px}
-        .hero h2{font-size:18px}
-        .hero p{font-size:13px}
-        .post-card h3{font-size:15px}
-        .article-title{font-size:20px}
-        .article-content{font-size:14px}
-        .article-hero-image{height:180px}
-      }
-      @media print{
-        .header,.nav,.top-bar,.sidebar,.footer,.ad-slot,.share-bar,.back-to-top,.search-section{display:none!important}
-        .article-main{box-shadow:none;border-radius:0}
-        .main-layout,.article-container{grid-template-columns:1fr}
-      }
-    </style>`;
+@media(max-width:1024px){
+  .main-grid,.article-grid{grid-template-columns:1fr}
+  .sidebar{order:2}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .menu-btn{display:flex}
+  .nav-inner{flex-direction:column;max-height:0;overflow:hidden;transition:max-height .4s ease;padding:0}
+  .nav-inner.open{max-height:600px;padding:4px 0}
+  .nav-link{width:100%;padding:10px 16px;border-bottom:1px solid rgba(255,255,255,.06);border-left:none}
+  .dropdown-menu{position:static;box-shadow:none;border:none;border-radius:0;background:rgba(0,0,0,.15);min-width:100%}
+  .dropdown-menu a{color:rgba(255,255,255,.8);padding:10px 28px;border-bottom-color:rgba(255,255,255,.04);font-size:12px}
+  .dropdown-menu a:hover{background:rgba(255,255,255,.05);color:#fff;padding-right:28px}
+  .hero h2{font-size:18px}
+  .hero{padding:28px 14px}
+  .hero-stats{gap:14px}
+  .stat b{font-size:18px}
+  .featured-body{padding:14px}
+  .featured h2{font-size:15px}
+  .featured-img{height:160px}
+  .article-body{padding:16px}
+  .article-header h1{font-size:18px}
+  .article-hero-img{height:180px}
+  .related-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr;gap:14px}
+  .static-box{padding:18px}
+  .static-box h1{font-size:18px}
+  .topbar-inner{justify-content:center;font-size:10px}
+  .topbar a{margin:0 4px}
+}
+@media(max-width:480px){
+  .logo-text h1{font-size:14px}
+  .logo-text p{font-size:9px}
+  .hero h2{font-size:16px}
+  .hero>p{font-size:11px}
+  .post-card h3{font-size:13px}
+  .article-header h1{font-size:16px}
+  .article-content{font-size:13px}
+  .featured h2{font-size:14px}
+  .featured-img{height:140px}
+  .article-hero-img{height:150px}
+  .header-inner{padding:6px 12px}
+  .search-box input{padding:9px 12px;font-size:12px}
+  .search-box button{padding:9px 14px;font-size:11px}
+}
+@media print{
+  .header,.navbar,.topbar,.sidebar,.footer,.ad-slot,.share-section,.back-top,.search-wrap,.ad-container{display:none!important}
+  .main-grid,.article-grid{grid-template-columns:1fr}
+  .article-main{box-shadow:none}
+}
+</style>`;
 }
 
-// ===== Header =====
-function getHeader(baseUrl, posts = []) {
+function buildHeader(base) {
   const today = new Date().toLocaleDateString('ar-MA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-  const categories = [
-    { name: "الدعم والحماية الاجتماعية", color: "#10b981", icon: "🛡️" },
-    { name: "مباريات التوظيف والتدريب", color: "#6366f1", icon: "💼" },
-    { name: "الوثائق الإدارية والتأشيرات", color: "#f59e0b", icon: "📄" },
-    { name: "المقاول الصغير والعمل الحر", color: "#ec4899", icon: "🚀" }
-  ];
 
-  return `
-    <div class="top-bar">
-      <div class="top-bar-inner">
-        <div class="top-date">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
-          ${today}
-        </div>
-        <div>
-          <a href="${baseUrl}/about">من نحن</a>
-          <a href="${baseUrl}/contact">اتصل بنا</a>
-          <a href="${baseUrl}/feed.xml">RSS</a>
-        </div>
-      </div>
-    </div>
-    <header class="header" id="mainHeader">
-      <div class="header-inner">
-        <a href="${baseUrl}/" class="logo">
-          <div class="logo-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-          </div>
-          <div class="logo-text">
-            <h1>بوابة الخدمات <span>الرقمية</span></h1>
-            <p>دليلك الشامل للمنصات الحكومية المغربية</p>
-          </div>
-        </a>
-        <button class="mobile-toggle" onclick="toggleMenu()" aria-label="القائمة">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </header>
-    <nav class="nav" aria-label="التنقل الرئيسي">
-      <div class="nav-inner" id="navMenu">
-        <a href="${baseUrl}/" class="nav-link">
-          <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-          الرئيسية
-        </a>
-        <div class="dropdown nav-link dropdown-toggle" onclick="this.parentElement.querySelector('.dropdown').classList.toggle('active')">
-          <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
-          أقسام المدونة
-          <div class="dropdown-menu">
-            ${categories.map(cat => `
-              <a href="${baseUrl}/category/${encodeURIComponent(cat.name)}">
-                <span class="menu-dot" style="background:${cat.color}"></span>
-                ${cat.icon} ${cat.name}
-              </a>
-            `).join('')}
-          </div>
-        </div>
-        ${categories.map(cat => `
-          <a href="${baseUrl}/category/${encodeURIComponent(cat.name)}" class="nav-link">${cat.icon} ${cat.name.split(' ')[0]}</a>
-        `).join('')}
-        <a href="${baseUrl}/contact" class="nav-link">
-          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-          اتصل بنا
-        </a>
-      </div>
-    </nav>`;
+  return `<div class="topbar"><div class="topbar-inner">
+<span>📅 ${today}</span>
+<div><a href="${base}/about">من نحن</a><a href="${base}/contact">اتصل بنا</a></div>
+</div></div>
+
+<header class="header"><div class="header-inner">
+<a href="${base}/" class="logo-link">
+<div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+<div class="logo-text"><h1>بوابة الخدمات <span>الرقمية</span></h1><p>دليلك الشامل للمنصات الحكومية المغربية</p></div>
+</a>
+<button class="menu-btn" onclick="toggleNav()" aria-label="فتح القائمة"><i></i><i></i><i></i></button>
+</div></header>
+
+<nav class="navbar"><div class="nav-inner" id="mainNav">
+<a href="${base}/" class="nav-link active">🏠 الرئيسية</a>
+<div class="dropdown nav-link dropdown-toggle" onclick="toggleDropdown(event)">
+📂 أقسام المدونة <span class="dropdown-arrow">▼</span>
+<div class="dropdown-menu">
+${CATEGORIES.map(c => '<a href="' + base + '/category/' + encodeURIComponent(c.name) + '"><span class="cat-dot" style="background:' + c.color + '"></span>' + c.icon + ' ' + c.name + '</a>').join('')}
+</div>
+</div>
+${CATEGORIES.map(c => '<a href="' + base + '/category/' + encodeURIComponent(c.name) + '" class="nav-link">' + c.icon + ' ' + c.short + '</a>').join('')}
+<a href="${base}/contact" class="nav-link">📧 اتصل بنا</a>
+</div></nav>`;
 }
 
-// ===== Footer =====
-function getFooter(baseUrl) {
-  return `
-    <footer class="footer">
-      <div class="footer-main">
-        <div class="footer-about">
-          <h3>🇲🇦 بوابة الخدمات الرقمية</h3>
-          <p>منصة إلكترونية مستقلة متخصصة في تبسيط الإجراءات الإدارية والخدمات الرقمية الحكومية بالمغرب. نهدف إلى مساعدة المواطنين في الوصول إلى المعلومات الدقيقة والمحدثة بسهولة ويسر.</p>
-          <div class="footer-social">
-            <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
-            <a href="#" aria-label="تويتر"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg></a>
-            <a href="#" aria-label="يوتيوب"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.43z"/><polygon points="9.75,15.02 15.5,11.75 9.75,8.48"/></svg></a>
-            <a href="#" aria-label="تلغرام"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.37-.49 1.02-.75 3.99-1.73 6.65-2.87 7.97-3.44 3.79-1.58 4.58-1.86 5.09-1.87.11 0 .37.03.54.17.14.12.18.28.2.47-.01.06.01.24 0 .38z"/></svg></a>
-          </div>
-        </div>
-        <div class="footer-col">
-          <h4>📂 أقسام الموقع</h4>
-          <ul>
-            <li><a href="${baseUrl}/category/${encodeURIComponent('الدعم والحماية الاجتماعية')}">الدعم الاجتماعي</a></li>
-            <li><a href="${baseUrl}/category/${encodeURIComponent('مباريات التوظيف والتدريب')}">التوظيف والتدريب</a></li>
-            <li><a href="${baseUrl}/category/${encodeURIComponent('الوثائق الإدارية والتأشيرات')}">الوثائق والتأشيرات</a></li>
-            <li><a href="${baseUrl}/category/${encodeURIComponent('المقاول الصغير والعمل الحر')}">ريادة الأعمال</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>📋 صفحات مهمة</h4>
-          <ul>
-            <li><a href="${baseUrl}/about">من نحن</a></li>
-            <li><a href="${baseUrl}/contact">اتصل بنا</a></li>
-            <li><a href="${baseUrl}/privacy">سياسة الخصوصية</a></li>
-            <li><a href="${baseUrl}/terms">شروط الاستخدام</a></li>
-            <li><a href="${baseUrl}/disclaimer">إخلاء المسؤولية</a></li>
-            <li><a href="${baseUrl}/dmca">سياسة DMCA</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>🔗 مواقع حكومية</h4>
-          <ul>
-            <li><a href="https://www.rsu.ma" target="_blank" rel="noopener noreferrer">السجل الاجتماعي الموحد</a></li>
-            <li><a href="https://www.cnss.ma" target="_blank" rel="noopener noreferrer">CNSS</a></li>
-            <li><a href="https://www.ofppt.ma" target="_blank" rel="noopener noreferrer">OFPPT</a></li>
-            <li><a href="https://ae.gov.ma" target="_blank" rel="noopener noreferrer">المقاول الذاتي</a></li>
-            <li><a href="${baseUrl}/sitemap.xml">خريطة الموقع</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© ${new Date().getFullYear()} بوابة الخدمات الرقمية | جميع الحقوق محفوظة</p>
-        <p style="margin-top:4px">
-          <a href="${baseUrl}/privacy">الخصوصية</a> · 
-          <a href="${baseUrl}/terms">الشروط</a> · 
-          <a href="${baseUrl}/dmca">DMCA</a> · 
-          <a href="${baseUrl}/disclaimer">إخلاء المسؤولية</a> · 
-          <a href="${baseUrl}/contact">اتصل بنا</a>
-        </p>
-        <p style="margin-top:4px;font-size:11px">موقع إخباري تعليمي مستقل - غير تابع لأي جهة حكومية</p>
-      </div>
-    </footer>
-    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="العودة للأعلى">
-      <svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
-    </button>
-    <script>
-      function toggleMenu(){document.getElementById('navMenu').classList.toggle('active')}
-      window.addEventListener('scroll',()=>{document.getElementById('backToTop').style.display=window.scrollY>400?'flex':'none'},{passive:true});
-      function searchPosts(){const q=document.getElementById('searchInput')?.value?.toLowerCase();if(!q)return document.querySelectorAll('.post-card,.featured-post').forEach(c=>c.style.display='');document.querySelectorAll('.post-card,.featured-post').forEach(c=>{c.style.display=c.textContent.toLowerCase().includes(q)?'':'none'})}
-      document.querySelectorAll('.dropdown-toggle').forEach(el=>{el.addEventListener('click',e=>{e.preventDefault();el.closest('.dropdown').classList.toggle('active')})});
-      if('IntersectionObserver' in window){const o=new IntersectionObserver(e=>{e.forEach(e=>{if(e.isIntersecting){e.target.classList.add('animate-in');o.unobserve(e.target)}})},{threshold:.1});document.querySelectorAll('.post-card,.sidebar-widget').forEach(e=>o.observe(e))}
-    </script>`;
+function buildFooter(base) {
+  return `<footer class="footer"><div class="footer-grid">
+<div>
+<h3>🇲🇦 بوابة الخدمات الرقمية</h3>
+<p>منصة إلكترونية مستقلة متخصصة في تبسيط الإجراءات الإدارية والخدمات الرقمية الحكومية بالمغرب. نهدف لمساعدة المواطنين في الوصول إلى المعلومات بسهولة.</p>
+</div>
+<div><h4>📂 الأقسام</h4><ul>
+${CATEGORIES.map(c => '<li><a href="' + base + '/category/' + encodeURIComponent(c.name) + '">' + c.icon + ' ' + c.short + '</a></li>').join('')}
+</ul></div>
+<div><h4>📋 صفحات</h4><ul>
+<li><a href="${base}/about">من نحن</a></li>
+<li><a href="${base}/contact">اتصل بنا</a></li>
+<li><a href="${base}/privacy">سياسة الخصوصية</a></li>
+<li><a href="${base}/terms">شروط الاستخدام</a></li>
+<li><a href="${base}/disclaimer">إخلاء المسؤولية</a></li>
+<li><a href="${base}/dmca">DMCA</a></li>
+</ul></div>
+<div><h4>🔗 مواقع مفيدة</h4><ul>
+<li><a href="https://www.rsu.ma" target="_blank" rel="noopener">السجل الاجتماعي RSU</a></li>
+<li><a href="https://www.cnss.ma" target="_blank" rel="noopener">CNSS</a></li>
+<li><a href="https://www.ofppt.ma" target="_blank" rel="noopener">OFPPT</a></li>
+<li><a href="https://ae.gov.ma" target="_blank" rel="noopener">المقاول الذاتي</a></li>
+<li><a href="${base}/sitemap.xml">خريطة الموقع</a></li>
+</ul></div>
+</div>
+<div class="footer-bottom">
+<p>© ${new Date().getFullYear()} بوابة الخدمات الرقمية | جميع الحقوق محفوظة</p>
+<p style="margin-top:3px"><a href="${base}/privacy">الخصوصية</a> · <a href="${base}/terms">الشروط</a> · <a href="${base}/dmca">DMCA</a> · <a href="${base}/disclaimer">إخلاء المسؤولية</a></p>
+<p style="margin-top:3px">موقع تعليمي مستقل غير تابع لأي جهة حكومية</p>
+</div></footer>
+
+<button class="back-top" id="backTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+function toggleNav(){document.getElementById('mainNav').classList.toggle('open')}
+function toggleDropdown(e){e.stopPropagation();e.currentTarget.closest('.dropdown').classList.toggle('open')}
+document.addEventListener('click',function(){document.querySelectorAll('.dropdown.open').forEach(function(d){d.classList.remove('open')})});
+window.addEventListener('scroll',function(){document.getElementById('backTopBtn').style.display=window.scrollY>300?'flex':'none'},{passive:true});
+function doSearch(){var q=(document.getElementById('searchField')||{}).value;if(!q)return;q=q.toLowerCase();document.querySelectorAll('.post-card,.featured').forEach(function(el){el.style.display=el.textContent.toLowerCase().indexOf(q)>=0?'':'none'})}
+</script>`;
 }
 
-// ===== Sidebar =====
-function getSidebar(posts, baseUrl) {
-  const recentPosts = posts.slice(0, 6);
-  const categories = [...new Set(posts.map(p => p.category))];
-  const catColors = { "الدعم والحماية الاجتماعية": "#10b981", "مباريات التوظيف والتدريب": "#6366f1", "الوثائق الإدارية والتأشيرات": "#f59e0b", "المقاول الصغير والعمل الحر": "#ec4899" };
+function buildSidebar(posts, base) {
+  const recent = posts.slice(0, 5);
+  const uniqueCats = [...new Set(posts.map(p => p.category))];
 
-  return `
-    <aside class="sidebar">
-      <div class="ad-slot">مساحة إعلانية</div>
-      <div class="sidebar-widget">
-        <h3 class="widget-title">
-          <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
-          📊 الأكثر قراءة
-        </h3>
-        ${recentPosts.map((p, i) => `
-          <a href="${baseUrl}/article/${p.id}" class="trending-item">
-            <div class="trending-number">${i + 1}</div>
-            <div class="trending-text">
-              <h4>${p.title.substring(0, 60)}${p.title.length > 60 ? '...' : ''}</h4>
-              <span>${p.date} · 👁️ ${p.views || 0}</span>
-            </div>
-          </a>
-        `).join('')}
-      </div>
-      <div class="sidebar-widget">
-        <h3 class="widget-title">
-          <svg viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
-          📂 التصنيفات
-        </h3>
-        <ul class="quick-links">
-          ${categories.map(cat => {
-            const count = posts.filter(p => p.category === cat).length;
-            return `<li><a href="${baseUrl}/category/${encodeURIComponent(cat)}"><span class="cat-dot" style="background:${catColors[cat] || '#0f4c81'}"></span>${cat}<span style="margin-right:auto;color:var(--gray-400);font-size:11px;background:var(--gray-100);padding:1px 7px;border-radius:10px">${count}</span></a></li>`;
-          }).join('')}
-        </ul>
-      </div>
-      <div class="sidebar-widget newsletter-widget">
-        <h3 class="widget-title">✉️ النشرة البريدية</h3>
-        <p>اشترك للحصول على آخر التحديثات مباشرة</p>
-        <input type="email" placeholder="بريدك الإلكتروني..." aria-label="البريد الإلكتروني">
-        <button class="newsletter-btn">اشترك الآن 🔔</button>
-      </div>
-      <div class="ad-slot">مساحة إعلانية</div>
-      <div class="sidebar-widget">
-        <h3 class="widget-title">
-          <svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
-          🔗 روابط مفيدة
-        </h3>
-        <ul class="quick-links">
-          <li><a href="https://www.rsu.ma" target="_blank" rel="noopener">السجل الاجتماعي الموحد RSU</a></li>
-          <li><a href="https://www.cnss.ma" target="_blank" rel="noopener">صندوق الضمان الاجتماعي CNSS</a></li>
-          <li><a href="https://www.ofppt.ma" target="_blank" rel="noopener">مكتب التكوين المهني OFPPT</a></li>
-          <li><a href="https://ae.gov.ma" target="_blank" rel="noopener">بوابة المقاول الذاتي</a></li>
-          <li><a href="https://www.passeport.ma" target="_blank" rel="noopener">جواز السفر البيومتري</a></li>
-          <li><a href="https://www.cnie.ma" target="_blank" rel="noopener">البطاقة الوطنية CNIE</a></li>
-        </ul>
-      </div>
-    </aside>`;
+  let html = '<aside class="sidebar">';
+
+  html += '<div class="ad-slot">مساحة إعلانية</div>';
+
+  html += '<div class="widget"><h3 class="widget-title">📊 الأكثر قراءة</h3>';
+  for (let i = 0; i < recent.length; i++) {
+    const p = recent[i];
+    const shortTitle = p.title.length > 50 ? p.title.substring(0, 50) + '...' : p.title;
+    html += '<a href="' + base + '/article/' + p.id + '" class="trend-item">';
+    html += '<div class="trend-num">' + (i + 1) + '</div>';
+    html += '<div class="trend-text"><h4>' + shortTitle + '</h4>';
+    html += '<span>' + p.date + (p.views ? ' · 👁️ ' + p.views : '') + '</span></div></a>';
+  }
+  html += '</div>';
+
+  html += '<div class="widget"><h3 class="widget-title">📂 التصنيفات</h3><ul class="links-list">';
+  for (const cat of uniqueCats) {
+    const count = posts.filter(p => p.category === cat).length;
+    const color = getCategoryColor(cat);
+    html += '<li><a href="' + base + '/category/' + encodeURIComponent(cat) + '">';
+    html += '<span class="cat-dot" style="background:' + color + '"></span> ' + cat;
+    html += ' <small style="margin-right:auto;color:var(--g400)">(' + count + ')</small></a></li>';
+  }
+  html += '</ul></div>';
+
+  html += '<div class="widget newsletter"><h3 class="widget-title">✉️ النشرة البريدية</h3>';
+  html += '<p>اشترك للحصول على آخر التحديثات</p>';
+  html += '<input type="email" placeholder="بريدك الإلكتروني..." aria-label="البريد الإلكتروني">';
+  html += '<button class="newsletter-btn">اشترك الآن 🔔</button></div>';
+
+  html += '<div class="ad-slot">مساحة إعلانية</div>';
+
+  html += '<div class="widget"><h3 class="widget-title">🔗 روابط مفيدة</h3><ul class="links-list">';
+  html += '<li><a href="https://www.rsu.ma" target="_blank" rel="noopener">السجل الاجتماعي RSU</a></li>';
+  html += '<li><a href="https://www.cnss.ma" target="_blank" rel="noopener">CNSS</a></li>';
+  html += '<li><a href="https://www.ofppt.ma" target="_blank" rel="noopener">OFPPT</a></li>';
+  html += '<li><a href="https://ae.gov.ma" target="_blank" rel="noopener">المقاول الذاتي</a></li>';
+  html += '<li><a href="https://www.cnie.ma" target="_blank" rel="noopener">البطاقة الوطنية</a></li>';
+  html += '</ul></div>';
+
+  html += '</aside>';
+  return html;
 }
 
-// ===== الصفحة الرئيسية =====
-function generateHomePage(posts, baseUrl) {
-  const featuredPost = posts[0];
+function buildHomePage(posts, base) {
+  const featured = posts.length > 0 ? posts[0] : null;
   const otherPosts = posts.slice(1);
-  const postCount = posts.length;
-  const catCount = [...new Set(posts.map(p => p.category))].length;
-  const totalViews = posts.reduce((s, p) => s + (p.views || 0), 0);
+  const totalPosts = posts.length;
+  const totalCats = [...new Set(posts.map(p => p.category))].length;
+  const totalViews = posts.reduce((sum, p) => sum + (p.views || 0), 0);
+  const viewsDisplay = totalViews > 999 ? Math.floor(totalViews / 1000) + 'K' : totalViews;
 
-  const structuredData = {
+  const schemaData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "بوابة الخدمات الرقمية",
-    "alternateName": "دليل المواطن المغربي للخدمات الحكومية",
-    "url": baseUrl,
-    "description": "دليلك الشامل للخدمات الرقمية الحكومية والإجراءات الإدارية بالمغرب",
+    "alternateName": "دليل المواطن المغربي",
+    "url": base,
+    "description": "دليلك الشامل للخدمات الرقمية الحكومية بالمغرب",
     "inLanguage": "ar",
-    "potentialAction": { "@type": "SearchAction", "target": baseUrl + "/?q={search_term_string}", "query-input": "required name=search_term_string" },
-    "publisher": { "@type": "Organization", "name": "بوابة الخدمات الرقمية", "url": baseUrl }
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": base + "/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
   };
 
-  return `<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>بوابة الخدمات الرقمية | دليل المواطن المغربي للخدمات الحكومية الإلكترونية 2026</title>
-  <meta name="description" content="دليلك الشامل للخدمات الرقمية الحكومية بالمغرب: التسجيل في AMO تضامن، السجل الاجتماعي الموحد RSU، مباريات التوظيف 2026، الوثائق الإدارية، المقاول الذاتي. شروحات مبسطة ومحدثة يومياً.">
-  <meta name="keywords" content="خدمات رقمية المغرب, أمو تضامن, السجل الاجتماعي الموحد, مباريات التوظيف 2026, CNSS, OFPPT, جواز السفر, البطاقة الوطنية, المقاول الذاتي, فيزا شنغن, دعم السكن">
-  <meta name="author" content="بوابة الخدمات الرقمية">
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large">
-  <meta name="google" content="notranslate">
-  <link rel="canonical" href="${baseUrl}/">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="بوابة الخدمات الرقمية">
-  <meta property="og:title" content="بوابة الخدمات الرقمية | دليل المواطن المغربي 2026">
-  <meta property="og:description" content="دليلك الشامل للخدمات الرقمية الحكومية والإجراءات الإدارية بالمغرب">
-  <meta property="og:url" content="${baseUrl}/">
-  <meta property="og:locale" content="ar_MA">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="بوابة الخدمات الرقمية | دليل المواطن المغربي">
-  <meta name="twitter:description" content="دليلك الشامل للخدمات الرقمية الحكومية بالمغرب">
-  <link rel="alternate" type="application/rss+xml" title="RSS" href="${baseUrl}/feed.xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <script type="application/ld+json">${JSON.stringify(structuredData)}</script>
-  ${getSharedStyles()}
-</head>
-<body>
-  ${getHeader(baseUrl, posts)}
+  let html = '<!DOCTYPE html><html lang="ar" dir="rtl"><head>';
+  html += '<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">';
+  html += '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
+  html += '<title>بوابة الخدمات الرقمية | دليل المواطن المغربي للخدمات الحكومية 2026</title>';
+  html += '<meta name="description" content="دليلك الشامل للخدمات الرقمية الحكومية بالمغرب: AMO تضامن، RSU، مباريات التوظيف 2026، الوثائق الإدارية، المقاول الذاتي. شروحات مبسطة ومحدثة.">';
+  html += '<meta name="keywords" content="خدمات رقمية المغرب,أمو تضامن,السجل الاجتماعي الموحد,مباريات التوظيف 2026,CNSS,OFPPT,جواز السفر,البطاقة الوطنية,المقاول الذاتي,فيزا شنغن,دعم السكن">';
+  html += '<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">';
+  html += '<meta name="googlebot" content="index,follow">';
+  html += '<link rel="canonical" href="' + base + '/">';
+  html += '<meta property="og:type" content="website">';
+  html += '<meta property="og:site_name" content="بوابة الخدمات الرقمية">';
+  html += '<meta property="og:title" content="بوابة الخدمات الرقمية | دليل المواطن المغربي 2026">';
+  html += '<meta property="og:description" content="دليلك الشامل للخدمات الرقمية الحكومية بالمغرب">';
+  html += '<meta property="og:url" content="' + base + '/">';
+  html += '<meta property="og:locale" content="ar_MA">';
+  html += '<meta name="twitter:card" content="summary_large_image">';
+  html += '<meta name="twitter:title" content="بوابة الخدمات الرقمية">';
+  html += '<link rel="preconnect" href="https://fonts.googleapis.com">';
+  html += '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>';
+  html += '<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">';
+  html += '<script type="application/ld+json">' + JSON.stringify(schemaData) + '</script>';
+  html += getCSS();
+  html += '</head><body>';
 
-  <section class="hero">
-    <div class="hero-content">
-      <h2>🇲🇦 دليلك الشامل للخدمات الرقمية الحكومية بالمغرب</h2>
-      <p>شروحات مبسطة ومحدثة لجميع الإجراءات الإدارية والمنصات الحكومية - كل ما يحتاجه المواطن المغربي</p>
-      <div class="hero-stats">
-        <div class="stat-item"><span class="stat-number">${postCount}+</span><span class="stat-label">مقال ودليل</span></div>
-        <div class="stat-item"><span class="stat-number">${catCount}</span><span class="stat-label">تصنيف متخصص</span></div>
-        <div class="stat-item"><span class="stat-number">${totalViews > 999 ? Math.floor(totalViews/1000) + 'K' : totalViews}+</span><span class="stat-label">زيارة</span></div>
-        <div class="stat-item"><span class="stat-number">24/7</span><span class="stat-label">تحديث مستمر</span></div>
-      </div>
-    </div>
-  </section>
+  html += buildHeader(base);
 
-  <div class="search-section">
-    <div class="search-box">
-      <input type="text" id="searchInput" placeholder="🔍 ابحث عن خدمة أو إجراء إداري..." onkeyup="searchPosts()" aria-label="البحث في الموقع">
-      <button onclick="searchPosts()">
-        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-        بحث
-      </button>
-    </div>
-  </div>
+  html += '<section class="hero"><div>';
+  html += '<h2>🇲🇦 دليلك الشامل للخدمات الرقمية الحكومية بالمغرب</h2>';
+  html += '<p>شروحات مبسطة ومحدثة لجميع الإجراءات الإدارية والمنصات الحكومية - كل ما يحتاجه المواطن المغربي</p>';
+  html += '<div class="hero-stats">';
+  html += '<div class="stat"><b>' + totalPosts + '+</b><small>مقال ودليل</small></div>';
+  html += '<div class="stat"><b>' + totalCats + '</b><small>تصنيف</small></div>';
+  html += '<div class="stat"><b>' + viewsDisplay + '+</b><small>زيارة</small></div>';
+  html += '<div class="stat"><b>24/7</b><small>تحديث مستمر</small></div>';
+  html += '</div></div></section>';
 
-  <div class="ad-slot-header"><div class="ad-slot"><!-- AdSense Leaderboard --></div></div>
+  html += '<div class="search-wrap"><div class="search-box">';
+  html += '<input type="text" id="searchField" placeholder="🔍 ابحث عن خدمة أو إجراء إداري..." onkeyup="doSearch()" aria-label="البحث في الموقع">';
+  html += '<button onclick="doSearch()">🔍 بحث</button>';
+  html += '</div></div>';
 
-  <div class="main-layout">
-    <main>
-      <div class="categories-bar">
-        <a href="${baseUrl}/" class="cat-chip active">📋 الكل</a>
-        <a href="${baseUrl}/category/${encodeURIComponent('الدعم والحماية الاجتماعية')}" class="cat-chip"><span class="cat-dot" style="background:#10b981"></span>الدعم الاجتماعي</a>
-        <a href="${baseUrl}/category/${encodeURIComponent('مباريات التوظيف والتدريب')}" class="cat-chip"><span class="cat-dot" style="background:#6366f1"></span>التوظيف</a>
-        <a href="${baseUrl}/category/${encodeURIComponent('الوثائق الإدارية والتأشيرات')}" class="cat-chip"><span class="cat-dot" style="background:#f59e0b"></span>الوثائق</a>
-        <a href="${baseUrl}/category/${encodeURIComponent('المقاول الصغير والعمل الحر')}" class="cat-chip"><span class="cat-dot" style="background:#ec4899"></span>ريادة الأعمال</a>
-      </div>
+  html += '<div class="ad-container"><div class="ad-slot"><!-- Google AdSense Leaderboard --></div></div>';
 
-      ${featuredPost ? `
-      <a href="${baseUrl}/article/${featuredPost.id}" class="featured-post animate-in">
-        ${featuredPost.image ? `
-        <div class="featured-post-image">
-          <img src="${baseUrl}/image/${featuredPost.id}" alt="${featuredPost.imageAlt || featuredPost.title}" loading="eager" width="600" height="250">
-          <div class="overlay"></div>
-        </div>` : ''}
-        <div class="featured-post-content">
-          <div class="featured-badge">⭐ مقال مميز</div>
-          <h2>${featuredPost.title}</h2>
-          <p>${featuredPost.description || ''}</p>
-          <div class="featured-meta">
-            <span>📅 ${featuredPost.date}</span>
-            <span>📂 ${featuredPost.category}</span>
-            <span>⏱️ ${featuredPost.readTime || 3} دقائق</span>
-            <span>👁️ ${featuredPost.views || 0}</span>
-          </div>
-        </div>
-      </a>` : ''}
+  html += '<div class="main-grid"><main>';
 
-      <div class="ad-slot ad-slot-inline"><!-- AdSense In-article --></div>
+  html += '<div class="cats-bar">';
+  html += '<a href="' + base + '/" class="cat-chip active">📋 الكل</a>';
+  for (const c of CATEGORIES) {
+    html += '<a href="' + base + '/category/' + encodeURIComponent(c.name) + '" class="cat-chip">';
+    html += '<span class="cat-dot" style="background:' + c.color + '"></span>' + c.short + '</a>';
+  }
+  html += '</div>';
 
-      <div class="posts-grid">
-        ${otherPosts.length === 0 ? `
-          <div style="text-align:center;padding:50px 20px;">
-            <svg viewBox="0 0 24 24" width="60" height="60" fill="var(--gray-300)" style="margin-bottom:12px"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-            <h3 style="color:var(--gray-500);margin-bottom:8px">جاري تحضير المحتوى...</h3>
-            <p style="color:var(--gray-400);font-size:13px">سيتم نشر المقالات تلقائياً قريباً</p>
-          </div>
-        ` : otherPosts.map((p, i) => `
-          <a href="${baseUrl}/article/${p.id}" class="post-card animate-in delay-${(i % 4) + 1}">
-            ${p.image ? `<img class="post-card-image" src="${baseUrl}/image/${p.id}" alt="${p.imageAlt || p.title}" loading="lazy" width="600" height="200">` : ''}
-            <div class="post-card-inner">
-              <div class="post-card-header">
-                <span class="post-badge" style="background:${p.categoryColor || '#0f4c81'}12;color:${p.categoryColor || '#0f4c81'}">
-                  <span class="cat-dot" style="background:${p.categoryColor || '#0f4c81'}"></span>
-                  ${p.category}
-                </span>
-                <span style="font-size:11px;color:var(--gray-400)">⏱️ ${p.readTime || 3} د</span>
-              </div>
-              <h3>${p.title}</h3>
-              <p class="post-excerpt">${p.description || ''}</p>
-              <div class="post-footer">
-                <span>📅 ${p.date}</span>
-                <span class="views-count"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>${p.views || 0}</span>
-                <span class="read-more">اقرأ المزيد ←</span>
-              </div>
-            </div>
-          </a>
-          ${(i + 1) % 3 === 0 ? '<div class="ad-slot ad-slot-inline"><!-- AdSense In-feed --></div>' : ''}
-        `).join('')}
-      </div>
-    </main>
-    ${getSidebar(posts, baseUrl)}
-  </div>
-  ${getFooter(baseUrl)}
-</body>
-</html>`;
+  if (featured) {
+    html += '<a href="' + base + '/article/' + featured.id + '" class="featured">';
+    if (featured.image) {
+      html += '<img class="featured-img" src="' + base + '/image/' + featured.id + '" alt="' + escXml(featured.imageAlt || featured.title) + '" width="1024" height="200" loading="eager">';
+    }
+    html += '<div class="featured-body">';
+    html += '<div class="featured-badge">⭐ مقال مميز</div>';
+    html += '<h2>' + featured.title + '</h2>';
+    html += '<p>' + (featured.description || '') + '</p>';
+    html += '<div class="featured-meta">';
+    html += '<span>📅 ' + featured.date + '</span>';
+    html += '<span>📂 ' + featured.category + '</span>';
+    html += '<span>⏱️ ' + (featured.readTime || 3) + ' د</span>';
+    html += '<span>👁️ ' + (featured.views || 0) + '</span>';
+    html += '</div></div></a>';
+  }
+
+  html += '<div class="ad-slot"><!-- Google AdSense In-article --></div>';
+
+  html += '<div class="posts-list">';
+  if (otherPosts.length === 0 && !featured) {
+    html += '<div style="text-align:center;padding:40px">';
+    html += '<h3 style="color:var(--g500)">جاري تحضير المحتوى...</h3>';
+    html += '<p style="color:var(--g400);font-size:12px;margin-top:6px">سيتم نشر المقالات تلقائياً قريباً</p>';
+    html += '</div>';
+  } else {
+    for (let i = 0; i < otherPosts.length; i++) {
+      const p = otherPosts[i];
+      const catColor = p.categoryColor || getCategoryColor(p.category);
+
+      html += '<a href="' + base + '/article/' + p.id + '" class="post-card">';
+      if (p.image) {
+        html += '<img class="post-card-img" src="' + base + '/image/' + p.id + '" alt="' + escXml(p.imageAlt || p.title) + '" width="600" height="170" loading="lazy">';
+      }
+      html += '<div class="post-card-body">';
+      html += '<div class="post-card-top">';
+      html += '<span class="badge" style="background:' + catColor + '14;color:' + catColor + '">';
+      html += '<span class="cat-dot" style="background:' + catColor + '"></span>' + p.category + '</span>';
+      html += '<small style="color:var(--g400);font-size:9px">⏱️ ' + (p.readTime || 3) + ' د</small>';
+      html += '</div>';
+      html += '<h3>' + p.title + '</h3>';
+      html += '<p class="post-card-excerpt">' + (p.description || '') + '</p>';
+      html += '<div class="post-card-footer">';
+      html += '<span>📅 ' + p.date + '</span>';
+      html += '<span>👁️ ' + (p.views || 0) + '</span>';
+      html += '<span class="read-more-link">اقرأ المزيد ←</span>';
+      html += '</div></div></a>';
+
+      if ((i + 1) % 3 === 0) {
+        html += '<div class="ad-slot"><!-- Google AdSense In-feed --></div>';
+      }
+    }
+  }
+  html += '</div>';
+
+  html += '</main>';
+  html += buildSidebar(posts, base);
+  html += '</div>';
+
+  html += buildFooter(base);
+  html += '</body></html>';
+
+  return html;
 }
 
-// ===== صفحة المقال =====
-function generateArticlePage(post, allPosts, baseUrl) {
+function buildArticlePage(post, allPosts, base) {
   const relatedPosts = allPosts.filter(p => p.category === post.category && p.id !== post.id).slice(0, 4);
-  const faqItems = extractFAQ(post.content);
-  const shareUrl = encodeURIComponent(`${baseUrl}/article/${post.id}`);
+  const faqs = extractFaqFromContent(post.content);
+  const shareUrl = encodeURIComponent(base + '/article/' + post.id);
   const shareTitle = encodeURIComponent(post.title);
+  const catColor = post.categoryColor || getCategoryColor(post.category);
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -1178,649 +989,386 @@ function generateArticlePage(post, allPosts, baseUrl) {
     "description": post.description || '',
     "datePublished": post.dateISO,
     "dateModified": post.dateISO,
-    "author": { "@type": "Organization", "name": "بوابة الخدمات الرقمية", "url": baseUrl },
-    "publisher": { "@type": "Organization", "name": "بوابة الخدمات الرقمية", "url": baseUrl, "logo": { "@type": "ImageObject", "url": baseUrl + "/logo.png" } },
-    "mainEntityOfPage": { "@type": "WebPage", "@id": `${baseUrl}/article/${post.id}` },
-    "image": post.image ? `${baseUrl}/image/${post.id}` : undefined,
+    "author": { "@type": "Organization", "name": "بوابة الخدمات الرقمية", "url": base },
+    "publisher": { "@type": "Organization", "name": "بوابة الخدمات الرقمية", "url": base },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": base + '/article/' + post.id },
     "articleSection": post.category,
     "inLanguage": "ar",
     "keywords": post.keywords,
     "wordCount": post.wordCount
   };
+  if (post.image) {
+    articleSchema.image = base + '/image/' + post.id;
+  }
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "الرئيسية", "item": baseUrl },
-      { "@type": "ListItem", "position": 2, "name": post.category, "item": `${baseUrl}/category/${encodeURIComponent(post.category)}` },
-      { "@type": "ListItem", "position": 3, "name": post.title, "item": `${baseUrl}/article/${post.id}` }
+      { "@type": "ListItem", "position": 1, "name": "الرئيسية", "item": base },
+      { "@type": "ListItem", "position": 2, "name": post.category, "item": base + '/category/' + encodeURIComponent(post.category) },
+      { "@type": "ListItem", "position": 3, "name": post.title, "item": base + '/article/' + post.id }
     ]
   };
 
-  let faqSchema = '';
-  if (faqItems.length > 0) {
-    faqSchema = `<script type="application/ld+json">${JSON.stringify({
+  let faqSchemaTag = '';
+  if (faqs.length > 0) {
+    const faqSchema = {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      "mainEntity": faqItems.map(f => ({ "@type": "Question", "name": f.question, "acceptedAnswer": { "@type": "Answer", "text": f.answer } }))
-    })}</script>`;
+      "mainEntity": faqs.map(f => ({
+        "@type": "Question",
+        "name": f.question,
+        "acceptedAnswer": { "@type": "Answer", "text": f.answer }
+      }))
+    };
+    faqSchemaTag = '<script type="application/ld+json">' + JSON.stringify(faqSchema) + '</script>';
   }
 
-  return `<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>${post.title} | بوابة الخدمات الرقمية 2026</title>
-  <meta name="description" content="${post.description || ''}">
-  <meta name="keywords" content="${post.keywords || ''}">
-  <meta name="author" content="بوابة الخدمات الرقمية">
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-  <meta name="googlebot" content="index, follow">
-  <link rel="canonical" href="${baseUrl}/article/${post.id}">
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="بوابة الخدمات الرقمية">
-  <meta property="og:title" content="${post.title}">
-  <meta property="og:description" content="${post.description || ''}">
-  <meta property="og:url" content="${baseUrl}/article/${post.id}">
-  <meta property="og:locale" content="ar_MA">
-  ${post.image ? `<meta property="og:image" content="${baseUrl}/image/${post.id}">
-  <meta property="og:image:width" content="1024">
-  <meta property="og:image:height" content="576">
-  <meta property="og:image:alt" content="${post.imageAlt || post.title}">` : ''}
-  <meta property="article:published_time" content="${post.dateISO}">
-  <meta property="article:section" content="${post.category}">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="${post.title}">
-  <meta name="twitter:description" content="${post.description || ''}">
-  ${post.image ? `<meta name="twitter:image" content="${baseUrl}/image/${post.id}">
-  <meta name="twitter:image:alt" content="${post.imageAlt || post.title}">` : ''}
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <script type="application/ld+json">${JSON.stringify(articleSchema)}</script>
-  <script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>
-  ${faqSchema}
-  ${getSharedStyles()}
-</head>
-<body>
-  ${getHeader(baseUrl, allPosts)}
+  let html = '<!DOCTYPE html><html lang="ar" dir="rtl"><head>';
+  html += '<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">';
+  html += '<title>' + escXml(post.title) + ' | بوابة الخدمات الرقمية</title>';
+  html += '<meta name="description" content="' + escXml(post.description || '') + '">';
+  html += '<meta name="keywords" content="' + escXml(post.keywords || '') + '">';
+  html += '<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">';
+  html += '<link rel="canonical" href="' + base + '/article/' + post.id + '">';
+  html += '<meta property="og:type" content="article">';
+  html += '<meta property="og:title" content="' + escXml(post.title) + '">';
+  html += '<meta property="og:description" content="' + escXml(post.description || '') + '">';
+  html += '<meta property="og:url" content="' + base + '/article/' + post.id + '">';
+  html += '<meta property="og:locale" content="ar_MA">';
+  if (post.image) {
+    html += '<meta property="og:image" content="' + base + '/image/' + post.id + '">';
+    html += '<meta property="og:image:width" content="1024">';
+    html += '<meta property="og:image:height" content="576">';
+  }
+  html += '<meta property="article:published_time" content="' + (post.dateISO || '') + '">';
+  html += '<meta property="article:section" content="' + escXml(post.category) + '">';
+  html += '<meta name="twitter:card" content="summary_large_image">';
+  html += '<meta name="twitter:title" content="' + escXml(post.title) + '">';
+  if (post.image) {
+    html += '<meta name="twitter:image" content="' + base + '/image/' + post.id + '">';
+  }
+  html += '<link rel="preconnect" href="https://fonts.googleapis.com">';
+  html += '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>';
+  html += '<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">';
+  html += '<script type="application/ld+json">' + JSON.stringify(articleSchema) + '</script>';
+  html += '<script type="application/ld+json">' + JSON.stringify(breadcrumbSchema) + '</script>';
+  html += faqSchemaTag;
+  html += getCSS();
+  html += '</head><body>';
 
-  <div class="ad-slot-header"><div class="ad-slot"><!-- AdSense --></div></div>
+  html += buildHeader(base);
 
-  <div class="article-container">
-    <article class="article-main" itemscope itemtype="https://schema.org/Article">
-      ${post.image ? `<img class="article-hero-image" src="${baseUrl}/image/${post.id}" alt="${post.imageAlt || post.title}" width="1024" height="350" loading="eager" itemprop="image">` : ''}
-      <div class="article-body">
-        <nav class="breadcrumb" aria-label="مسار التنقل">
-          <a href="${baseUrl}/">🏠 الرئيسية</a>
-          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="var(--gray-400)"/></svg>
-          <a href="${baseUrl}/category/${encodeURIComponent(post.category)}">${post.category}</a>
-          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="var(--gray-400)"/></svg>
-          <span>${post.title.substring(0, 40)}...</span>
-        </nav>
-        <header class="article-header">
-          <span class="post-badge" style="background:${post.categoryColor || '#0f4c81'}12;color:${post.categoryColor || '#0f4c81'};margin-bottom:12px;display:inline-flex">
-            <span class="cat-dot" style="background:${post.categoryColor || '#0f4c81'}"></span>
-            ${post.category}
-          </span>
-          <h1 class="article-title" itemprop="headline">${post.title}</h1>
-          <div class="article-meta">
-            <span itemprop="datePublished" content="${post.dateISO}">📅 ${post.date}</span>
-            <span>⏱️ ${post.readTime || 3} دقائق قراءة</span>
-            <span>📝 ${post.wordCount || 0} كلمة</span>
-            <span>👁️ ${post.views || 0} مشاهدة</span>
-            <span itemprop="author" itemscope itemtype="https://schema.org/Organization">
-              <meta itemprop="name" content="بوابة الخدمات الرقمية">✍️ فريق التحرير
-            </span>
-          </div>
-        </header>
+  html += '<div class="ad-container"><div class="ad-slot"><!-- Google AdSense --></div></div>';
 
-        <div class="ad-slot ad-slot-inline"><!-- AdSense Before Content --></div>
+  html += '<div class="article-grid">';
+  html += '<article class="article-main" itemscope itemtype="https://schema.org/Article">';
 
-        <div class="article-content" itemprop="articleBody">
-          ${post.content}
-        </div>
+  if (post.image) {
+    html += '<img class="article-hero-img" src="' + base + '/image/' + post.id + '" alt="' + escXml(post.imageAlt || post.title) + '" width="1024" height="280" loading="eager" itemprop="image">';
+  }
 
-        <div class="ad-slot ad-slot-inline"><!-- AdSense After Content --></div>
+  html += '<div class="article-body">';
 
-        <div class="share-bar">
-          <span>📤 شارك المقال:</span>
-          <a href="https://www.facebook.com/sharer/sharer.php?u=${shareUrl}" target="_blank" rel="noopener noreferrer" class="share-btn share-fb">📘 فيسبوك</a>
-          <a href="https://twitter.com/intent/tweet?url=${shareUrl}&text=${shareTitle}" target="_blank" rel="noopener noreferrer" class="share-btn share-tw">🐦 تويتر</a>
-          <a href="https://wa.me/?text=${shareTitle}%20${shareUrl}" target="_blank" rel="noopener noreferrer" class="share-btn share-wa">💬 واتساب</a>
-          <a href="https://t.me/share/url?url=${shareUrl}&text=${shareTitle}" target="_blank" rel="noopener noreferrer" class="share-btn share-tg">✈️ تلغرام</a>
-          <a href="https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}" target="_blank" rel="noopener noreferrer" class="share-btn share-ln">💼 لينكدإن</a>
-        </div>
+  html += '<nav class="breadcrumb" aria-label="مسار التنقل">';
+  html += '<a href="' + base + '/">🏠 الرئيسية</a> › ';
+  html += '<a href="' + base + '/category/' + encodeURIComponent(post.category) + '">' + post.category + '</a> › ';
+  html += '<span>' + post.title.substring(0, 30) + '...</span>';
+  html += '</nav>';
 
-        ${relatedPosts.length > 0 ? `
-        <div class="related-posts">
-          <h3>📚 مقالات ذات صلة</h3>
-          <div class="related-grid">
-            ${relatedPosts.map(rp => `
-              <a href="${baseUrl}/article/${rp.id}" class="related-card">
-                <h4>${rp.title}</h4>
-                <span>📅 ${rp.date} · 👁️ ${rp.views || 0}</span>
-              </a>
-            `).join('')}
-          </div>
-        </div>` : ''}
-      </div>
-    </article>
-    ${getSidebar(allPosts, baseUrl)}
-  </div>
-  ${getFooter(baseUrl)}
-</body>
-</html>`;
+  html += '<header class="article-header">';
+  html += '<span class="badge" style="background:' + catColor + '14;color:' + catColor + ';margin-bottom:8px;display:inline-flex">';
+  html += '<span class="cat-dot" style="background:' + catColor + '"></span>' + post.category + '</span>';
+  html += '<h1 itemprop="headline">' + post.title + '</h1>';
+  html += '<div class="article-meta">';
+  html += '<span>📅 <time itemprop="datePublished" datetime="' + (post.dateISO || '') + '">' + post.date + '</time></span>';
+  html += '<span>⏱️ ' + (post.readTime || 3) + ' دقائق</span>';
+  html += '<span>📝 ' + (post.wordCount || 0) + ' كلمة</span>';
+  html += '<span>👁️ ' + (post.views || 0) + ' مشاهدة</span>';
+  html += '<span itemprop="author" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="بوابة الخدمات الرقمية">✍️ فريق التحرير</span>';
+  html += '</div></header>';
+
+  html += '<div class="ad-slot"><!-- Google AdSense Before Content --></div>';
+
+  html += '<div class="article-content" itemprop="articleBody">' + post.content + '</div>';
+
+  html += '<div class="ad-slot"><!-- Google AdSense After Content --></div>';
+
+  html += '<div class="share-section">';
+  html += '<b>📤 شارك:</b>';
+  html += '<a href="https://www.facebook.com/sharer/sharer.php?u=' + shareUrl + '" target="_blank" rel="noopener" class="share-btn" style="background:#1877f2">📘 فيسبوك</a>';
+  html += '<a href="https://twitter.com/intent/tweet?url=' + shareUrl + '&text=' + shareTitle + '" target="_blank" rel="noopener" class="share-btn" style="background:#1da1f2">🐦 تويتر</a>';
+  html += '<a href="https://wa.me/?text=' + shareTitle + '%20' + shareUrl + '" target="_blank" rel="noopener" class="share-btn" style="background:#25d366">💬 واتساب</a>';
+  html += '<a href="https://t.me/share/url?url=' + shareUrl + '&text=' + shareTitle + '" target="_blank" rel="noopener" class="share-btn" style="background:#0088cc">✈️ تلغرام</a>';
+  html += '</div>';
+
+  if (relatedPosts.length > 0) {
+    html += '<div class="related-section"><h3>📚 مقالات ذات صلة</h3><div class="related-grid">';
+    for (const rp of relatedPosts) {
+      html += '<a href="' + base + '/article/' + rp.id + '" class="related-card">';
+      html += '<h4>' + rp.title + '</h4>';
+      html += '<span>📅 ' + rp.date + '</span></a>';
+    }
+    html += '</div></div>';
+  }
+
+  html += '</div></article>';
+  html += buildSidebar(allPosts, base);
+  html += '</div>';
+
+  html += buildFooter(base);
+  html += '</body></html>';
+
+  return html;
 }
 
-// ===== صفحة التصنيف =====
-function generateCategoryPage(catName, filteredPosts, allPosts, baseUrl) {
-  const catColors = { "الدعم والحماية الاجتماعية": "#10b981", "مباريات التوظيف والتدريب": "#6366f1", "الوثائق الإدارية والتأشيرات": "#f59e0b", "المقاول الصغير والعمل الحر": "#ec4899" };
-  const color = catColors[catName] || '#0f4c81';
+function buildCategoryPage(catName, filtered, allPosts, base) {
+  const catColor = getCategoryColor(catName);
+  const catIcon = getCategoryIcon(catName);
 
-  return `<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>${catName} | بوابة الخدمات الرقمية 2026</title>
-  <meta name="description" content="جميع المقالات والشروحات في تصنيف ${catName} - بوابة الخدمات الرقمية المغربية 2026">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="${baseUrl}/category/${encodeURIComponent(catName)}">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="${catName} | بوابة الخدمات الرقمية">
-  <meta property="og:url" content="${baseUrl}/category/${encodeURIComponent(catName)}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <script type="application/ld+json">${JSON.stringify({
-    "@context": "https://schema.org", "@type": "CollectionPage",
-    "name": catName, "url": `${baseUrl}/category/${encodeURIComponent(catName)}`,
-    "description": `جميع المقالات في تصنيف ${catName}`
-  })}</script>
-  ${getSharedStyles()}
-</head>
-<body>
-  ${getHeader(baseUrl, allPosts)}
-  <section class="hero" style="padding:35px 20px;background:linear-gradient(135deg,${color}dd,${color}99)">
-    <div class="hero-content">
-      <h2>📂 ${catName}</h2>
-      <p>${filteredPosts.length} مقال متوفر في هذا التصنيف</p>
-    </div>
-  </section>
-  <div class="main-layout">
-    <main>
-      <nav class="breadcrumb" style="margin-bottom:18px">
-        <a href="${baseUrl}/">🏠 الرئيسية</a>
-        <svg viewBox="0 0 24 24" width="14" height="14"><path fill="var(--gray-400)" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
-        <span>${catName}</span>
-      </nav>
-      <div class="ad-slot"><!-- AdSense --></div>
-      <div class="posts-grid">
-        ${filteredPosts.length === 0 ? `
-          <div style="text-align:center;padding:50px">
-            <h3 style="color:var(--gray-500)">لا توجد مقالات بعد في هذا التصنيف</h3>
-            <p style="color:var(--gray-400);margin-top:8px"><a href="${baseUrl}/" style="color:var(--primary)">← العودة للرئيسية</a></p>
-          </div>
-        ` : filteredPosts.map((p, i) => `
-          <a href="${baseUrl}/article/${p.id}" class="post-card animate-in delay-${(i % 4) + 1}">
-            ${p.image ? `<img class="post-card-image" src="${baseUrl}/image/${p.id}" alt="${p.imageAlt || p.title}" loading="lazy" width="600" height="200">` : ''}
-            <div class="post-card-inner">
-              <div class="post-card-header">
-                <span class="post-badge" style="background:${color}12;color:${color}"><span class="cat-dot" style="background:${color}"></span>${p.category}</span>
-              </div>
-              <h3>${p.title}</h3>
-              <p class="post-excerpt">${p.description || ''}</p>
-              <div class="post-footer">
-                <span>📅 ${p.date}</span>
-                <span>👁️ ${p.views || 0}</span>
-                <span class="read-more">اقرأ المزيد ←</span>
-              </div>
-            </div>
-          </a>
-          ${(i + 1) % 3 === 0 ? '<div class="ad-slot"><!-- AdSense --></div>' : ''}
-        `).join('')}
-      </div>
-    </main>
-    ${getSidebar(allPosts, baseUrl)}
-  </div>
-  ${getFooter(baseUrl)}
-</body>
-</html>`;
+  let html = '<!DOCTYPE html><html lang="ar" dir="rtl"><head>';
+  html += '<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">';
+  html += '<title>' + escXml(catName) + ' | بوابة الخدمات الرقمية 2026</title>';
+  html += '<meta name="description" content="جميع المقالات والشروحات في تصنيف ' + escXml(catName) + ' - بوابة الخدمات الرقمية المغربية">';
+  html += '<meta name="robots" content="index,follow">';
+  html += '<link rel="canonical" href="' + base + '/category/' + encodeURIComponent(catName) + '">';
+  html += '<meta property="og:type" content="website">';
+  html += '<meta property="og:title" content="' + escXml(catName) + ' | بوابة الخدمات الرقمية">';
+  html += '<link rel="preconnect" href="https://fonts.googleapis.com">';
+  html += '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>';
+  html += '<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">';
+
+  const catSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": catName,
+    "url": base + '/category/' + encodeURIComponent(catName),
+    "description": "جميع المقالات في تصنيف " + catName
+  };
+  html += '<script type="application/ld+json">' + JSON.stringify(catSchema) + '</script>';
+  html += getCSS();
+  html += '</head><body>';
+
+  html += buildHeader(base);
+
+  html += '<section class="hero" style="padding:28px 16px;background:linear-gradient(135deg,' + catColor + 'cc,' + catColor + '88)">';
+  html += '<div><h2>' + catIcon + ' ' + catName + '</h2>';
+  html += '<p>' + filtered.length + ' مقال في هذا التصنيف</p></div></section>';
+
+  html += '<div class="main-grid"><main>';
+
+  html += '<nav class="breadcrumb" style="margin-bottom:12px">';
+  html += '<a href="' + base + '/">🏠 الرئيسية</a> › <span>' + catName + '</span></nav>';
+
+  html += '<div class="ad-slot"><!-- Google AdSense --></div>';
+
+  html += '<div class="posts-list">';
+  if (filtered.length === 0) {
+    html += '<div style="text-align:center;padding:40px">';
+    html += '<h3 style="color:var(--g500)">لا توجد مقالات بعد في هذا التصنيف</h3>';
+    html += '<p style="margin-top:6px"><a href="' + base + '/" style="color:var(--p)">← العودة للرئيسية</a></p></div>';
+  } else {
+    for (let i = 0; i < filtered.length; i++) {
+      const p = filtered[i];
+      html += '<a href="' + base + '/article/' + p.id + '" class="post-card">';
+      if (p.image) {
+        html += '<img class="post-card-img" src="' + base + '/image/' + p.id + '" alt="' + escXml(p.imageAlt || p.title) + '" width="600" height="170" loading="lazy">';
+      }
+      html += '<div class="post-card-body">';
+      html += '<div class="post-card-top">';
+      html += '<span class="badge" style="background:' + catColor + '14;color:' + catColor + '">';
+      html += '<span class="cat-dot" style="background:' + catColor + '"></span>' + p.category + '</span></div>';
+      html += '<h3>' + p.title + '</h3>';
+      html += '<p class="post-card-excerpt">' + (p.description || '') + '</p>';
+      html += '<div class="post-card-footer">';
+      html += '<span>📅 ' + p.date + '</span>';
+      html += '<span>👁️ ' + (p.views || 0) + '</span>';
+      html += '<span class="read-more-link">اقرأ المزيد ←</span>';
+      html += '</div></div></a>';
+
+      if ((i + 1) % 3 === 0) {
+        html += '<div class="ad-slot"><!-- Google AdSense --></div>';
+      }
+    }
+  }
+  html += '</div></main>';
+  html += buildSidebar(allPosts, base);
+  html += '</div>';
+
+  html += buildFooter(base);
+  html += '</body></html>';
+
+  return html;
 }
 
-// ==========================================
-//  الصفحات المطلوبة من جوجل أدسنس
-// ==========================================
-
-// ===== سياسة الخصوصية =====
-function generatePrivacyPage(baseUrl, posts) {
-  return `<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>سياسة الخصوصية | بوابة الخدمات الرقمية</title>
-  <meta name="description" content="سياسة الخصوصية لموقع بوابة الخدمات الرقمية - كيف نجمع ونستخدم ونحمي بياناتك الشخصية">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="${baseUrl}/privacy">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-  ${getSharedStyles()}
-</head>
-<body>
-  ${getHeader(baseUrl, posts)}
-  <div class="static-page">
-    <div class="static-content">
-      <h1>🔒 سياسة الخصوصية</h1>
-      <p><strong>آخر تحديث:</strong> ${new Date().toLocaleDateString('ar-MA', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-      <p>نحن في <strong>بوابة الخدمات الرقمية</strong> نقدر خصوصيتك ونلتزم بحماية بياناتك الشخصية. توضح هذه السياسة كيفية جمع المعلومات واستخدامها وحمايتها عند زيارتك لموقعنا.</p>
-
-      <h2>1. المعلومات التي نجمعها</h2>
-      <p>قد نجمع الأنواع التالية من المعلومات:</p>
-      <ul>
-        <li><strong>معلومات التصفح:</strong> عنوان IP، نوع المتصفح، صفحات الزيارة، مدة الزيارة، مصدر الزيارة</li>
-        <li><strong>ملفات تعريف الارتباط (Cookies):</strong> نستخدم ملفات الكوكيز لتحسين تجربة المستخدم وتحليل حركة المرور</li>
-        <li><strong>معلومات الاتصال:</strong> في حال تواصلت معنا عبر نموذج الاتصال (الاسم، البريد الإلكتروني، الرسالة)</li>
-        <li><strong>بيانات النشرة البريدية:</strong> البريد الإلكتروني في حال الاشتراك في النشرة البريدية</li>
-      </ul>
-
-      <h2>2. كيفية استخدام المعلومات</h2>
-      <p>نستخدم المعلومات المجمعة للأغراض التالية:</p>
-      <ul>
-        <li>تحسين محتوى الموقع وتجربة المستخدم</li>
-        <li>تحليل إحصائيات الزيارات ومعرفة المحتوى الأكثر اهتماماً</li>
-        <li>إرسال التحديثات والمحتوى الجديد للمشتركين في النشرة البريدية</li>
-        <li>الرد على استفسارات الزوار عبر نموذج الاتصال</li>
-        <li>عرض الإعلانات المناسبة عبر Google AdSense</li>
-      </ul>
-
-      <h2>3. Google AdSense والإعلانات</h2>
-      <p>يستخدم موقعنا خدمة <strong>Google AdSense</strong> لعرض الإعلانات. تستخدم Google ملفات تعريف الارتباط لعرض إعلانات مبنية على زياراتك السابقة لهذا الموقع ومواقع أخرى.</p>
-      <ul>
-        <li>يمكنك إلغاء الاشتراك في الإعلانات المخصصة عبر <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer">إعدادات إعلانات Google</a></li>
-        <li>لمزيد من المعلومات، يرجى زيارة <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">سياسة خصوصية Google</a></li>
-      </ul>
-
-      <h2>4. Google Analytics</h2>
-      <p>قد نستخدم Google Analytics لتحليل حركة مرور الموقع. هذه الخدمة تجمع بيانات مجهولة الهوية حول كيفية تفاعل الزوار مع الموقع.</p>
-
-      <h2>5. ملفات تعريف الارتباط (Cookies)</h2>
-      <p>نستخدم ملفات الكوكيز لـ:</p>
-      <ul>
-        <li>تذكر تفضيلاتك وإعداداتك</li>
-        <li>تحليل حركة المرور على الموقع</li>
-        <li>عرض إعلانات ملائمة لاهتماماتك</li>
-        <li>تحسين أداء الموقع وسرعته</li>
-      </ul>
-      <p>يمكنك التحكم في ملفات الكوكيز أو حذفها من إعدادات متصفحك في أي وقت.</p>
-
-      <h2>6. مشاركة المعلومات مع أطراف ثالثة</h2>
-      <p>لا نبيع أو نؤجر بياناتك الشخصية لأي طرف ثالث. قد نشارك معلومات مجهولة الهوية مع:</p>
-      <ul>
-        <li>Google (عبر AdSense و Analytics)</li>
-        <li>مزودي خدمات الاستضافة (Cloudflare)</li>
-      </ul>
-
-      <h2>7. حماية البيانات</h2>
-      <p>نتخذ تدابير أمنية مناسبة لحماية بياناتك من الوصول غير المصرح به أو التعديل أو الكشف أو التدمير، بما في ذلك استخدام بروتوكول HTTPS والتشفير.</p>
-
-      <h2>8. حقوق المستخدم</h2>
-      <p>يحق لك:</p>
-      <ul>
-        <li>طلب الوصول إلى بياناتك الشخصية</li>
-        <li>طلب تصحيح أو حذف بياناتك</li>
-        <li>الاعتراض على معالجة بياناتك</li>
-        <li>إلغاء الاشتراك في النشرة البريدية في أي وقت</li>
-      </ul>
-
-      <h2>9. خصوصية الأطفال</h2>
-      <p>موقعنا غير موجه للأطفال تحت سن 13 عاماً ولا نجمع عن قصد معلومات شخصية من الأطفال.</p>
-
-      <h2>10. التغييرات على هذه السياسة</h2>
-      <p>قد نقوم بتحديث سياسة الخصوصية من وقت لآخر. سيتم نشر أي تغييرات على هذه الصفحة مع تحديث تاريخ "آخر تحديث".</p>
-
-      <h2>11. اتصل بنا</h2>
-      <p>إذا كان لديك أي أسئلة حول سياسة الخصوصية، يمكنك <a href="${baseUrl}/contact">التواصل معنا</a>.</p>
-    </div>
-  </div>
-  ${getFooter(baseUrl)}
-</body>
-</html>`;
+function buildStaticPage(base, posts, pageTitle, pageSlug, content) {
+  let html = '<!DOCTYPE html><html lang="ar" dir="rtl"><head>';
+  html += '<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">';
+  html += '<title>' + pageTitle + ' | بوابة الخدمات الرقمية</title>';
+  html += '<meta name="robots" content="index,follow">';
+  html += '<link rel="canonical" href="' + base + '/' + pageSlug + '">';
+  html += '<link rel="preconnect" href="https://fonts.googleapis.com">';
+  html += '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>';
+  html += '<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">';
+  html += getCSS();
+  html += '</head><body>';
+  html += buildHeader(base);
+  html += '<div class="static-page"><div class="static-box">' + content + '</div></div>';
+  html += buildFooter(base);
+  html += '</body></html>';
+  return html;
 }
 
-// ===== شروط الاستخدام =====
-function generateTermsPage(baseUrl, posts) {
-  return `<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>شروط الاستخدام | بوابة الخدمات الرقمية</title>
-  <meta name="description" content="شروط وأحكام استخدام موقع بوابة الخدمات الرقمية - الشروط والأحكام التي تحكم استخدامك للموقع">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="${baseUrl}/terms">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-  ${getSharedStyles()}
-</head>
-<body>
-  ${getHeader(baseUrl, posts)}
-  <div class="static-page">
-    <div class="static-content">
-      <h1>📜 شروط الاستخدام</h1>
-      <p><strong>آخر تحديث:</strong> ${new Date().toLocaleDateString('ar-MA', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-      <p>باستخدامك لموقع <strong>بوابة الخدمات الرقمية</strong>، فإنك توافق على الالتزام بهذه الشروط والأحكام. يرجى قراءتها بعناية قبل استخدام الموقع.</p>
-
-      <h2>1. قبول الشروط</h2>
-      <p>باستخدامك لهذا الموقع، فإنك توافق على جميع الشروط والأحكام المذكورة هنا. إذا كنت لا توافق على أي من هذه الشروط، يرجى التوقف عن استخدام الموقع فوراً.</p>
-
-      <h2>2. طبيعة المحتوى</h2>
-      <ul>
-        <li>المحتوى المنشور على الموقع هو لأغراض تعليمية وإرشادية فقط</li>
-        <li>لا يُعد المحتوى بديلاً عن الاستشارة المهنية أو القانونية</li>
-        <li>نحرص على دقة المعلومات لكن لا نضمن خلوها من الأخطاء</li>
-        <li>المعلومات قد تتغير بسبب تحديثات القوانين والأنظمة</li>
-      </ul>
-
-      <h2>3. حقوق الملكية الفكرية</h2>
-      <p>جميع المحتويات المنشورة على الموقع (النصوص، الصور، التصميم، الشعار) هي ملك لبوابة الخدمات الرقمية ومحمية بموجب قوانين حقوق الملكية الفكرية.</p>
-      <ul>
-        <li>يُمنع نسخ أو إعادة نشر المحتوى دون إذن كتابي مسبق</li>
-        <li>يُسمح بمشاركة روابط المقالات على وسائل التواصل الاجتماعي</li>
-        <li>يُسمح بالاقتباس الجزئي مع ذكر المصدر والرابط</li>
-      </ul>
-
-      <h2>4. استخدام الموقع</h2>
-      <p>يلتزم المستخدم بما يلي:</p>
-      <ul>
-        <li>عدم استخدام الموقع لأي غرض غير قانوني</li>
-        <li>عدم محاولة اختراق أو تعطيل الموقع</li>
-        <li>عدم نشر تعليقات مسيئة أو مضللة</li>
-        <li>عدم استخدام روبوتات أو برامج آلية لجمع البيانات</li>
-      </ul>
-
-      <h2>5. الروابط الخارجية</h2>
-      <p>قد يحتوي الموقع على روابط لمواقع خارجية. نحن لسنا مسؤولين عن محتوى أو سياسات الخصوصية لهذه المواقع.</p>
-
-      <h2>6. الإعلانات</h2>
-      <p>يحتوي الموقع على إعلانات من Google AdSense. نحن لسنا مسؤولين عن محتوى هذه الإعلانات أو المنتجات والخدمات المُعلن عنها.</p>
-
-      <h2>7. تحديد المسؤولية</h2>
-      <p>لا نتحمل أي مسؤولية عن أي أضرار مباشرة أو غير مباشرة ناتجة عن استخدام المعلومات المنشورة على الموقع. المستخدم يتحمل المسؤولية الكاملة عن قراراته.</p>
-
-      <h2>8. التعديلات</h2>
-      <p>نحتفظ بالحق في تعديل هذه الشروط في أي وقت. التعديلات تدخل حيز التنفيذ فور نشرها على هذه الصفحة.</p>
-
-      <h2>9. القانون المعمول به</h2>
-      <p>تخضع هذه الشروط للقوانين المعمول بها في المملكة المغربية.</p>
-
-      <h2>10. الاتصال</h2>
-      <p>لأي استفسار حول هذه الشروط، يرجى <a href="${baseUrl}/contact">التواصل معنا</a>.</p>
-    </div>
-  </div>
-  ${getFooter(baseUrl)}
-</body>
-</html>`;
+function buildPrivacyPage(base, posts) {
+  const d = new Date().toLocaleDateString('ar-MA', { year: 'numeric', month: 'long', day: 'numeric' });
+  const content = '<h1>🔒 سياسة الخصوصية</h1>'
+    + '<p><strong>آخر تحديث:</strong> ' + d + '</p>'
+    + '<p>نحن في <strong>بوابة الخدمات الرقمية</strong> نقدر خصوصيتك ونلتزم بحماية بياناتك الشخصية. توضح هذه السياسة كيفية جمع المعلومات واستخدامها وحمايتها.</p>'
+    + '<h2>1. المعلومات التي نجمعها</h2>'
+    + '<ul><li><strong>معلومات التصفح:</strong> عنوان IP، نوع المتصفح، صفحات الزيارة، مدة الزيارة، مصدر الزيارة</li>'
+    + '<li><strong>ملفات تعريف الارتباط (Cookies):</strong> نستخدم ملفات الكوكيز لتحسين تجربة المستخدم وتحليل حركة المرور</li>'
+    + '<li><strong>معلومات الاتصال:</strong> في حال تواصلت معنا (الاسم، البريد الإلكتروني، الرسالة)</li>'
+    + '<li><strong>بيانات النشرة البريدية:</strong> البريد الإلكتروني عند الاشتراك</li></ul>'
+    + '<h2>2. كيفية استخدام المعلومات</h2>'
+    + '<ul><li>تحسين محتوى الموقع وتجربة المستخدم</li>'
+    + '<li>تحليل إحصائيات الزيارات</li>'
+    + '<li>إرسال التحديثات للمشتركين</li>'
+    + '<li>عرض الإعلانات المناسبة عبر Google AdSense</li></ul>'
+    + '<h2>3. Google AdSense والإعلانات</h2>'
+    + '<p>يستخدم موقعنا خدمة <strong>Google AdSense</strong> لعرض الإعلانات. تستخدم Google ملفات تعريف الارتباط لعرض إعلانات مبنية على زياراتك السابقة. يمكنك إلغاء الاشتراك في الإعلانات المخصصة عبر <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">إعدادات إعلانات Google</a>.</p>'
+    + '<h2>4. ملفات تعريف الارتباط (Cookies)</h2>'
+    + '<p>نستخدم ملفات الكوكيز لتذكر تفضيلاتك وتحليل حركة المرور وعرض إعلانات ملائمة. يمكنك التحكم فيها من إعدادات متصفحك.</p>'
+    + '<h2>5. مشاركة المعلومات</h2>'
+    + '<p>لا نبيع أو نؤجر بياناتك. قد نشارك معلومات مجهولة مع Google (AdSense/Analytics) وCloudflare.</p>'
+    + '<h2>6. حماية البيانات</h2>'
+    + '<p>نتخذ تدابير أمنية مناسبة لحماية بياناتك بما في ذلك استخدام HTTPS والتشفير.</p>'
+    + '<h2>7. حقوقك</h2>'
+    + '<ul><li>طلب الوصول إلى بياناتك الشخصية</li><li>طلب تصحيح أو حذف بياناتك</li><li>إلغاء الاشتراك في النشرة البريدية</li></ul>'
+    + '<h2>8. خصوصية الأطفال</h2>'
+    + '<p>موقعنا غير موجه للأطفال تحت 13 عاماً ولا نجمع معلوماتهم عمداً.</p>'
+    + '<h2>9. التغييرات على هذه السياسة</h2>'
+    + '<p>قد نحدث هذه السياسة من وقت لآخر. التغييرات تُنشر على هذه الصفحة مع تحديث التاريخ.</p>'
+    + '<h2>10. اتصل بنا</h2>'
+    + '<p>لأي أسئلة حول سياسة الخصوصية: <a href="' + base + '/contact">صفحة الاتصال</a></p>';
+  return buildStaticPage(base, posts, 'سياسة الخصوصية', 'privacy', content);
 }
 
-// ===== صفحة اتصل بنا =====
-function generateContactPage(baseUrl, posts) {
-  return `<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>اتصل بنا | بوابة الخدمات الرقمية</title>
-  <meta name="description" content="تواصل معنا - بوابة الخدمات الرقمية. نرحب باستفساراتكم واقتراحاتكم وملاحظاتكم">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="${baseUrl}/contact">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-  ${getSharedStyles()}
-</head>
-<body>
-  ${getHeader(baseUrl, posts)}
-  <div class="static-page">
-    <div class="static-content">
-      <h1>📧 اتصل بنا</h1>
-      <p>نرحب بتواصلكم معنا! سواء كان لديكم استفسار، اقتراح، شكوى، أو ترغبون في التعاون معنا، لا تترددوا في التواصل عبر النموذج أدناه أو عبر وسائل التواصل الأخرى.</p>
-
-      <h2>📋 نموذج التواصل</h2>
-      <form class="contact-form" onsubmit="event.preventDefault();alert('شكراً لتواصلك معنا! سنرد عليك في أقرب وقت.')">
-        <input type="text" placeholder="الاسم الكامل *" required aria-label="الاسم الكامل">
-        <input type="email" placeholder="البريد الإلكتروني *" required aria-label="البريد الإلكتروني">
-        <input type="text" placeholder="الموضوع *" required aria-label="الموضوع">
-        <textarea placeholder="رسالتك... *" required aria-label="الرسالة"></textarea>
-        <button type="submit">📤 إرسال الرسالة</button>
-      </form>
-
-      <h2>📞 وسائل التواصل الأخرى</h2>
-      <ul>
-        <li><strong>📧 البريد الإلكتروني:</strong> contact@leguide-digital.com</li>
-        <li><strong>📘 فيسبوك:</strong> بوابة الخدمات الرقمية</li>
-        <li><strong>✈️ تلغرام:</strong> @leguide_digital</li>
-      </ul>
-
-      <h2>⏰ أوقات الرد</h2>
-      <p>نحرص على الرد على جميع الرسائل خلال <strong>24 إلى 48 ساعة</strong> من أيام العمل. قد يتأخر الرد في عطلة نهاية الأسبوع والأعياد الرسمية.</p>
-
-      <h2>💡 ملاحظات مهمة</h2>
-      <ul>
-        <li>نرحب باقتراحاتكم لمواضيع جديدة نرغب في تغطيتها</li>
-        <li>إذا لاحظتم أي خطأ في المعلومات المنشورة، يرجى إعلامنا لتصحيحه</li>
-        <li>للشراكات الإعلانية والتعاون المهني، يرجى ذكر ذلك في الموضوع</li>
-        <li>لطلبات حذف المحتوى (DMCA)، يرجى زيارة <a href="${baseUrl}/dmca">صفحة DMCA</a></li>
-      </ul>
-    </div>
-  </div>
-  ${getFooter(baseUrl)}
-</body>
-</html>`;
+function buildTermsPage(base, posts) {
+  const d = new Date().toLocaleDateString('ar-MA', { year: 'numeric', month: 'long', day: 'numeric' });
+  const content = '<h1>📜 شروط الاستخدام</h1>'
+    + '<p><strong>آخر تحديث:</strong> ' + d + '</p>'
+    + '<p>باستخدامك لموقع <strong>بوابة الخدمات الرقمية</strong>، فإنك توافق على الالتزام بهذه الشروط والأحكام.</p>'
+    + '<h2>1. قبول الشروط</h2>'
+    + '<p>استخدامك للموقع يعني موافقتك على جميع الشروط. إذا لم توافق، توقف عن الاستخدام فوراً.</p>'
+    + '<h2>2. طبيعة المحتوى</h2>'
+    + '<ul><li>المحتوى لأغراض تعليمية وإرشادية فقط</li><li>لا يُعد بديلاً عن الاستشارة المهنية أو القانونية</li><li>المعلومات قد تتغير بسبب تحديثات القوانين والأنظمة</li></ul>'
+    + '<h2>3. حقوق الملكية الفكرية</h2>'
+    + '<ul><li>يُمنع نسخ أو إعادة نشر المحتوى دون إذن كتابي</li><li>يُسمح بمشاركة روابط المقالات على وسائل التواصل</li><li>يُسمح بالاقتباس الجزئي مع ذكر المصدر والرابط</li></ul>'
+    + '<h2>4. استخدام الموقع</h2>'
+    + '<ul><li>عدم استخدام الموقع لأغراض غير قانونية</li><li>عدم محاولة اختراق أو تعطيل الموقع</li><li>عدم استخدام برامج آلية لجمع البيانات</li></ul>'
+    + '<h2>5. الإعلانات</h2>'
+    + '<p>يحتوي الموقع على إعلانات من Google AdSense. لسنا مسؤولين عن محتوى هذه الإعلانات.</p>'
+    + '<h2>6. تحديد المسؤولية</h2>'
+    + '<p>لا نتحمل أي مسؤولية عن أضرار ناتجة عن استخدام المعلومات المنشورة. المستخدم يتحمل المسؤولية الكاملة عن قراراته.</p>'
+    + '<h2>7. التعديلات</h2>'
+    + '<p>نحتفظ بالحق في تعديل هذه الشروط في أي وقت.</p>'
+    + '<h2>8. القانون المعمول به</h2>'
+    + '<p>تخضع هذه الشروط للقوانين المعمول بها في المملكة المغربية.</p>';
+  return buildStaticPage(base, posts, 'شروط الاستخدام', 'terms', content);
 }
 
-// ===== صفحة من نحن =====
-function generateAboutPage(baseUrl, posts) {
-  const postCount = posts.length;
-  const catCount = [...new Set(posts.map(p => p.category))].length;
-
-  return `<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>من نحن | بوابة الخدمات الرقمية</title>
-  <meta name="description" content="تعرف على بوابة الخدمات الرقمية - منصة متخصصة في تبسيط الإجراءات الإدارية والخدمات الحكومية الرقمية بالمغرب">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="${baseUrl}/about">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-  ${getSharedStyles()}
-</head>
-<body>
-  ${getHeader(baseUrl, posts)}
-  <div class="static-page">
-    <div class="static-content">
-      <h1>🇲🇦 من نحن</h1>
-
-      <h2>رؤيتنا</h2>
-      <p><strong>بوابة الخدمات الرقمية</strong> هي منصة إلكترونية مستقلة تأسست بهدف <strong>تبسيط الإجراءات الإدارية</strong> ومساعدة المواطن المغربي في الوصول إلى المعلومات المتعلقة بالخدمات الحكومية الرقمية بسهولة ويسر.</p>
-
-      <h2>مهمتنا</h2>
-      <p>نسعى لأن نكون <strong>المرجع الأول والأشمل</strong> في مجال الخدمات الرقمية الحكومية بالمغرب من خلال:</p>
-      <ul>
-        <li>📝 نشر شروحات مبسطة ومفصلة لجميع الإجراءات الإدارية</li>
-        <li>🔄 تحديث المعلومات بشكل مستمر لمواكبة المستجدات</li>
-        <li>📊 تغطية شاملة لجميع القطاعات (الدعم الاجتماعي، التوظيف، الوثائق، ريادة الأعمال)</li>
-        <li>🎯 تقديم معلومات دقيقة ومحدثة يمكن الاعتماد عليها</li>
-      </ul>
-
-      <h2>ما يميزنا</h2>
-      <ul>
-        <li><strong>المحتوى الحصري:</strong> جميع مقالاتنا مكتوبة بشكل احترافي وحصري</li>
-        <li><strong>التحديث المستمر:</strong> نحدث محتوانا بانتظام لمواكبة أحدث التغييرات</li>
-        <li><strong>البساطة:</strong> نشرح الإجراءات المعقدة بأسلوب مبسط يفهمه الجميع</li>
-        <li><strong>الشمولية:</strong> نغطي ${catCount} تصنيفات رئيسية بأكثر من ${postCount} مقال</li>
-        <li><strong>الاستقلالية:</strong> موقع مستقل غير تابع لأي جهة حكومية</li>
-      </ul>
-
-      <h2>أرقام وإحصائيات</h2>
-      <ul>
-        <li>📚 أكثر من <strong>${postCount}</strong> مقال ودليل شامل</li>
-        <li>📂 <strong>${catCount}</strong> تصنيفات متخصصة</li>
-        <li>🔄 تحديث <strong>يومي</strong> للمحتوى</li>
-        <li>👥 آلاف الزوار يومياً</li>
-      </ul>
-
-      <h2>فريق العمل</h2>
-      <p>يتكون فريقنا من متخصصين في مجال التقنية والخدمات الإدارية، يعملون على توفير أفضل محتوى ممكن للمواطن المغربي.</p>
-
-      <h2>تواصل معنا</h2>
-      <p>نرحب باقتراحاتكم وملاحظاتكم. لا تترددوا في <a href="${baseUrl}/contact">التواصل معنا</a> لأي استفسار أو اقتراح.</p>
-    </div>
-  </div>
-  ${getFooter(baseUrl)}
-</body>
-</html>`;
+function buildContactPage(base, posts) {
+  const content = '<h1>📧 اتصل بنا</h1>'
+    + '<p>نرحب بتواصلكم معنا! سواء كان لديكم استفسار أو اقتراح أو ترغبون في التعاون، لا تترددوا في التواصل.</p>'
+    + '<h2>📋 نموذج التواصل</h2>'
+    + '<form class="contact-form" onsubmit="event.preventDefault();alert(\'شكراً لتواصلك معنا! سنرد عليك في أقرب وقت.\')">'
+    + '<input type="text" placeholder="الاسم الكامل *" required aria-label="الاسم">'
+    + '<input type="email" placeholder="البريد الإلكتروني *" required aria-label="البريد">'
+    + '<input type="text" placeholder="الموضوع *" required aria-label="الموضوع">'
+    + '<textarea placeholder="رسالتك... *" required aria-label="الرسالة"></textarea>'
+    + '<button type="submit">📤 إرسال الرسالة</button></form>'
+    + '<h2>📞 وسائل التواصل الأخرى</h2>'
+    + '<ul><li><strong>📧 البريد:</strong> contact@leguide-digital.com</li>'
+    + '<li><strong>📘 فيسبوك:</strong> بوابة الخدمات الرقمية</li></ul>'
+    + '<h2>⏰ أوقات الرد</h2>'
+    + '<p>نرد خلال <strong>24 إلى 48 ساعة</strong> في أيام العمل.</p>'
+    + '<h2>💡 ملاحظات</h2>'
+    + '<ul><li>نرحب باقتراحات مواضيع جديدة</li>'
+    + '<li>لطلبات حذف المحتوى (DMCA)، زوروا <a href="' + base + '/dmca">صفحة DMCA</a></li></ul>';
+  return buildStaticPage(base, posts, 'اتصل بنا', 'contact', content);
 }
 
-// ===== صفحة DMCA =====
-function generateDMCAPage(baseUrl, posts) {
-  return `<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>سياسة DMCA | بوابة الخدمات الرقمية</title>
-  <meta name="description" content="سياسة DMCA لحقوق الملكية الفكرية - بوابة الخدمات الرقمية">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="${baseUrl}/dmca">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-  ${getSharedStyles()}
-</head>
-<body>
-  ${getHeader(baseUrl, posts)}
-  <div class="static-page">
-    <div class="static-content">
-      <h1>⚖️ سياسة حقوق الملكية الفكرية (DMCA)</h1>
-      <p><strong>آخر تحديث:</strong> ${new Date().toLocaleDateString('ar-MA', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-
-      <h2>التزامنا بحماية حقوق الملكية الفكرية</h2>
-      <p>نحن في <strong>بوابة الخدمات الرقمية</strong> نحترم حقوق الملكية الفكرية للآخرين ونلتزم بالاستجابة لأي إشعارات تتعلق بانتهاك حقوق النشر وفقاً لقانون الألفية الرقمية لحقوق النشر (DMCA).</p>
-
-      <h2>إذا كنت تعتقد أن حقوقك قد انتُهكت</h2>
-      <p>إذا كنت تعتقد أن محتوى منشوراً على موقعنا ينتهك حقوق النشر الخاصة بك، يرجى إرسال إشعار يتضمن المعلومات التالية:</p>
-      <ul>
-        <li>وصف دقيق للعمل المحمي بحقوق النشر الذي تعتقد أنه تم انتهاكه</li>
-        <li>رابط المحتوى المخالف على موقعنا</li>
-        <li>رابط المحتوى الأصلي (إن وُجد)</li>
-        <li>اسمك الكامل ومعلومات الاتصال (البريد الإلكتروني، رقم الهاتف)</li>
-        <li>بيان بأنك تعتقد بحسن نية أن الاستخدام المتنازع عليه غير مصرح به</li>
-        <li>بيان بأن المعلومات الواردة في الإشعار دقيقة، وتحت طائلة العقوبة القانونية</li>
-        <li>توقيعك الإلكتروني أو المادي</li>
-      </ul>
-
-      <h2>إجراءاتنا عند تلقي إشعار DMCA</h2>
-      <ul>
-        <li>سنقوم بمراجعة الإشعار خلال <strong>48 ساعة عمل</strong></li>
-        <li>إذا ثبتت صحة الادعاء، سنزيل المحتوى المخالف فوراً</li>
-        <li>سنُخطر الطرف الذي نشر المحتوى (إن أمكن)</li>
-        <li>في حالة تكرار المخالفات، سنتخذ إجراءات إضافية</li>
-      </ul>
-
-      <h2>الإشعار المضاد</h2>
-      <p>إذا تم حذف محتوى خاص بك وتعتقد أن الحذف كان خاطئاً، يمكنك تقديم إشعار مضاد يتضمن:</p>
-      <ul>
-        <li>وصف المحتوى الذي تم حذفه وموقعه السابق</li>
-        <li>بيان بأنك تعتقد بحسن نية أن المحتوى تم حذفه بالخطأ</li>
-        <li>اسمك ومعلومات الاتصال وموافقتك على الخضوع للاختصاص القضائي</li>
-      </ul>
-
-      <h2>كيفية إرسال إشعار DMCA</h2>
-      <p>يمكنك إرسال إشعارات DMCA عبر <a href="${baseUrl}/contact">صفحة الاتصال</a> مع ذكر "DMCA" في عنوان الرسالة.</p>
-    </div>
-  </div>
-  ${getFooter(baseUrl)}
-</body>
-</html>`;
+function buildAboutPage(base, posts) {
+  const cnt = posts.length;
+  const cc = [...new Set(posts.map(p => p.category))].length;
+  const content = '<h1>🇲🇦 من نحن</h1>'
+    + '<h2>رؤيتنا</h2>'
+    + '<p><strong>بوابة الخدمات الرقمية</strong> هي منصة إلكترونية مستقلة تأسست بهدف تبسيط الإجراءات الإدارية ومساعدة المواطن المغربي في الوصول إلى المعلومات المتعلقة بالخدمات الحكومية الرقمية بسهولة ويسر.</p>'
+    + '<h2>مهمتنا</h2>'
+    + '<ul><li>📝 نشر شروحات مبسطة ومفصلة لجميع الإجراءات الإدارية</li>'
+    + '<li>🔄 تحديث المعلومات بشكل مستمر لمواكبة المستجدات</li>'
+    + '<li>📊 تغطية شاملة لجميع القطاعات</li>'
+    + '<li>🎯 تقديم معلومات دقيقة ومحدثة</li></ul>'
+    + '<h2>ما يميزنا</h2>'
+    + '<ul><li><strong>محتوى حصري:</strong> جميع مقالاتنا مكتوبة باحترافية</li>'
+    + '<li><strong>تحديث مستمر:</strong> نحدث محتوانا بانتظام</li>'
+    + '<li><strong>بساطة:</strong> نشرح الإجراءات المعقدة بأسلوب مبسط</li>'
+    + '<li><strong>شمولية:</strong> ' + cc + ' تصنيفات رئيسية بأكثر من ' + cnt + ' مقال</li></ul>'
+    + '<h2>أرقام</h2>'
+    + '<ul><li>📚 أكثر من <strong>' + cnt + '</strong> مقال ودليل شامل</li>'
+    + '<li>📂 <strong>' + cc + '</strong> تصنيفات متخصصة</li>'
+    + '<li>🔄 تحديث <strong>يومي</strong> للمحتوى</li></ul>'
+    + '<h2>تواصل معنا</h2>'
+    + '<p>نرحب باقتراحاتكم وملاحظاتكم. <a href="' + base + '/contact">تواصلوا معنا</a> لأي استفسار.</p>';
+  return buildStaticPage(base, posts, 'من نحن', 'about', content);
 }
 
-// ===== صفحة إخلاء المسؤولية =====
-function generateDisclaimerPage(baseUrl, posts) {
-  return `<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>إخلاء المسؤولية | بوابة الخدمات الرقمية</title>
-  <meta name="description" content="إخلاء المسؤولية لموقع بوابة الخدمات الرقمية - تنبيهات وتحذيرات مهمة للمستخدمين">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="${baseUrl}/disclaimer">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-  ${getSharedStyles()}
-</head>
-<body>
-  ${getHeader(baseUrl, posts)}
-  <div class="static-page">
-    <div class="static-content">
-      <h1>⚠️ إخلاء المسؤولية</h1>
-      <p><strong>آخر تحديث:</strong> ${new Date().toLocaleDateString('ar-MA', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+function buildDmcaPage(base, posts) {
+  const d = new Date().toLocaleDateString('ar-MA', { year: 'numeric', month: 'long', day: 'numeric' });
+  const content = '<h1>⚖️ سياسة حقوق الملكية الفكرية (DMCA)</h1>'
+    + '<p><strong>آخر تحديث:</strong> ' + d + '</p>'
+    + '<p>نحن في <strong>بوابة الخدمات الرقمية</strong> نحترم حقوق الملكية الفكرية ونلتزم بالاستجابة لإشعارات انتهاك حقوق النشر وفقاً لقانون DMCA.</p>'
+    + '<h2>إذا كنت تعتقد أن حقوقك قد انتُهكت</h2>'
+    + '<p>أرسل إشعاراً يتضمن:</p>'
+    + '<ul><li>وصف دقيق للعمل المحمي بحقوق النشر</li>'
+    + '<li>رابط المحتوى المخالف على موقعنا</li>'
+    + '<li>رابط المحتوى الأصلي (إن وُجد)</li>'
+    + '<li>اسمك الكامل ومعلومات الاتصال</li>'
+    + '<li>بيان بحسن النية ودقة المعلومات</li></ul>'
+    + '<h2>إجراءاتنا</h2>'
+    + '<ul><li>مراجعة الإشعار خلال <strong>48 ساعة عمل</strong></li>'
+    + '<li>إزالة المحتوى المخالف فوراً عند ثبوت الادعاء</li>'
+    + '<li>إخطار الطرف المعني</li></ul>'
+    + '<h2>الإشعار المضاد</h2>'
+    + '<p>إذا تم حذف محتوى خاص بك وتعتقد أن الحذف كان خاطئاً، يمكنك تقديم إشعار مضاد.</p>'
+    + '<h2>كيفية الإرسال</h2>'
+    + '<p>عبر <a href="' + base + '/contact">صفحة الاتصال</a> مع ذكر "DMCA" في عنوان الرسالة.</p>';
+  return buildStaticPage(base, posts, 'DMCA', 'dmca', content);
+}
 
-      <h2>طبيعة المحتوى</h2>
-      <p>جميع المعلومات المنشورة على <strong>بوابة الخدمات الرقمية</strong> هي لأغراض <strong>تعليمية وإرشادية فقط</strong>. نبذل قصارى جهدنا لتقديم معلومات دقيقة ومحدثة، لكن لا نضمن صحة أو اكتمال أو حداثة جميع المعلومات في جميع الأوقات.</p>
-
-      <h2>ليس استشارة مهنية</h2>
-      <p>المحتوى المنشور على الموقع <strong>لا يُعد بديلاً</strong> عن:</p>
-      <ul>
-        <li>الاستشارة القانونية المتخصصة</li>
-        <li>المعلومات الرسمية من الجهات الحكومية المعنية</li>
-        <li>الاستشارة المهنية أو المالية</li>
-        <li>التوجيه الشخصي من الجهات المختصة</li>
-      </ul>
-
-      <h2>دقة المعلومات</h2>
-      <ul>
-        <li>المعلومات المنشورة قد تتغير بسبب تحديثات القوانين والأنظمة</li>
-        <li>ننصح دائماً بالتحقق من المعلومات من المصادر الرسمية</li>
-        <li>قد تحتوي بعض المقالات على معلومات قد تكون قد تغيرت بعد تاريخ النشر</li>
-        <li>الروابط الخارجية قد تصبح غير صالحة مع مرور الوقت</li>
-      </ul>
-
-      <h2>تحديد المسؤولية</h2>
-      <p>لا نتحمل أي مسؤولية عن:</p>
-      <ul>
-        <li>أي أضرار مباشرة أو غير مباشرة ناتجة عن استخدام المعلومات المنشورة</li>
-        <li>القرارات المتخذة بناءً على محتوى الموقع</li>
-        <li>أي خسائر مالية أو أضرار أخرى</li>
-        <li>انقطاع الخدمة أو عدم توفر الموقع</li>
-        <li>محتوى المواقع الخارجية المرتبطة</li>
-      </ul>
-
-      <h2>الروابط الخارجية</h2>
-      <p>قد يحتوي الموقع على روابط لمواقع خارجية. هذه الروابط مقدمة لراحة المستخدم فقط، ولا نتحمل مسؤولية محتوى هذه المواقع أو سياساتها.</p>
-
-      <h2>الإعلانات</h2>
-      <p>يحتوي الموقع على إعلانات من أطراف ثالثة (Google AdSense). نحن لسنا مسؤولين عن محتوى الإعلانات أو المنتجات والخدمات المعلن عنها.</p>
-
-      <h2>استقلالية الموقع</h2>
-      <p><strong>بوابة الخدمات الرقمية</strong> هي منصة مستقلة وغير تابعة لأي جهة حكومية. الآراء المعبر عنها هي آراء فريق التحرير ولا تمثل بالضرورة أي جهة رسمية.</p>
-
-      <h2>الموافقة</h2>
-      <p>باستخدامك للموقع، فإنك توافق على شروط إخلاء المسؤولية هذه. للمزيد من التفاصيل، يرجى الاطلاع على <a href="${baseUrl}/terms">شروط الاستخدام</a> و<a href="${baseUrl}/privacy">سياسة الخصوصية</a>.</p>
-    </div>
-  </div>
-  ${getFooter(baseUrl)}
-</body>
-</html>`;
+function buildDisclaimerPage(base, posts) {
+  const d = new Date().toLocaleDateString('ar-MA', { year: 'numeric', month: 'long', day: 'numeric' });
+  const content = '<h1>⚠️ إخلاء المسؤولية</h1>'
+    + '<p><strong>آخر تحديث:</strong> ' + d + '</p>'
+    + '<h2>طبيعة المحتوى</h2>'
+    + '<p>جميع المعلومات المنشورة على <strong>بوابة الخدمات الرقمية</strong> هي لأغراض <strong>تعليمية وإرشادية فقط</strong>. نبذل قصارى جهدنا لتقديم معلومات دقيقة ومحدثة، لكن لا نضمن صحة أو اكتمال أو حداثة جميع المعلومات.</p>'
+    + '<h2>ليس استشارة مهنية</h2>'
+    + '<p>المحتوى <strong>لا يُعد بديلاً</strong> عن:</p>'
+    + '<ul><li>الاستشارة القانونية المتخصصة</li>'
+    + '<li>المعلومات الرسمية من الجهات الحكومية</li>'
+    + '<li>الاستشارة المهنية أو المالية</li></ul>'
+    + '<h2>تحديد المسؤولية</h2>'
+    + '<p>لا نتحمل أي مسؤولية عن:</p>'
+    + '<ul><li>أضرار مباشرة أو غير مباشرة ناتجة عن استخدام المعلومات</li>'
+    + '<li>القرارات المتخذة بناءً على محتوى الموقع</li>'
+    + '<li>محتوى المواقع الخارجية المرتبطة</li>'
+    + '<li>انقطاع الخدمة أو عدم توفر الموقع</li></ul>'
+    + '<h2>الإعلانات</h2>'
+    + '<p>يحتوي الموقع على إعلانات من أطراف ثالثة (Google AdSense). نحن لسنا مسؤولين عن محتوى الإعلانات أو المنتجات المعلن عنها.</p>'
+    + '<h2>استقلالية الموقع</h2>'
+    + '<p><strong>بوابة الخدمات الرقمية</strong> هي منصة مستقلة وغير تابعة لأي جهة حكومية.</p>'
+    + '<h2>الموافقة</h2>'
+    + '<p>باستخدامك للموقع، فإنك توافق على شروط إخلاء المسؤولية. للمزيد: <a href="' + base + '/terms">شروط الاستخدام</a> و<a href="' + base + '/privacy">سياسة الخصوصية</a>.</p>';
+  return buildStaticPage(base, posts, 'إخلاء المسؤولية', 'disclaimer', content);
 }
