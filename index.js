@@ -1,55 +1,77 @@
+/**
+ * بوابة الخدمات الرقمية - النسخة الملكية الأوتوماتيكية V4.0
+ * تصميم فاخر | أتمتة شاملة | تحسين SEO وصور | تتبع Google Analytics
+ */
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const path = url.pathname;
+    const GA_ID = "G-XXXXXXXXXX"; // ضع معرف Google Analytics هنا
 
     try {
-      // جلب البيانات المخزنة
+      // 1. جلب البيانات من القاعدة
       let cachedData = await env.BLOG_KV.get("site_content");
-      let content;
+      let content = cachedData ? JSON.parse(cachedData) : await this.initializeFullWebsite(env);
 
-      if (!cachedData) {
-        // الـ "Big Bang": توليد كامل صفحات الموقع عند أول زيارة
-        content = await this.initializeFullWebsite(env);
-      } else {
-        content = JSON.parse(cachedData);
+      // 2. نظام التوجيه (SEO & Static Pages)
+      if (path === "/robots.txt") {
+        return new Response(`User-agent: *\nAllow: /\nSitemap: https://${url.hostname}/sitemap.xml`, { headers: { "Content-Type": "text/plain" } });
       }
+      if (path === "/sitemap.xml") {
+        return new Response(this.generateSitemap(url.hostname, content.articles), { headers: { "Content-Type": "application/xml" } });
+      }
+      if (path === "/privacy") return this.renderStaticPage("سياسة الخصوصية", this.getPrivacyText(), GA_ID);
+      if (path === "/about") return this.renderStaticPage("من نحن", this.getAboutText(), GA_ID);
+      if (path === "/contact") return this.renderStaticPage("اتصل بنا", this.getContactText(), GA_ID);
 
-      // نظام التوجيه الذكي (SEO Routing)
-      if (path === "/privacy") return this.renderPage(this.getPrivacyTemplate(content), "سياسة الخصوصية");
-      if (path === "/about") return this.renderPage(this.getAboutTemplate(content), "من نحن");
-      if (path === "/contact") return this.renderPage(this.getContactTemplate(), "اتصل بنا");
-      
-      // الصفحة الرئيسية
-      return new Response(this.getMainHTML(content, url.hostname), {
+      // 3. عرض الصفحة الرئيسية
+      return new Response(this.getMainHTML(content, GA_ID), {
         headers: { "Content-Type": "text/html; charset=utf-8" }
       });
 
     } catch (e) {
-      return new Response("جاري تحسين التجربة الرقمية...", { status: 200 });
+      return new Response("جاري تحديث التجربة الرقمية...", { status: 200, headers: { "Content-Type": "text/html; charset=utf-8" } });
     }
   },
 
-  // دالة توليد المحتوى التأسيسي (كتابة تحاكي البشر 100%)
+  // ===== المحرك الأوتوماتيكي (توليد مقالات بأسلوب بشري) =====
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil((async () => {
+      const stored = await env.BLOG_KV.get("site_content");
+      let data = JSON.parse(stored || "{}");
+      
+      const newTopic = this.generateDynamicTopic();
+      const newArticle = {
+        id: Date.now(),
+        tag: newTopic.tag,
+        // تحسين الصورة: طلب حجم محدد وتقليل الجودة قليلاً للسرعة (800x500)
+        image: `https://images.unsplash.com/${newTopic.imgCode}?auto=format&fit=crop&w=800&q=80&sig=${Math.random()}`,
+        title: newTopic.title,
+        desc: newTopic.desc,
+        readTime: "6 دقائق"
+      };
+
+      data.articles.unshift(newArticle); 
+      if (data.articles.length > 15) data.articles.pop(); // الحفاظ على أفضل 15 مقال للسيو
+      data.lastUpdated = new Date().toLocaleString('ar-MA', { timeZone: 'Africa/Casablanca' });
+      
+      await env.BLOG_KV.put("site_content", JSON.stringify(data));
+    })());
+  },
+
+  // البيانات التأسيسية (تظهر عند أول فتح للموقع)
   async initializeFullWebsite(env) {
     const siteData = {
       lastUpdated: new Date().toLocaleDateString('ar-MA'),
-      aboutText: "نحن منصة مستقلة ولدت من قلب الحاجة الرقمية في المغرب، نسعى لتبسيط المساطر الإدارية المعقدة بأسلوب لغوي راقٍ وبسيط يجمع بين الدقة القانونية والسهولة البشرية.",
-      privacyPolicy: "نحن نولي خصوصيتك أهمية قصوى. نلتزم بمعايير حماية البيانات الشخصية وفق القوانين المعمول بها، ونستخدم ملفات تعريف الارتباط فقط لتحسين تجربتك الرقمية بما يتوافق مع سياسات Google AdSense.",
       articles: [
         {
-          id: Date.now(),
-          title: "فلسفة الدعم الاجتماعي المباشر 2026: ما وراء الأرقام",
-          desc: "تحليل عميق وحصري يتجاوز مجرد سرد الشروط، ليوضح للمواطن المغربي كيف يبني مستقبله من خلال منظومة التضامن الجديدة.",
-          tag: "تحليل حصري",
+          id: 1,
+          tag: "الدعم الاجتماعي",
+          image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80",
+          title: "دليل رقمنة الخدمات القضائية بالمغرب 2026",
+          desc: "شرح شامل للتحول الرقمي في قطاع العدل وكيفية استخراج الوثائق الرسمية عن بعد بأسلوب مبسط.",
           readTime: "5 دقائق"
-        },
-        {
-          id: Date.now() + 1,
-          title: "التغطية الصحية (AMO): حق إنساني برؤية رقمية",
-          desc: "دليل وجداني وتقني يشرح أهمية الانخراط في نظام التغطية الصحية وكيف يغير نمط حياة الأسرة المغربية نحو الأفضل.",
-          tag: "دليل شامل",
-          readTime: "7 دقائق"
         }
       ]
     };
@@ -57,125 +79,139 @@ export default {
     return siteData;
   },
 
-  // دالة الـ Cron Job: إضافة مقال حصري جديد "كتابة بشرية" كل فترة
-  async scheduled(event, env, ctx) {
-    ctx.waitUntil((async () => {
-      let data = JSON.parse(await env.BLOG_KV.get("site_content"));
-      
-      const newArticle = {
-        id: Date.now(),
-        title: "تحديثات المسار الرقمي للمقاول الذاتي 2026",
-        desc: "مقالة حصرية تتناول التسهيلات الضريبية والرقمنة الشاملة لنظام المقاول الذاتي بالمغرب بأسلوب تحليلي غير مسبوق.",
-        tag: "مستجدات",
-        readTime: "4 دقائق"
-      };
-
-      data.articles.unshift(newArticle); // إضافة المقال الجديد في البداية
-      if (data.articles.length > 12) data.articles.pop(); // الحفاظ على أحدث 12 مقالاً لسرعة التحميل
-      
-      await env.BLOG_KV.put("site_content", JSON.stringify(data));
-    })());
+  // محرك اختيار المواضيع (يحدث تلقائياً)
+  generateDynamicTopic() {
+    const pool = [
+      { title: "تطورات منصة دعم السكن المباشر 2026", tag: "مستجدات", imgCode: "photo-1560518883-ce09059eeffa", desc: "قراءة في المعايير الجديدة للحصول على دعم الدولة للسكن الرئيسي برؤية تحليلية دقيقة." },
+      { title: "مستقبل البطاقة الوطنية الإلكترونية الجديدة", tag: "هوية رقمية", imgCode: "photo-1554224155-6726b3ff858f", desc: "كيف تسهل الهوية الرقمية الولوج للخدمات المصرفية والإدارية في المغرب دون الحاجة للتنقل." },
+      { title: "تحديثات نظام المقاول الذاتي بالمغرب", tag: "اقتصاد رقمي", imgCode: "photo-1450101499163-c8848c66ca85", desc: "كل ما يجب معرفته عن الامتيازات الضريبية الجديدة المخصصة للمقاولين الشباب في عام 2026." }
+    ];
+    return pool[Math.floor(Math.random() * pool.length)];
   },
 
-  // القالب التصميمي الفاخر (UI Masterpiece)
-  getMainHTML(data, host) {
+  // الواجهة الرئيسية الفاخرة
+  getMainHTML(data, gaId) {
     return `
     <!DOCTYPE html>
     <html lang="ar" dir="rtl">
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>بوابة الخدمات الرقمية | الريادة في المحتوى العربي</title>
-      <meta name="description" content="مرجعك الأول للمحتوى الحصري والبشري حول الرقمنة والخدمات الاجتماعية بالمملكة المغربية.">
+      
+      <script async src="https://www.googletagmanager.com/gtag/js?id=${gaId}"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '${gaId}');
+      </script>
+
+      <title>بوابة الخدمات الرقمية | مرجع المعلومة الحصرية</title>
+      <meta name="description" content="المنصة العربية الرائدة في تحليل وشرح الخدمات الرقمية والدعم الاجتماعي بالمملكة المغربية.">
       <script src="https://cdn.tailwindcss.com"></script>
-      <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;800&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;600;800&display=swap" rel="stylesheet">
+      
       <style>
-        :root { --primary: #0f172a; --accent: #2563eb; }
-        body { font-family: 'Tajawal', sans-serif; background: #fafafa; color: var(--primary); }
-        .premium-border { position: relative; }
-        .premium-border::after { content: ''; position: absolute; bottom: 0; right: 0; width: 50px; height: 4px; background: var(--accent); }
-        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); border: 1px solid rgba(0,0,0,0.05); }
+        body { font-family: 'Noto Kufi Arabic', sans-serif; background: #fdfdfd; scroll-behavior: smooth; }
+        .premium-shadow { box-shadow: 0 20px 50px rgba(0,0,0,0.04); }
+        .card-anim { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card-anim:hover { transform: translateY(-12px); box-shadow: 0 40px 80px rgba(30, 58, 138, 0.08); }
+        .img-overlay { background: linear-gradient(0deg, rgba(15, 23, 42, 0.3) 0%, transparent 100%); }
       </style>
     </head>
-    <body>
-      <nav class="glass sticky top-0 z-50 border-b border-gray-100">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-          <div class="text-2xl font-extrabold tracking-tight text-slate-900 flex items-center gap-2">
-            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white text-sm">ب</div>
-            بوابة الخدمات
-          </div>
-          <div class="hidden md:flex gap-10 text-sm font-medium">
-            <a href="/" class="text-blue-600 border-b-2 border-blue-600 pb-1">الرئيسية</a>
-            <a href="/about" class="hover:text-blue-600 transition">من نحن</a>
-            <a href="/privacy" class="hover:text-blue-600 transition">الخصوصية</a>
-            <a href="/contact" class="hover:text-blue-600 transition">اتصل بنا</a>
+    <body class="antialiased text-slate-900">
+      
+      <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-100">
+        <div class="container mx-auto px-6 py-5 flex justify-between items-center">
+          <a href="/" class="text-2xl font-black flex items-center gap-3">
+             <div class="w-11 h-11 bg-blue-700 text-white rounded-2xl flex items-center justify-center shadow-xl shadow-blue-200 font-serif">B</div>
+             <span class="text-blue-900 tracking-tighter italic">بوابة الخدمات</span>
+          </a>
+          <div class="hidden md:flex gap-10 text-[11px] font-black uppercase tracking-widest text-slate-400">
+            <a href="/" class="text-blue-700 border-b-2 border-blue-700 pb-1">الرئيسية</a>
+            <a href="/about" class="hover:text-blue-700 transition">من نحن</a>
+            <a href="/privacy" class="hover:text-blue-700 transition">الخصوصية</a>
+            <a href="/contact" class="hover:text-blue-700 transition">اتصل بنا</a>
           </div>
         </div>
       </nav>
 
-      <section class="py-24 bg-white relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
-          <svg width="100%" height="100%"><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="black" stroke-width="1"/></pattern><rect width="100%" height="100%" fill="url(#grid)" /></svg>
+      <header class="py-28 bg-white border-b border-slate-50 relative overflow-hidden text-center">
+        <div class="container mx-auto px-6 relative z-10">
+          <h1 class="text-5xl md:text-7xl font-black mb-8 leading-[1.2] text-slate-950">المعلومة <span class="text-blue-600">بشفافية</span> ودقة</h1>
+          <p class="text-xl text-slate-500 max-w-3xl mx-auto leading-loose font-light">نحن نبتكر المحتوى الرقمي لنقرب لك المسافات الإدارية. تجربة معرفية مغربية فريدة تجمع بين الرقي والتقنية.</p>
         </div>
-        <div class="container mx-auto px-6 text-center relative z-10">
-          <span class="px-4 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-bold uppercase tracking-widest mb-6 inline-block">محتوى بشري 100%</span>
-          <h1 class="text-5xl md:text-7xl font-extrabold mb-8 leading-[1.1]">دليلك نحو <span class="text-blue-600">عالم رقمي</span> أكثر ذكاءً</h1>
-          <p class="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed">بوابة متخصصة في تحليل وتدقيق الخدمات الرقمية المغربية، نكتب بعناية لنقدم لك الفائدة بأسلوب يجمع بين الرقي والدقة.</p>
-        </div>
-      </section>
+      </header>
 
-      <main class="container mx-auto px-6 py-20">
-        <div class="flex items-center gap-4 mb-16">
-          <h2 class="text-3xl font-bold">آخر الإصدارات المعرفية</h2>
-          <div class="h-px bg-gray-200 flex-grow"></div>
-        </div>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+      <main class="container mx-auto px-6 py-24">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-14">
           ${data.articles.map(post => `
-            <article class="group cursor-pointer">
-              <div class="mb-6 overflow-hidden rounded-3xl bg-slate-200 aspect-video relative">
-                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                 <span class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-tighter">${post.tag}</span>
+            <article class="card-anim bg-white rounded-[3rem] overflow-hidden flex flex-col group border border-slate-50">
+              <div class="aspect-[16/10] overflow-hidden relative">
+                <img src="${post.image}" 
+                     alt="${post.title}" 
+                     loading="lazy" 
+                     decoding="async"
+                     class="w-full h-full object-cover group-hover:scale-110 transition duration-1000">
+                <div class="absolute inset-0 img-overlay"></div>
+                <span class="absolute top-6 right-6 bg-white/95 backdrop-blur px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest text-blue-700 shadow-sm">${post.tag}</span>
               </div>
-              <h3 class="text-2xl font-bold mb-3 group-hover:text-blue-600 transition-colors leading-snug">${post.title}</h3>
-              <p class="text-slate-500 text-sm mb-6 line-clamp-2 leading-relaxed">${post.desc}</p>
-              <div class="flex items-center justify-between">
-                <span class="text-[10px] text-slate-400 font-medium uppercase tracking-widest italic">${post.readTime} قراءة</span>
-                <div class="w-10 h-10 rounded-full border border-gray-100 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-all">←</div>
+              <div class="p-12 flex-grow flex flex-col">
+                <h2 class="text-2xl font-bold mb-6 leading-snug text-slate-900 group-hover:text-blue-700 transition-colors">${post.title}</h2>
+                <p class="text-slate-500 text-sm leading-relaxed mb-10 line-clamp-3">${post.desc}</p>
+                <div class="mt-auto flex items-center justify-between border-t border-slate-50 pt-8">
+                   <span class="text-[10px] font-bold text-slate-300 italic tracking-widest uppercase">${post.readTime}</span>
+                   <a href="#" class="text-blue-600 font-black text-sm group-hover:underline">عرض المزيد ←</a>
+                </div>
               </div>
             </article>
           `).join('')}
         </div>
       </main>
 
-      <footer class="bg-white border-t border-gray-100 py-16">
-        <div class="container mx-auto px-6 text-center">
-          <div class="text-xl font-black mb-8 italic text-slate-400">بوابة الخدمات الرقمية</div>
-          <div class="flex justify-center gap-8 text-xs font-bold uppercase tracking-[0.2em] text-slate-500">
-             <a href="/about" class="hover:text-blue-600">من نحن</a>
-             <a href="/privacy" class="hover:text-blue-600">سياسة الخصوصية</a>
-             <a href="/contact" class="hover:text-blue-600">اتصل بنا</a>
+      <footer class="bg-slate-950 text-slate-500 py-28 px-6 text-center">
+        <div class="container mx-auto">
+          <div class="text-2xl font-black italic mb-10 text-white tracking-widest">DIGITAL SERVICES GATE</div>
+          <div class="flex flex-wrap justify-center gap-10 text-[10px] font-bold uppercase tracking-[0.4em] mb-16">
+            <a href="/privacy" class="hover:text-white transition">سياسة الخصوصية</a>
+            <a href="/about" class="hover:text-white transition">من نحن</a>
+            <a href="/contact" class="hover:text-white transition">اتصل بنا</a>
           </div>
-          <p class="mt-12 text-slate-400 text-[10px]">جميع الحقوق محفوظة © 2026 - تم تطويره بمعايير الذكاء الاصطناعي البشري</p>
+          <p class="text-[9px] opacity-30 italic leading-loose">جميع الحقوق محفوظة © 2026 - رؤية رقمية متطورة تهدف لخدمة المواطن.</p>
         </div>
       </footer>
     </body>
     </html>`;
   },
 
-  // قوالب الصفحات الثابتة بتصميم متناسق
-  renderPage(content, title) {
+  // قالب الصفحات الثابتة (أدسنس)
+  renderStaticPage(title, content, gaId) {
     return new Response(`
-      <html lang="ar" dir="rtl"><head><meta charset="UTF-8"><script src="https://cdn.tailwindcss.com"></script><link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet"><style>body{font-family:'Tajawal',sans-serif;}</style></head>
-      <body class="bg-slate-50 py-20 px-6">
-        <div class="max-w-3xl mx-auto bg-white p-12 rounded-3xl shadow-sm border border-gray-100 text-right">
-          <h1 class="text-4xl font-black mb-8 text-slate-900">${title}</h1>
-          <div class="prose prose-slate leading-loose text-slate-600">${content}</div>
-          <a href="/" class="mt-10 inline-block text-blue-600 font-bold underline">العودة للرئيسية</a>
+      <html lang="ar" dir="rtl"><head>
+      <meta charset="UTF-8"><script src="https://cdn.tailwindcss.com"></script>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=${gaId}"></script>
+      <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${gaId}');</script>
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic&display=swap" rel="stylesheet">
+      <style>body{font-family:'Noto Kufi Arabic',sans-serif;}</style></head>
+      <body class="bg-slate-50 py-24 px-6">
+        <div class="max-w-4xl mx-auto bg-white p-20 rounded-[4rem] shadow-2xl shadow-blue-900/5">
+          <a href="/" class="text-blue-600 text-sm font-bold mb-10 inline-block">← العودة للرئيسية</a>
+          <h1 class="text-4xl font-black mb-12 text-slate-900 border-r-8 border-blue-600 pr-8">${title}</h1>
+          <div class="leading-loose text-slate-600 space-y-8 text-lg">${content}</div>
         </div>
       </body></html>`, { headers: { "Content-Type": "text/html; charset=utf-8" } });
   },
 
-  getPrivacyTemplate(data) { return `<p>${data.privacyPolicy}</p><br><p>نحن لا نبيع بياناتك ولا نشاركها مع أطراف ثالثة إلا بما تفرضه الضرورة التقنية لتحسين خدمات الإعلانات.</p>`; },
-  getAboutTemplate(data) { return `<p>${data.aboutText}</p>`; },
-  getContactTemplate() { return `<p>يسعدنا تلقي استفساراتكم عبر البريد الإلكتروني الرسمي للمنصة: contact@digitalgate.ma</p>`; }
+  getAboutText() { return `<p>بوابة الخدمات الرقمية هي منصة معرفية مستقلة، تسعى لتقديم قراءات تحليلية ومعلوماتية حول التحول الرقمي بالمغرب، بأسلوب يجمع بين الدقة القانونية والسهولة اللغوية.</p>`; },
+  getPrivacyText() { return `<p>نحن نلتزم بحماية خصوصيتك. يتم استخدام Google Analytics لتحليل حركة المرور وتحسين المحتوى، مع الالتزام التلقائي بسياسات Google AdSense لضمان أفضل تجربة آمنة للمستخدم.</p>`; },
+  getContactText() { return `<p>تواصلكم يهمنا. للطلبات الإعلانية أو الاستفسارات: contact@digitalgate.ma</p>`; },
+  
+  generateSitemap(host, articles) {
+    let xml = `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
+    xml += `<url><loc>https://${host}/</loc><priority>1.0</priority></url>`;
+    xml += `<url><loc>https://${host}/about</loc><priority>0.5</priority></url>`;
+    xml += `<url><loc>https://${host}/privacy</loc><priority>0.5</priority></url>`;
+    xml += `</urlset>`;
+    return xml;
+  }
 };
