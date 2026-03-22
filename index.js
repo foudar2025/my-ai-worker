@@ -1822,4 +1822,4 @@ function generateDisclaimerPage(baseUrl, posts) {
   </div>
   ${getFooter(baseUrl)}
 </body>
-</html>`;
+</html>`; 
