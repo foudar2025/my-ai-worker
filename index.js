@@ -1,4 +1,4 @@
-javascript
+
 export default {
   async scheduled(event, env, ctx) {
     async function getLatestTopic() {
