@@ -1,3 +1,4 @@
+// Version 2.0 - Update
 export default {
   // ===== التوليد التلقائي للمحتوى كل 4 ساعات =====
   async scheduled(event, env, ctx) {
