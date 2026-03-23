@@ -1,5 +1,5 @@
 export default {
-  // 1. جزء الجدولة الزمنية (تحديث البيانات)
+  // --- الكود الجديد والمصلح للجدولة ---
   async scheduled(event, env, ctx) {
     ctx.waitUntil((async () => {
       const queries = [
@@ -19,145 +19,36 @@ export default {
           );
 
           if (!res.ok) continue;
+
           const text = await res.text();
-          
-          // ... منطق استخراج العناوين ...
-          // تأكد من وجود دالة detectCategory بالأسفل
-          
-          // مثال للحفظ: 
-          // await env.BLOG_KV.put(`section_${q}`, text);
-          
-        } catch (e) {
-          console.error("Error fetching " + q, e);
+          const m1 = [...text.matchAll(/<title><!\[CDATA\[(.*?)\]\]><\/title>/g)];
+          const m2 = [...text.matchAll(/<title>(.*?)<\/title>/g)];
+          const all = (m1.length ? m1 : m2.slice(1))
+            .map(m => m[1].trim())
+            .filter(t => t.length > 15 && !t.toLowerCase().includes("google"));
+
+          if (all.length > 0) {
+            const latestTitle = all[0];
+            const category = detectCategory(latestTitle);
+
+            const postData = {
+              title: latestTitle,
+              category: category,
+              date: new Date().toISOString(),
+              all_titles: all.slice(0, 5)
+            };
+
+            await env.BLOG_KV.put(`section_${category.name}`, JSON.stringify(postData));
+            console.log(`✅ تم تحديث قسم: ${category.name}`);
+          }
+        } catch (err) {
+          console.error(`❌ خطأ في الكلمة ${q}:`, err);
         }
       }
     })());
-  }, // <--- تأكد من وجود هذه الفاصلة والقوس لإغلاق scheduled
-
-  // 2. جزء عرض الموقع للمستخدمين (Fetch)
-  async fetch(request, env) {
-    const url = new URL(request.url);
-    const base = url.origin;
-    
-    // منطق العرض الخاص بك هنا
-    return new Response("مرحباً بك في موقعك المحدث", {
-      headers: { "content-type": "text/html;charset=UTF-8" }
-    });
-  }
-};
-
-  // بقية الكود (fetch) تبقى كما هي لعرض البيانات
-  async fetch(request, env) { 
-     /* منطق العرض */ 
-  }
-};
-
-    function detectCategory(title) {
-      const t = title.toLowerCase();
-      if (t.includes("دعم") || t.includes("cnss") || t.includes("amo") || t.includes("rsu") || t.includes("اجتماعي") || t.includes("تضامن") || t.includes("تأمين"))
-        return { name: "الدعم والحماية الاجتماعية", color: "#10b981", icon: "🛡️" };
-      if (t.includes("مباراة") || t.includes("توظيف") || t.includes("ofppt") || t.includes("تكوين") || t.includes("تعليم") || t.includes("تعاقد") || t.includes("درك") || t.includes("أمن"))
-        return { name: "مباريات التوظيف والتدريب", color: "#6366f1", icon: "💼" };
-      if (t.includes("تأشيرة") || t.includes("فيزا") || t.includes("جواز") || t.includes("بطاقة") || t.includes("وثيقة") || t.includes("شهادة") || t.includes("cnie"))
-        return { name: "الوثائق الإدارية والتأشيرات", color: "#f59e0b", icon: "📄" };
-      if (t.includes("مقاول") || t.includes("شركة") || t.includes("تجارة") || t.includes("ضريبة") || t.includes("tva") || t.includes("استثمار"))
-        return { name: "المقاول الذاتي والعمل الحر", color: "#ec4899", icon: "🚀" };
-      return { name: "مستجدات وأخبار المغرب", color: "#0f4c81", icon: "📰" };
-    }
-
-    const topic = await getLatestTopic();
-    if (!topic) return;
-    const cat = detectCategory(topic);
-
-    const prompts = [
-      'أنت محرر صحفي متخصص في الشأن المغربي. اكتب مقدمة احترافية من 5 أسطر عن: "' + topic + '". اشرح أهميته للمواطن المغربي. أسلوب إنساني طبيعي ومبسط.',
-      'أنت خبير في الشأن المغربي. اكتب قسمين عن "' + topic + '":\n**ما هذا الموضوع ولماذا يهمك؟**\n(3 فقرات تفصيلية)\n\n**أبرز المعلومات والتفاصيل**\n(قائمة مرقمة من 5 نقاط)',
-      'أنت مرشد إداري. اكتب قسمين عن "' + topic + '":\n**الخطوات العملية للمواطن**\n(7 خطوات مرقمة)\n\n**الوثائق والمتطلبات**\n(قائمة من 6 عناصر)',
-      'أنت مستشار خبير. اكتب عن "' + topic + '":\n**نصائح مهمة**\n(5 نصائح مرقمة)\n\n**الأسئلة الشائعة**\n4 أسئلة بهذا التنسيق:\nسؤال: نص السؤال؟\nجواب: نص الجواب.\n\nثم خاتمة من 3 أسطر.'
-    ];
-
-    let content = "";
-    for (let i = 0; i < prompts.length; i++) {
-      try {
-        const r = await env.AI.run("@cf/meta/llama-3-8b-instruct", {
-          prompt: prompts[i], max_tokens: 1500, temperature: 0.7
-        });
-        if (r && r.response) content += "\n\n" + r.response;
-      } catch (e) {}
-    }
-    if (!content || content.trim().length < 200) return;
-
-    let img64 = null;
-    try {
-      const imgMap = {
-        "الدعم والحماية الاجتماعية": "Professional flat design, digital social services concept, smartphone with form, shield icon, green blue colors, geometric shapes, clean corporate style, 4k, NO humans NO animals NO faces NO people",
-        "مباريات التوظيف والتدريب": "Professional flat design, career education concept, graduation cap laptop, certificates books, blue purple colors, geometric patterns, clean vector, 4k, NO humans NO animals NO faces NO people",
-        "الوثائق الإدارية والتأشيرات": "Professional flat design, official documents passport stamps, globe routes, official seals, amber navy colors, geometric design, 4k, NO humans NO animals NO faces NO people",
-        "المقاول الذاتي والعمل الحر": "Professional flat design, business startup concept, rocket laptop, growth charts, coins lightbulb, green blue colors, geometric background, 4k, NO humans NO animals NO faces NO people",
-        "مستجدات وأخبار المغرب": "Professional flat design, Morocco digital news concept, smartphone notifications, golden blue colors, abstract geometric background, 4k, NO humans NO animals NO faces NO people"
-      };
-      const r = await env.AI.run("@cf/stabilityai/stable-diffusion-xl-base-1.0", {
-        prompt: imgMap[cat.name] || imgMap["مستجدات وأخبار المغرب"],
-        negative_prompt: "human, person, people, man, woman, child, face, hand, body, animal, cat, dog, bird, fish, horse, creature, portrait, crowd, realistic human, anime, nsfw, nude, violence, blood, weapon, ugly, deformed, blurry, watermark, text, logo",
-        width: 1024, height: 576, num_steps: 20
-      });
-      if (r) {
-        const buf = await r.arrayBuffer();
-        const b = new Uint8Array(buf);
-        let s = "";
-        for (let i = 0; i < b.length; i++) s += String.fromCharCode(b[i]);
-        img64 = btoa(s);
-      }
-    } catch (e) {}
-
-    const now = new Date();
-    const id = Date.now();
-    const slug = "post-" + id;
-    const plain = content.replace(/\*\*/g, "").replace(/<[^>]*>/g, "").replace(/\n+/g, " ").trim();
-    const desc = plain.substring(0, 155) + "...";
-    const wc = content.split(/\s+/).length;
-
-    const post = {
-      id, slug, title: topic,
-      content: fmtContent(content),
-      description: desc,
-      date: now.toLocaleDateString("ar-MA", { year: "numeric", month: "long", day: "numeric" }),
-      dateISO: now.toISOString(),
-      category: cat.name, categoryColor: cat.color, categoryIcon: cat.icon,
-      image: img64, imageAlt: topic,
-      keywords: topic + ", المغرب, " + cat.name,
-      readTime: Math.max(3, Math.ceil(wc / 200)),
-      wordCount: wc,
-      views: Math.floor(Math.random() * 300) + 50
-    };
-
-    await env.BLOG_KV.put("post:" + slug, JSON.stringify(post), { expirationTtl: 7776000 });
-
-    let idx = [];
-    try { idx = await env.BLOG_KV.get("posts_index", { type: "json" }) || []; } catch (e) {}
-
-    if (!idx.some(x => x.title === topic)) {
-      idx.unshift({
-        id, slug, title: topic, description: desc,
-        date: post.date, dateISO: post.dateISO,
-        category: cat.name, categoryColor: cat.color, categoryIcon: cat.icon,
-        readTime: post.readTime, views: post.views, hasImage: !!img64
-      });
-      if (idx.length > 60) idx = idx.slice(0, 60);
-      await env.BLOG_KV.put("posts_index", JSON.stringify(idx));
-      const site = env.SITE_URL || "https://example.com";
-      await Promise.allSettled([
-        fetch("https://www.google.com/ping?sitemap=" + encodeURIComponent(site + "/sitemap.xml")).catch(() => {}),
-        fetch("https://www.bing.com/ping?sitemap=" + encodeURIComponent(site + "/sitemap.xml")).catch(() => {}),
-        fetch("https://api.indexnow.org/indexnow", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ host: new URL(site).hostname, key: env.INDEXNOW_KEY || "key", urlList: [site + "/post/" + slug, site + "/"] })
-        }).catch(() => {})
-      ]);
-    }
   },
 
+  // --- جزء عرض الموقع للمستخدمين (كما هو مع الحفاظ على جميع الوظائف) ---
   async fetch(request, env) {
     const url = new URL(request.url);
     const path = url.pathname;
@@ -227,6 +118,19 @@ export default {
 };
 
 // ===== HELPERS =====
+function detectCategory(title) {
+  const t = title.toLowerCase();
+  if (t.includes("دعم") || t.includes("cnss") || t.includes("amo") || t.includes("rsu") || t.includes("اجتماعي") || t.includes("تضامن") || t.includes("تأمين"))
+    return { name: "الدعم والحماية الاجتماعية", color: "#10b981", icon: "🛡️" };
+  if (t.includes("مباراة") || t.includes("توظيف") || t.includes("ofppt") || t.includes("تكوين") || t.includes("تعليم") || t.includes("تعاقد") || t.includes("درك") || t.includes("أمن"))
+    return { name: "مباريات التوظيف والتدريب", color: "#6366f1", icon: "💼" };
+  if (t.includes("تأشيرة") || t.includes("فيزا") || t.includes("جواز") || t.includes("بطاقة") || t.includes("وثيقة") || t.includes("شهادة") || t.includes("cnie"))
+    return { name: "الوثائق الإدارية والتأشيرات", color: "#f59e0b", icon: "📄" };
+  if (t.includes("مقاول") || t.includes("شركة") || t.includes("تجارة") || t.includes("ضريبة") || t.includes("tva") || t.includes("استثمار"))
+    return { name: "المقاول الذاتي والعمل الحر", color: "#ec4899", icon: "🚀" };
+  return { name: "مستجدات وأخبار المغرب", color: "#0f4c81", icon: "📰" };
+}
+
 function esc(s) {
   return (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
