@@ -1,5 +1,5 @@
 export default {
-  // 1. جزء الجدولة الزمنية (تحديث البيانات)
+  // 1. الجدولة الزمنية (تحديث RSS)
   async scheduled(event, env, ctx) {
     ctx.waitUntil((async () => {
       const queries = [
@@ -17,7 +17,6 @@ export default {
             "https://news.google.com/rss/search?q=" + q + "&hl=ar&gl=MA&ceid=MA:ar",
             { headers: { "User-Agent": "Mozilla/5.0" }, cf: { cacheTtl: 1800 } }
           );
-
           if (!res.ok) continue;
           const text = await res.text();
           const m1 = [...text.matchAll(/<title><!\[CDATA\[(.*?)\]\]><\/title>/g)];
@@ -29,13 +28,12 @@ export default {
           if (all.length > 0) {
             const latestTitle = all[0];
             const category = detectCategory(latestTitle);
-            const postData = {
+            await env.BLOG_KV.put(`section_${category.name}`, JSON.stringify({
               title: latestTitle,
               category: category,
               date: new Date().toISOString(),
               all_titles: all.slice(0, 5)
-            };
-            await env.BLOG_KV.put(`section_${category.name}`, JSON.stringify(postData));
+            }));
             console.log(`✅ تم تحديث قسم: ${category.name}`);
           }
         } catch (e) {
@@ -45,7 +43,7 @@ export default {
     })());
   },
 
-  // 2. جزء عرض الموقع للمستخدمين (Fetch)
+  // 2. عرض الموقع
   async fetch(request, env) {
     const url = new URL(request.url);
     const path = url.pathname;
@@ -222,12 +220,12 @@ function mkRSS(idx, base) {
   return x + "</channel>\n</rss>";
 }
 
-// ========== CSS ==========
+// ========== CSS محسن للتجاوب ==========
 const CSS = `<style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--p:#0f4c81;--pl:#1a6fb5;--pd:#0a3459;--s:#e8b100;--sl:#ffd633;--d:#1a1a2e;--g50:#f8fafc;--g100:#f1f5f9;--g200:#e2e8f0;--g300:#cbd5e1;--g400:#94a3b8;--g500:#64748b;--g600:#475569;--g700:#334155;--w:#ffffff;--sh:0 2px 8px rgba(0,0,0,.08);--shl:0 8px 24px rgba(0,0,0,.12);--r:12px;--rl:16px;--t:all .3s ease}
 html{scroll-behavior:smooth}
-body{font-family:'Cairo',sans-serif;background:var(--g50);color:var(--d);line-height:1.8;direction:rtl;text-align:right;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;width:100%;min-height:100vh}
+body{font-family:'Cairo',sans-serif;background:var(--g50);color:var(--d);line-height:1.8;direction:rtl;text-align:right;overflow-x:hidden;-webkit-font-smoothing:antialiased;width:100%;min-height:100vh}
 a{text-decoration:none;color:inherit}
 img{max-width:100%;height:auto;display:block}
 button{font-family:'Cairo',sans-serif}
@@ -408,65 +406,70 @@ input,textarea{font-family:'Cairo',sans-serif}
 .empty p{color:var(--g400);font-size:13px}
 .btt{position:fixed;bottom:20px;left:20px;width:42px;height:42px;background:var(--p);color:#fff;border:none;border-radius:50%;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:var(--shl);z-index:99;font-size:18px;transition:var(--t)}
 .btt:hover{transform:translateY(-2px);background:var(--pl)}
-@media(max-width:1024px){.mg,.ag{grid-template-columns:1fr}.sb{order:2}.ft-g{grid-template-columns:1fr 1fr}.pl{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}}
-@media(max-width:768px){.mbtn{display:flex}.nv-in{display:none}.tb-in{justify-content:center;gap:4px;font-size:11px}.hd-in{padding:8px 12px;min-height:54px}.logo-t p{display:none}.mg,.ag{padding:0 12px;margin:16px auto}.ft-g{grid-template-columns:1fr;padding:20px 14px}.rg{grid-template-columns:1fr}.am-meta{gap:8px}.share{gap:6px}.sh{padding:6px 10px;font-size:10px}.pl{grid-template-columns:1fr;gap:14px}.fp-img{height:clamp(160px,45vw,220px)}.pc-img{height:clamp(150px,40vw,200px)}.hero{padding:32px 14px}.sr-w{padding:0 12px}.adc{padding:0 12px}.cb{padding:0 12px 8px}}
-@media(max-width:480px){.logo-i{width:38px;height:38px;min-width:38px}.logo-i svg{width:20px;height:20px}.logo-t h1{font-size:14px}.mob-nav{width:100%}.ft-g{padding:18px 12px}.sc{padding:18px}.btt{bottom:14px;left:14px;width:38px;height:38px;font-size:16px}.stats{gap:12px}.st b{font-size:clamp(18px,6vw,24px)}.hd-in{padding:8px 10px}}
+@media (max-width:1024px){.mg,.ag{grid-template-columns:1fr}.sb{order:2;margin-top:20px}.ft-g{grid-template-columns:repeat(2,1fr);gap:20px}.pl{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}}
+@media (max-width:768px){.mbtn{display:flex}.nv-in{display:none}.tb-in{justify-content:center;gap:4px;font-size:11px;flex-wrap:wrap}.hd-in{padding:8px 12px;min-height:54px}.logo-t p{display:none}.mg,.ag{padding:0 12px;margin:16px auto}.ft-g{grid-template-columns:1fr;padding:20px 14px;text-align:center}.rg{grid-template-columns:1fr}.am-meta{gap:8px;flex-wrap:wrap}.share{gap:6px;justify-content:center}.sh{padding:6px 10px;font-size:10px}.pl{grid-template-columns:1fr;gap:14px}.fp-img{height:clamp(160px,45vw,220px)}.pc-img{height:clamp(150px,40vw,200px)}.hero{padding:32px 14px}.sr-w{padding:0 12px}.adc{padding:0 12px}.cb{padding:0 12px 8px}.stats{gap:12px}.st b{font-size:clamp(18px,6vw,24px)}.logo-i{width:38px;height:38px;min-width:38px}.logo-i svg{width:20px;height:20px}.logo-t h1{font-size:14px}.btt{bottom:14px;left:14px;width:38px;height:38px;font-size:16px}.mob-nav{width:85%}}
+@media (max-width:480px){.ft-g{padding:18px 12px}.sc{padding:18px}.stats{flex-direction:column;gap:12px;align-items:center}.st b{font-size:22px}.hero h2{font-size:20px}.hero p{font-size:13px}.logo-t h1{font-size:13px}.tb-in{font-size:10px}}
 @media print{.hd,.nv,.tb,.sb,.ft,.ad,.share,.btt,.sr-w,.adc,.mob-nav,.ov,.mbtn,.ticker{display:none!important}.mg,.ag{grid-template-columns:1fr;padding:0}.am{box-shadow:none;border-radius:0}}
 </style>`;
 
-// ========== JS ==========
+// ========== JS محسن للقائمة ==========
 const JS = `<script>
-(function(){
-  var navOpen=false;
-  function openNav(){
-    navOpen=true;
-    var mn=document.getElementById('mn');
-    var ov=document.getElementById('ov');
-    var mb=document.getElementById('mb');
-    if(mn)mn.classList.add('open');
-    if(ov)ov.classList.add('show');
-    if(mb)mb.classList.add('open');
-    document.body.style.overflow='hidden';
+(function() {
+  var navOpen = false;
+  var mn = document.getElementById('mn');
+  var ov = document.getElementById('ov');
+  var mb = document.getElementById('mb');
+
+  function openNav() {
+    navOpen = true;
+    if (mn) mn.classList.add('open');
+    if (ov) ov.classList.add('show');
+    if (mb) mb.classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
-  function closeNav(){
-    navOpen=false;
-    var mn=document.getElementById('mn');
-    var ov=document.getElementById('ov');
-    var mb=document.getElementById('mb');
-    if(mn)mn.classList.remove('open');
-    if(ov)ov.classList.remove('show');
-    if(mb)mb.classList.remove('open');
-    document.body.style.overflow='';
+  function closeNav() {
+    navOpen = false;
+    if (mn) mn.classList.remove('open');
+    if (ov) ov.classList.remove('show');
+    if (mb) mb.classList.remove('open');
+    document.body.style.overflow = '';
   }
-  window.tNav=function(){navOpen?closeNav():openNav();};
-  window.cNav=closeNav;
-  window.tDD=function(e){
-    e.preventDefault();e.stopPropagation();
-    var d=document.getElementById('ddd');
-    if(d)d.classList.toggle('open');
+  window.tNav = function() {
+    navOpen ? closeNav() : openNav();
   };
-  document.addEventListener('click',function(e){
-    var d=document.getElementById('ddd');
-    if(d&&!d.contains(e.target))d.classList.remove('open');
+  window.cNav = closeNav;
+
+  window.tDD = function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    var d = document.getElementById('ddd');
+    if (d) d.classList.toggle('open');
+  };
+  document.addEventListener('click', function(e) {
+    var d = document.getElementById('ddd');
+    if (d && !d.contains(e.target)) d.classList.remove('open');
   });
-  window.addEventListener('resize',function(){
-    if(window.innerWidth>768&&navOpen)closeNav();
-  },{passive:true});
-  window.addEventListener('scroll',function(){
-    var b=document.getElementById('btt');
-    if(b)b.style.display=window.scrollY>350?'flex':'none';
-  },{passive:true});
-  window.doSearch=function(){
-    var inp=document.getElementById('srch');
-    if(!inp)return;
-    var q=inp.value.toLowerCase().trim();
-    document.querySelectorAll('.pc,.fp').forEach(function(el){
-      el.style.display=(!q||el.textContent.toLowerCase().indexOf(q)>=0)?'':'none';
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 768 && navOpen) closeNav();
+  }, { passive: true });
+  window.addEventListener('scroll', function() {
+    var b = document.getElementById('btt');
+    if (b) b.style.display = window.scrollY > 350 ? 'flex' : 'none';
+  }, { passive: true });
+
+  window.doSearch = function() {
+    var inp = document.getElementById('srch');
+    if (!inp) return;
+    var q = inp.value.toLowerCase().trim();
+    var items = document.querySelectorAll('.pc, .fp');
+    items.forEach(function(el) {
+      el.style.display = (!q || el.textContent.toLowerCase().indexOf(q) >= 0) ? '' : 'none';
     });
   };
 })();
 </script>`;
 
+// ========== دوال بناء الصفحات ==========
 function mkHead(title, desc, kw, canonical, extra) {
   return `<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
