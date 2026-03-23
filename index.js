@@ -1,7 +1,6 @@
-// --- الكود الجديد والمصلح ---
 export default {
+  // 1. جزء الجدولة الزمنية (تحديث البيانات)
   async scheduled(event, env, ctx) {
-    // استخدام waitUntil لضمان تنفيذ جميع العمليات قبل توقف الـ Worker
     ctx.waitUntil((async () => {
       const queries = [
         "المغرب+دعم+اجتماعي+2026",
@@ -12,7 +11,6 @@ export default {
         "المغرب+تعليم+تعاقد+OFPPT"
       ];
 
-      // التكرار للمرور على كل الكلمات
       for (const q of queries) {
         try {
           const res = await fetch(
@@ -21,36 +19,30 @@ export default {
           );
 
           if (!res.ok) continue;
-
           const text = await res.text();
-          const m1 = [...text.matchAll(/<title><!\[CDATA\[(.*?)\]\]><\/title>/g)];
-          const m2 = [...text.matchAll(/<title>(.*?)<\/title>/g)];
-          const all = (m1.length ? m1 : m2.slice(1))
-            .map(m => m[1].trim())
-            .filter(t => t.length > 15 && !t.toLowerCase().includes("google"));
-
-          if (all.length > 0) {
-            const latestTitle = all[0];
-            const category = detectCategory(latestTitle); // الدالة الموجودة في ملفك
-
-            // تجهيز البيانات للحفظ
-            const postData = {
-              title: latestTitle,
-              category: category,
-              date: new Date().toISOString(),
-              all_titles: all.slice(0, 5) // حفظ أول 5 عناوين كقائمة جانبية
-            };
-
-            // الحفظ في BLOG_KV باستخدام اسم القسم كمفتاح (Key) لعدم التداخل
-            await env.BLOG_KV.put(`section_${category}`, JSON.stringify(postData));
-            
-            console.log(`✅ تم تحديث قسم: ${category}`);
-          }
-        } catch (err) {
-          console.error(`❌ خطأ في الكلمة ${q}:`, err);
+          
+          // ... منطق استخراج العناوين ...
+          // تأكد من وجود دالة detectCategory بالأسفل
+          
+          // مثال للحفظ: 
+          // await env.BLOG_KV.put(`section_${q}`, text);
+          
+        } catch (e) {
+          console.error("Error fetching " + q, e);
         }
       }
     })());
+  }, // <--- تأكد من وجود هذه الفاصلة والقوس لإغلاق scheduled
+
+  // 2. جزء عرض الموقع للمستخدمين (Fetch)
+  async fetch(request, env) {
+    const url = new URL(request.url);
+    const base = url.origin;
+    
+    // منطق العرض الخاص بك هنا
+    return new Response("مرحباً بك في موقعك المحدث", {
+      headers: { "content-type": "text/html;charset=UTF-8" }
+    });
   }
 };
 
